@@ -6,7 +6,7 @@
 package pr1_6.prime.numbers;
 import java.util.Scanner;
 /**
- *
+ * This class generates all prime numbers between 0 and the user specified number
  * @author tylerreardon
  */
 public class PR1_6PrimeNumbers {

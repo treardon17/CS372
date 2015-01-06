@@ -6,7 +6,7 @@
 package pr1_5.random.numbers;
 import java.util.*;
 /**
- *
+ * This class generates two random numbers and compares their values <br>
  * @author tylerreardon
  */
 public class PR1_5RandomNumbers {
