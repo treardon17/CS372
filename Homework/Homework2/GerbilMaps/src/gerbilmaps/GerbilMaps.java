@@ -7,7 +7,8 @@ package gerbilmaps;
 import java.util.*;
 import GerbilArrayList.*;
 /**
- *
+ * This program puts gerbils into maps and makes them hop <br>
+ * Outputs the gerbil name and makes it hop
  * @author tylerreardon
  */
 public class GerbilMaps {
