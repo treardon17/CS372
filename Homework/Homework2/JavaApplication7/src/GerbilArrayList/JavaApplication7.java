@@ -6,7 +6,7 @@
 package GerbilArrayList;
 import java.util.*; //to use List and ArrayList
 /**
- *
+ * 
  * @author tylerreardon
  */
 public class JavaApplication7 {
