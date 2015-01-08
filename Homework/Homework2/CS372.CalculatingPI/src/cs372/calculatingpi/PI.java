@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package cs372.calculatingpi;
-
+import java.math.*;
 /**
  * This class represents PI
  * @author tylerreardon
@@ -26,8 +26,7 @@ public class PI {
                     PI -= (double)4/denominator;
                 }
                 denominator += 2; //increment denominator by two
-                System.out.printf("%d: %f\n", (int)i+1, PI); //outputs the PI
-        }
-            
+                System.out.printf("%d: %.16f\n", (int)i+1, PI); //outputs the PI
+            }
     }   
 }
