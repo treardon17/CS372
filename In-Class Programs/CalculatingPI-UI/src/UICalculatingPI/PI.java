@@ -5,11 +5,15 @@
  */
 package UICalculatingPI;
 /**
- *
+ * Represents PI
  * @author tylerreardon
  */
 public class PI {
-
+    /**
+     * 
+     * @param reps
+     * @return <code>PI</code> to the user specified accuracy
+     */
     public double calculatePI (int reps){
         double PI = 0; //the sum of PI
         int denominator = 1; //set denominator

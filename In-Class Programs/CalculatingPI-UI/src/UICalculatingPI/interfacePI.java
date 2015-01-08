@@ -98,7 +98,10 @@ public class interfacePI extends javax.swing.JFrame {
     private void AccuracyTextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccuracyTextfieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_AccuracyTextfieldActionPerformed
-
+/**
+ * Button calculates PI based on user input and outputs to textbox
+ * @param evt 
+ */
     private void GenerateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerateButtonActionPerformed
         int c = Integer.parseInt(AccuracyTextfield.getText());
         double newPI = pi.calculatePI(c);
