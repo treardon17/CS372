@@ -98,9 +98,17 @@ public class CookieSalesUI extends javax.swing.JFrame {
         totalsalesDescr.setText("Total Sales:");
         getContentPane().add(totalsalesDescr, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 301, -1, -1));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 147, 10));
+
+        ThinMintSales.setEditable(false);
         getContentPane().add(ThinMintSales, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 161, 80, -1));
+
+        SamoaSales.setEditable(false);
         getContentPane().add(SamoaSales, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 201, 80, -1));
+
+        ChocolateChipSales.setEditable(false);
         getContentPane().add(ChocolateChipSales, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 245, 80, -1));
+
+        TotalSales.setEditable(false);
         getContentPane().add(TotalSales, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 295, 80, -1));
         getContentPane().add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 279, 429, 10));
 
