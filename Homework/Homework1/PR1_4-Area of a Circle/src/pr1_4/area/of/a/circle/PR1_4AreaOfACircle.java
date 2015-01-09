@@ -17,7 +17,7 @@ public class PR1_4AreaOfACircle {
      * @return the contents of <code> area </code>
      */
     public static double calculateArea(float radius){
-        final double PI = 3.14;
+        final double PI = 3.14; //PT: better to use java.lang.Math.PI
         double area = PI*radius*radius;
         return area;
     }
