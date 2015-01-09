@@ -4,14 +4,19 @@
  * and open the template in the editor.
  */
 package homeworktracker;
+
+import com.sun.glass.events.KeyEvent;
 import java.util.*;
+
 /**
  *
  * @author tylerreardon
  */
 public class HomeworkUI extends javax.swing.JFrame {
+
     HomeworkTracker tracker = new HomeworkTracker();
     List<Double> scoreList = new ArrayList<>();
+
     /**
      * Creates new form HomeworkUI
      */
@@ -39,6 +44,12 @@ public class HomeworkUI extends javax.swing.JFrame {
         average = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        inputScore.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                inputScoreKeyPressed(evt);
+            }
+        });
 
         jLabel1.setText("Score:");
 
@@ -111,30 +122,62 @@ public class HomeworkUI extends javax.swing.JFrame {
 
     /**
      * Calculates max, min, and average when button is pressed
-     * @param evt 
+     *
+     * @param evt
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         double score = Double.parseDouble(inputScore.getText()); //get score from text box
-        
+
         double maxDouble;
         double minDouble;
         double averageDouble;
-        
+
         scoreList.add(score); //add score to array
-        
+
         maxDouble = tracker.findMax(scoreList); //find max
         String maxString = String.format("%.2f", maxDouble); //convert to string
         max.setText(maxString); //set text in UI
-        
+
         minDouble = tracker.findMin(scoreList); //find min
         String minString = String.format("%.2f", minDouble); //convert to string
         min.setText(minString); //set text in UI
-        
+
         averageDouble = tracker.findAverage(scoreList); //find average
         String averageString = String.format("%.2f", averageDouble); //convert to string
         average.setText(averageString); //set text in UI
-        
+        inputScore.setText(""); //empty input box
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    /**
+     * Calculates max, min, and average when return key is pressed
+     * @param evt
+     */
+    private void inputScoreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputScoreKeyPressed
+        if (evt.getKeyCode() != KeyEvent.VK_ENTER) {
+            return;
+        }
+
+        double score = Double.parseDouble(inputScore.getText()); //get score from text box
+
+        double maxDouble;
+        double minDouble;
+        double averageDouble;
+
+        scoreList.add(score); //add score to array
+
+        maxDouble = tracker.findMax(scoreList); //find max
+        String maxString = String.format("%.2f", maxDouble); //convert to string
+        max.setText(maxString); //set text in UI
+
+        minDouble = tracker.findMin(scoreList); //find min
+        String minString = String.format("%.2f", minDouble); //convert to string
+        min.setText(minString); //set text in UI
+
+        averageDouble = tracker.findAverage(scoreList); //find average
+        String averageString = String.format("%.2f", averageDouble); //convert to string
+        average.setText(averageString); //set text in UI
+        inputScore.setText(""); //empty input box
+    }//GEN-LAST:event_inputScoreKeyPressed
 
     /**
      * @param args the command line arguments
