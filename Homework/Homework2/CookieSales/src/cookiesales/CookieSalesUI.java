@@ -13,7 +13,7 @@ import com.sun.glass.events.KeyEvent;
  */
 public class CookieSalesUI extends javax.swing.JFrame {
 
-    CookieSales sales = new CookieSales();
+    CookieSales sales = new CookieSales(); //create CookieSales object
 
     /**
      * Creates new form CookieSalesUI
