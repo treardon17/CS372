@@ -6,6 +6,7 @@
 package weatherapp;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.DefaultListModel;
 /**
  *
@@ -20,6 +21,7 @@ public class Preferences extends javax.swing.JFrame {
         initComponents();
         ReadFromFile file = new ReadFromFile();
         cities = file.makeCities();
+        
         DefaultListModel listModel = new DefaultListModel();
         for (int i = 0; i<cities.size(); i++)
         {
@@ -47,9 +49,11 @@ public class Preferences extends javax.swing.JFrame {
         CitiesList = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Enter.setBackground(new java.awt.Color(0, 167, 255));
         Enter.setText("Enter");
+        getContentPane().add(Enter, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 251, -1, -1));
 
         Cancel.setText("Cancel");
         Cancel.addActionListener(new java.awt.event.ActionListener() {
@@ -57,11 +61,14 @@ public class Preferences extends javax.swing.JFrame {
                 CancelActionPerformed(evt);
             }
         });
+        getContentPane().add(Cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 251, -1, -1));
 
         PreferencesLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         PreferencesLabel.setText("Preferences");
+        getContentPane().add(PreferencesLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
 
         CityListLabel.setText("Choose City:");
+        getContentPane().add(CityListLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 34, -1, -1));
 
         CitiesList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -70,40 +77,7 @@ public class Preferences extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(CitiesList);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(98, 98, 98)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CityListLabel)
-                    .addComponent(PreferencesLabel)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(Cancel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Enter)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(PreferencesLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(CityListLabel)
-                .addGap(9, 9, 9)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Enter)
-                    .addComponent(Cancel))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 59, 199, 174));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

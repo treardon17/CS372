@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package weatherapp;
+
 import java.util.ArrayList;
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
@@ -11,13 +12,16 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
+
 /**
  *
  * @author tylerreardon
  */
-public class ReadFromFile {
-    
-    public ArrayList makeCities(){
+public class ReadFromFile{
+
+    public ArrayList makeCities() {
         ArrayList<City> cities = new ArrayList();
         File cityFile = new File("resources/Cities.txt");
         String line = null;
@@ -36,8 +40,18 @@ public class ReadFromFile {
             while (dis.available() != 0) {
                 line = dis.readLine(); //reads line from file
                 info = line.split(" "); //finds pointNumber, state, and cityName separated by space
-                City c1 = new City(info[0], info[1], info[2]); //constructs city object based on array
-                cities.add(c1);
+                if (info.length == 3) {
+                    City c1 = new City(info[0], info[1], info[2]); //constructs city object based on array
+                    cities.add(c1);
+                } else {
+                    String multiWordCity = info[2];
+                    for (int i = 3; i < info.length; i++) {
+                        multiWordCity += " ";
+                        multiWordCity += info[i];
+                    }
+                    City c1 = new City(info[0], info[1], multiWordCity);
+                    cities.add(c1);
+                }
             }
 
             // dispose all the resources after using them.
@@ -50,6 +64,8 @@ public class ReadFromFile {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        
         return cities;
     }
 }

@@ -14,6 +14,7 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 /**
  *
@@ -22,12 +23,12 @@ import javax.swing.ImageIcon;
 public class WeatherAppUI extends javax.swing.JFrame {
 
     WeatherApp app = new WeatherApp();
+
     /**
      * Creates new form WeatherAppUI
      */
     public WeatherAppUI() {
         initComponents();
-
         Graphics g = null;
         BufferedImage image = null;
         try {
@@ -37,7 +38,13 @@ public class WeatherAppUI extends javax.swing.JFrame {
         } catch (IOException ex) {
             System.out.println("Could not find image!\n");
         }
-       
+        JLabel temperature = new JLabel();
+        temperature.setText("Temperature");
+        temperature.setVisible(true);
+        baseLayer.add(weatherImage, new Integer(0));
+        baseLayer.add(temperature, new Integer(1));
+
+
     }
 
     /**
@@ -49,6 +56,7 @@ public class WeatherAppUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        baseLayer = new javax.swing.JLayeredPane();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         weatherImage = new javax.swing.JLabel();
         MenuBar = new javax.swing.JMenuBar();
@@ -72,6 +80,20 @@ public class WeatherAppUI extends javax.swing.JFrame {
         );
         jLayeredPane1.setLayer(weatherImage, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
+        javax.swing.GroupLayout baseLayerLayout = new javax.swing.GroupLayout(baseLayer);
+        baseLayer.setLayout(baseLayerLayout);
+        baseLayerLayout.setHorizontalGroup(
+            baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLayeredPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
+        baseLayerLayout.setVerticalGroup(
+            baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLayeredPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
+        baseLayer.setLayer(jLayeredPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        getContentPane().add(baseLayer, java.awt.BorderLayout.CENTER);
+
         File.setText("File");
 
         Preferences.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
@@ -89,17 +111,6 @@ public class WeatherAppUI extends javax.swing.JFrame {
         MenuBar.add(Edit);
 
         setJMenuBar(MenuBar);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane1)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane1)
-        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -149,6 +160,7 @@ public class WeatherAppUI extends javax.swing.JFrame {
     private javax.swing.JMenu File;
     private javax.swing.JMenuBar MenuBar;
     private javax.swing.JMenuItem Preferences;
+    private javax.swing.JLayeredPane baseLayer;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLabel weatherImage;
     // End of variables declaration//GEN-END:variables

@@ -1,4 +1,4 @@
-point1 OK Oklahoma
+point1 OK Oklahoma City
 point2 OK Tulsa
 point3 TN Knoxville
 point4 GA Atlanta
