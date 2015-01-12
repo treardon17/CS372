@@ -10,9 +10,9 @@ package weatherapp;
  * @author tylerreardon
  */
 public class City {
-    String _zipCode;
-    String _state;
-    String _cityName;
+    private String _zipCode;
+    private String _state;
+    private String _cityName;
     
     public City(String zipCode, String state, String cityName){
         _zipCode = zipCode;
@@ -30,5 +30,17 @@ public class City {
     
     public String getCityName(){
         return _cityName;
+    }
+    
+     public void setZipCode(String zipCode){
+        _zipCode = zipCode;
+    }
+    
+    public void setState(String state){
+        _state = state;
+    }
+    
+    public void setCityName(String cityName){
+        _cityName = cityName;
     }
 }

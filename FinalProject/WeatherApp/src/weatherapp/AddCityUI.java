@@ -18,10 +18,10 @@ import java.util.logging.Logger;
  */
 public class AddCityUI extends javax.swing.JFrame {
 
-    List<City> cities = new ArrayList();
-    String stateString;
-    String cityNameString;
-    String zipcodeString;
+    private List<City> cities = new ArrayList();
+    private String stateString;
+    private String cityNameString;
+    private String zipcodeString;
 
     /**
      * Creates new form AddCityUI
@@ -87,11 +87,6 @@ public class AddCityUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(stateDescr)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(states, 0, 1, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(42, 42, 42)
@@ -107,14 +102,19 @@ public class AddCityUI extends javax.swing.JFrame {
                                         .addComponent(cityNameDescr)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(cityName, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 8, Short.MAX_VALUE)))
+                        .addGap(0, 8, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(stateDescr)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(states, 0, 1, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(cancel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(enter)))))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(cancel)
-                .addGap(36, 36, 36)
-                .addComponent(enter)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,15 +129,19 @@ public class AddCityUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cityNameDescr)
                     .addComponent(cityName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(zipcodeDescr)
-                    .addComponent(zipcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(enter)
-                    .addComponent(cancel))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(zipcodeDescr)
+                            .addComponent(zipcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(62, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(enter)
+                            .addComponent(cancel))
+                        .addContainerGap())))
         );
 
         pack();
@@ -145,14 +149,16 @@ public class AddCityUI extends javax.swing.JFrame {
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
         this.dispose();
+        ChooseCityUI choose = new ChooseCityUI();
+        choose.runChooseCity();
     }//GEN-LAST:event_cancelActionPerformed
 
     private void enterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterActionPerformed
-        if ("".equals(zipcode.getText()) || "".equals(cityName.getText()) || "Choose...".equals(states.getActionCommand())){
+        String stateString = (String) states.getSelectedItem();
+        if ("".equals(zipcode.getText()) || "".equals(cityName.getText()) || "Choose...".equals(stateString)){
             System.out.println("User didn't specify an item..."); //debugging
         }
         else {
-            stateString = (String) states.getSelectedItem();
             zipcodeString = zipcode.getText();
             cityNameString = cityName.getText();
             FileIO file = new FileIO();
@@ -164,8 +170,9 @@ public class AddCityUI extends javax.swing.JFrame {
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(AddCityUI.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
             this.dispose();
+            ChooseCityUI choose = new ChooseCityUI();
+            choose.runChooseCity();
         }
     }//GEN-LAST:event_enterActionPerformed
 

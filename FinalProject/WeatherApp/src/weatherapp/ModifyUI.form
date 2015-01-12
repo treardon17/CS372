@@ -18,78 +18,49 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,7,0,0,0,-22"/>
   </AuxValues>
 
-  <Layout>
-    <DimensionLayout dim="0">
-      <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="stateDescr" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="cityNameDescr" min="-2" max="-2" attributes="0"/>
-                  <Component id="modifyLocationDescr" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="zipcodeDescr" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="zipcode" alignment="0" pref="144" max="32767" attributes="0"/>
-                      <Component id="state" alignment="0" max="32767" attributes="0"/>
-                      <Component id="cityName" alignment="0" max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-              <EmptySpace max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="Cancel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="Enter" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
-      </Group>
-    </DimensionLayout>
-    <DimensionLayout dim="1">
-      <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="modifyLocationDescr" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="zipcodeDescr" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="zipcode" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="stateDescr" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="state" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="cityNameDescr" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="cityName" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="49" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="Cancel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="Enter" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
-      </Group>
-    </DimensionLayout>
+  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+    <Property name="useNullLayout" type="boolean" value="false"/>
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JTextField" name="cityName">
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="6" y="120" width="144" height="-1"/>
+        </Constraint>
+      </Constraints>
     </Component>
     <Component class="javax.swing.JLabel" name="zipcodeDescr">
       <Properties>
         <Property name="text" type="java.lang.String" value="Zipcode"/>
       </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="6" y="154" width="-1" height="-1"/>
+        </Constraint>
+      </Constraints>
     </Component>
     <Component class="javax.swing.JLabel" name="stateDescr">
       <Properties>
         <Property name="text" type="java.lang.String" value="State"/>
       </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="6" y="42" width="-1" height="-1"/>
+        </Constraint>
+      </Constraints>
     </Component>
     <Component class="javax.swing.JLabel" name="cityNameDescr">
       <Properties>
         <Property name="text" type="java.lang.String" value="City Name"/>
       </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="6" y="98" width="-1" height="-1"/>
+        </Constraint>
+      </Constraints>
     </Component>
     <Component class="javax.swing.JLabel" name="modifyLocationDescr">
       <Properties>
@@ -98,10 +69,18 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Modify Location:"/>
       </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="6" y="6" width="-1" height="-1"/>
+        </Constraint>
+      </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="zipcode">
-    </Component>
-    <Component class="javax.swing.JTextField" name="state">
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="6" y="176" width="144" height="-1"/>
+        </Constraint>
+      </Constraints>
     </Component>
     <Component class="javax.swing.JButton" name="Cancel">
       <Properties>
@@ -110,11 +89,85 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CancelActionPerformed"/>
       </Events>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="0" y="228" width="-1" height="-1"/>
+        </Constraint>
+      </Constraints>
     </Component>
     <Component class="javax.swing.JButton" name="Enter">
       <Properties>
         <Property name="text" type="java.lang.String" value="Enter"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EnterActionPerformed"/>
+      </Events>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="152" y="228" width="-1" height="-1"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="states">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="48">
+            <StringItem index="0" value="Choose..."/>
+            <StringItem index="1" value="Alabama "/>
+            <StringItem index="2" value="Alaska "/>
+            <StringItem index="3" value="Arizona "/>
+            <StringItem index="4" value="Arkansas "/>
+            <StringItem index="5" value="California "/>
+            <StringItem index="6" value="Colorado "/>
+            <StringItem index="7" value="Connecticut "/>
+            <StringItem index="8" value="Delaware "/>
+            <StringItem index="9" value="Florida "/>
+            <StringItem index="10" value="Georgia "/>
+            <StringItem index="11" value="Hawaii "/>
+            <StringItem index="12" value="Idaho "/>
+            <StringItem index="13" value="Illinois Indiana "/>
+            <StringItem index="14" value="Iowa "/>
+            <StringItem index="15" value="Kansas "/>
+            <StringItem index="16" value="Kentucky "/>
+            <StringItem index="17" value="Louisiana "/>
+            <StringItem index="18" value="Maine "/>
+            <StringItem index="19" value="Maryland "/>
+            <StringItem index="20" value="Massachusetts "/>
+            <StringItem index="21" value="Michigan "/>
+            <StringItem index="22" value="Minnesota "/>
+            <StringItem index="23" value="Mississippi "/>
+            <StringItem index="24" value="Missouri "/>
+            <StringItem index="25" value="Montana Nebraska "/>
+            <StringItem index="26" value="Nevada "/>
+            <StringItem index="27" value="New Hampshire "/>
+            <StringItem index="28" value="New Jersey "/>
+            <StringItem index="29" value="New Mexico "/>
+            <StringItem index="30" value="New York "/>
+            <StringItem index="31" value="North Carolina "/>
+            <StringItem index="32" value="North Dakota "/>
+            <StringItem index="33" value="Ohio "/>
+            <StringItem index="34" value="Oklahoma "/>
+            <StringItem index="35" value="Oregon "/>
+            <StringItem index="36" value="Pennsylvania Rhode Island "/>
+            <StringItem index="37" value="South Carolina "/>
+            <StringItem index="38" value="South Dakota "/>
+            <StringItem index="39" value="Tennessee "/>
+            <StringItem index="40" value="Texas "/>
+            <StringItem index="41" value="Utah "/>
+            <StringItem index="42" value="Vermont "/>
+            <StringItem index="43" value="Virginia "/>
+            <StringItem index="44" value="Washington "/>
+            <StringItem index="45" value="West Virginia "/>
+            <StringItem index="46" value="Wisconsin "/>
+            <StringItem index="47" value="Wyoming"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="10" y="60" width="190" height="-1"/>
+        </Constraint>
+      </Constraints>
     </Component>
   </SubComponents>
 </Form>

@@ -56,8 +56,7 @@ public class WeatherAppUI extends javax.swing.JFrame {
         weatherImage = new javax.swing.JLabel();
         MenuBar = new javax.swing.JMenuBar();
         File = new javax.swing.JMenu();
-        ChooseLocation = new javax.swing.JMenuItem();
-        AddLocation = new javax.swing.JMenuItem();
+        Preferences = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 900, 550));
@@ -73,11 +72,13 @@ public class WeatherAppUI extends javax.swing.JFrame {
         baseLayer.setLayout(baseLayerLayout);
         baseLayerLayout.setHorizontalGroup(
             baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(weatherImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(baseLayerLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(temperature, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(786, Short.MAX_VALUE))
+            .addGroup(baseLayerLayout.createSequentialGroup()
+                .addComponent(weatherImage, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         baseLayerLayout.setVerticalGroup(
             baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -85,7 +86,7 @@ public class WeatherAppUI extends javax.swing.JFrame {
             .addGroup(baseLayerLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(temperature, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(415, Short.MAX_VALUE))
+                .addContainerGap(304, Short.MAX_VALUE))
         );
         baseLayer.setLayer(temperature, javax.swing.JLayeredPane.PALETTE_LAYER);
         baseLayer.setLayer(weatherImage, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -94,23 +95,14 @@ public class WeatherAppUI extends javax.swing.JFrame {
 
         File.setText("File");
 
-        ChooseLocation.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
-        ChooseLocation.setText("Choose Location");
-        ChooseLocation.addActionListener(new java.awt.event.ActionListener() {
+        Preferences.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        Preferences.setText("Preferences");
+        Preferences.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ChooseLocationActionPerformed(evt);
+                PreferencesActionPerformed(evt);
             }
         });
-        File.add(ChooseLocation);
-
-        AddLocation.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
-        AddLocation.setText("Add Location");
-        AddLocation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddLocationActionPerformed(evt);
-            }
-        });
-        File.add(AddLocation);
+        File.add(Preferences);
 
         MenuBar.add(File);
 
@@ -123,19 +115,10 @@ public class WeatherAppUI extends javax.swing.JFrame {
      * Opens window, allowing user to specify which location to display
      * @param evt 
      */
-    private void ChooseLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChooseLocationActionPerformed
+    private void PreferencesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PreferencesActionPerformed
         ChooseCityUI choose = new ChooseCityUI();
         choose.runChooseCity();
-    }//GEN-LAST:event_ChooseLocationActionPerformed
-
-    /**
-     * Opens window, allowing user to add a location
-     * @param evt 
-     */
-    private void AddLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddLocationActionPerformed
-        AddCityUI add = new AddCityUI();
-        add.runAddCity();
-    }//GEN-LAST:event_AddLocationActionPerformed
+    }//GEN-LAST:event_PreferencesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -173,10 +156,9 @@ public class WeatherAppUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem AddLocation;
-    private javax.swing.JMenuItem ChooseLocation;
     private javax.swing.JMenu File;
     private javax.swing.JMenuBar MenuBar;
+    private javax.swing.JMenuItem Preferences;
     private javax.swing.JLayeredPane baseLayer;
     private javax.swing.JLabel temperature;
     private javax.swing.JLabel weatherImage;

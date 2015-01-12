@@ -76,10 +76,9 @@ public class FileIO {
         zipcode = zipcode.replaceAll("\\s+", ""); //remove all excess spaces from zipcode
 
         String[] cityNameParts = cityName.split(" "); //make sure the user didn't add any extra spaces
-
         boolean firstWord = false;
         cityName = "";
-        for (int i = 0; i < cityNameParts.length; i++) {
+        for (int i = 0; i < cityNameParts.length; i++) { //take away excess spaces in city name
             if (!"".equals(cityNameParts[i]) && !" ".equals(cityNameParts[i]) && firstWord == false && cityNameParts[0] != null) {
                 cityNameParts[i] = cityNameParts[i].replaceAll("\\s+", "");
                 cityName = cityNameParts[i]; //make corrected string
@@ -90,9 +89,9 @@ public class FileIO {
             }
         }
 
-        City c1 = new City(zipcode, state, cityName);
-        cities.add(c1);
-        PrintWriter writer = new PrintWriter("resources/Cities.txt", "UTF-8");
+        City c1 = new City(zipcode, state, cityName); //create new city object
+        cities.add(c1); //add object to city ArrayList
+        PrintWriter writer = new PrintWriter("resources/Cities.txt", "UTF-8"); //write the information to the file
         for (int i = 0; i < cities.size(); i++) {
             writer.printf("%s %s %s\n", cities.get(i).getZipCode(), cities.get(i).getState(), cities.get(i).getCityName());
         }
