@@ -5,7 +5,7 @@
  */
 package weatherapp;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 
 /**
@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author tylerreardon
  */
 public class WeatherApp {
-
+/*
     ArrayList<City> _cities;
 
     public WeatherApp() {
@@ -35,6 +35,6 @@ public class WeatherApp {
             return null;
         }
     }
-
+*/
 
 }

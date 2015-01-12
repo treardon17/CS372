@@ -5,6 +5,7 @@
  */
 package weatherapp;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -22,28 +23,22 @@ import javax.swing.JLabel;
  */
 public class WeatherAppUI extends javax.swing.JFrame {
 
-    WeatherApp app = new WeatherApp();
+    //WeatherApp app = new WeatherApp();
 
     /**
      * Creates new form WeatherAppUI
      */
     public WeatherAppUI() {
         initComponents();
-        Graphics g = null;
         BufferedImage image = null;
         try {
-            File weatherFile = new File("resources/test.jpg");
+            File weatherFile = new File("resources/images/sunny/sunny_boardwalk.jpeg");
             image = ImageIO.read(weatherFile);
             weatherImage.setIcon((Icon) new ImageIcon(image));
         } catch (IOException ex) {
             System.out.println("Could not find image!\n");
         }
-        JLabel temperature = new JLabel();
-        temperature.setText("Temperature");
-        temperature.setVisible(true);
-        baseLayer.add(weatherImage, new Integer(0));
-        baseLayer.add(temperature, new Integer(1));
-
+       //temperature.setOpaque(true);
 
     }
 
@@ -57,68 +52,90 @@ public class WeatherAppUI extends javax.swing.JFrame {
     private void initComponents() {
 
         baseLayer = new javax.swing.JLayeredPane();
-        jLayeredPane1 = new javax.swing.JLayeredPane();
+        temperature = new javax.swing.JLabel();
         weatherImage = new javax.swing.JLabel();
         MenuBar = new javax.swing.JMenuBar();
         File = new javax.swing.JMenu();
-        Preferences = new javax.swing.JMenuItem();
-        Edit = new javax.swing.JMenu();
+        ChooseLocation = new javax.swing.JMenuItem();
+        AddLocation = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximizedBounds(new java.awt.Rectangle(0, 0, 900, 550));
+        setMaximumSize(new java.awt.Dimension(950, 550));
+        setPreferredSize(new java.awt.Dimension(900, 550));
 
-        weatherImage.setText("weatherImage");
+        baseLayer.setPreferredSize(new java.awt.Dimension(1000, 500));
 
-        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
-        jLayeredPane1.setLayout(jLayeredPane1Layout);
-        jLayeredPane1Layout.setHorizontalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(weatherImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 937, Short.MAX_VALUE)
-        );
-        jLayeredPane1Layout.setVerticalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(weatherImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
-        );
-        jLayeredPane1.setLayer(weatherImage, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        temperature.setFont(new java.awt.Font("Heiti TC", 1, 24)); // NOI18N
+        temperature.setText("Temperature:");
 
         javax.swing.GroupLayout baseLayerLayout = new javax.swing.GroupLayout(baseLayer);
         baseLayer.setLayout(baseLayerLayout);
         baseLayerLayout.setHorizontalGroup(
             baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(weatherImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(baseLayerLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(temperature, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(786, Short.MAX_VALUE))
         );
         baseLayerLayout.setVerticalGroup(
             baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(weatherImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(baseLayerLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(temperature, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(415, Short.MAX_VALUE))
         );
-        baseLayer.setLayer(jLayeredPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        baseLayer.setLayer(temperature, javax.swing.JLayeredPane.PALETTE_LAYER);
+        baseLayer.setLayer(weatherImage, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        getContentPane().add(baseLayer, java.awt.BorderLayout.CENTER);
+        getContentPane().add(baseLayer, java.awt.BorderLayout.LINE_START);
 
         File.setText("File");
 
-        Preferences.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
-        Preferences.setText("Preferences");
-        Preferences.addActionListener(new java.awt.event.ActionListener() {
+        ChooseLocation.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        ChooseLocation.setText("Choose Location");
+        ChooseLocation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PreferencesActionPerformed(evt);
+                ChooseLocationActionPerformed(evt);
             }
         });
-        File.add(Preferences);
+        File.add(ChooseLocation);
+
+        AddLocation.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        AddLocation.setText("Add Location");
+        AddLocation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddLocationActionPerformed(evt);
+            }
+        });
+        File.add(AddLocation);
 
         MenuBar.add(File);
-
-        Edit.setText("Edit");
-        MenuBar.add(Edit);
 
         setJMenuBar(MenuBar);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void PreferencesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PreferencesActionPerformed
-        Preferences pref = new Preferences();
-        pref.runPreferences();
-    }//GEN-LAST:event_PreferencesActionPerformed
+    /**
+     * Opens window, allowing user to specify which location to display
+     * @param evt 
+     */
+    private void ChooseLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChooseLocationActionPerformed
+        ChooseCityUI choose = new ChooseCityUI();
+        choose.runChooseCity();
+    }//GEN-LAST:event_ChooseLocationActionPerformed
+
+    /**
+     * Opens window, allowing user to add a location
+     * @param evt 
+     */
+    private void AddLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddLocationActionPerformed
+        AddCityUI add = new AddCityUI();
+        add.runAddCity();
+    }//GEN-LAST:event_AddLocationActionPerformed
 
     /**
      * @param args the command line arguments
@@ -156,12 +173,12 @@ public class WeatherAppUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu Edit;
+    private javax.swing.JMenuItem AddLocation;
+    private javax.swing.JMenuItem ChooseLocation;
     private javax.swing.JMenu File;
     private javax.swing.JMenuBar MenuBar;
-    private javax.swing.JMenuItem Preferences;
     private javax.swing.JLayeredPane baseLayer;
-    private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JLabel temperature;
     private javax.swing.JLabel weatherImage;
     // End of variables declaration//GEN-END:variables
 }

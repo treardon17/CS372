@@ -10,18 +10,18 @@ package weatherapp;
  * @author tylerreardon
  */
 public class City {
-    String _pointNumber;
+    String _zipCode;
     String _state;
     String _cityName;
     
-    public City(String pointNumber, String state, String cityName){
-        _pointNumber = pointNumber;
+    public City(String zipCode, String state, String cityName){
+        _zipCode = zipCode;
         _state = state;
         _cityName = cityName;
     }
     
-    public String getPointNumber(){
-        return _pointNumber;
+    public String getZipCode(){
+        return _zipCode;
     }
     
     public String getState(){
