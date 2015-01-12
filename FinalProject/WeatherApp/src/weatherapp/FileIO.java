@@ -16,7 +16,6 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 /**
  *
@@ -27,11 +26,11 @@ public class FileIO {
     public ArrayList makeCities() {
         ArrayList<City> cities = new ArrayList();
         File cityFile = new File("resources/Cities.txt");
-        String line = null;
+        String line;
         String[] info;
-        FileInputStream fis = null;
-        BufferedInputStream bis = null;
-        DataInputStream dis = null;
+        FileInputStream fis;
+        BufferedInputStream bis;
+        DataInputStream dis;
         try {
             fis = new FileInputStream(cityFile);
 
@@ -97,13 +96,62 @@ public class FileIO {
         }
         writer.close();
     }
-    
-    public void modifyOrRemoveCity(ArrayList<City> cities) throws FileNotFoundException, UnsupportedEncodingException{
+
+    public void modifyOrRemoveCity(ArrayList<City> cities) throws FileNotFoundException, UnsupportedEncodingException {
         PrintWriter writer = new PrintWriter("resources/Cities.txt", "UTF-8");
         for (int i = 0; i < cities.size(); i++) {
             writer.printf("%s %s %s\n", cities.get(i).getZipCode(), cities.get(i).getState(), cities.get(i).getCityName());
         }
         writer.close();
+    }
+
+    public void setPreferredCity(City city) throws FileNotFoundException {
+        PrintWriter writer = new PrintWriter("resources/Preferences.txt");
+        writer.printf("%s %s %s\n", city.getZipCode(), city.getState(), city.getCityName());
+        writer.close();
+    }
+
+    public City getPreferredCity() {
+        File cityFile = new File("resources/Preferences.txt");
+        String line;
+        String[] info;
+        FileInputStream fis;
+        BufferedInputStream bis;
+        DataInputStream dis;
+        City c1 = null;
+        try {
+            fis = new FileInputStream(cityFile);
+
+            // Here BufferedInputStream is added for fast reading.
+            bis = new BufferedInputStream(fis);
+            dis = new DataInputStream(bis);
+
+            // dis.available() returns 0 if the file does not have more lines.
+            line = dis.readLine(); //reads line from file
+            info = line.split(" "); //finds zipCode, state, and cityName separated by space
+            if (info.length == 3) {
+                c1 = new City(info[0], info[1], info[2]); //constructs city object based on array
+            } else {
+                String multiWordCity = info[2];
+                for (int i = 3; i < info.length; i++) {
+                    multiWordCity += " ";
+                    multiWordCity += info[i];
+                }
+                c1 = new City(info[0], info[1], multiWordCity);
+            }
+
+            // dispose all the resources after using them.
+            fis.close();
+            bis.close();
+            dis.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return c1;
+
     }
 
 }

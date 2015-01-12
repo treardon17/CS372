@@ -58,6 +58,11 @@ public class ChooseCityUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         Enter.setText("Enter");
+        Enter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EnterActionPerformed(evt);
+            }
+        });
 
         Cancel.setText("Cancel");
         Cancel.addActionListener(new java.awt.event.ActionListener() {
@@ -190,6 +195,20 @@ public class ChooseCityUI extends javax.swing.JFrame {
         add.runAddCity();
         this.dispose();
     }//GEN-LAST:event_AddActionPerformed
+
+    private void EnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterActionPerformed
+        int preferredCityIndex;
+        
+        FileIO file = new FileIO();
+        cities = file.makeCities();
+        preferredCityIndex = CitiesList.getAnchorSelectionIndex();
+        try {
+            file.setPreferredCity(cities.get(preferredCityIndex));
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ChooseCityUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.dispose();
+    }//GEN-LAST:event_EnterActionPerformed
 
     /**
      */

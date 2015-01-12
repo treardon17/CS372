@@ -1,2 +1,3 @@
 98264 Washington  Lynden
 99251 Washington  Spokane
+98837 Washington  Moses Lake

@@ -5,17 +5,13 @@
  */
 package weatherapp;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
+
 import java.io.IOException;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 /**
  *
@@ -121,6 +117,7 @@ public class WeatherAppUI extends javax.swing.JFrame {
     }//GEN-LAST:event_PreferencesActionPerformed
 
     /**
+     * Runs the application, beginning with the WeatherAppUI
      * @param args the command line arguments
      */
     public static void main(String args[]) {
