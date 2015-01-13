@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Collections;
-import java.util.Comparator;
 
 /**
  *
@@ -66,6 +65,7 @@ public class FileIO {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Collections.sort(cities, City.CityComparator); //sort city alphabetically
         return cities;
     }
 
@@ -149,6 +149,9 @@ public class FileIO {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        if (c1 == null){
+            c1 = new City("99251", "Washington", "Spokane");
         }
         return c1;
 

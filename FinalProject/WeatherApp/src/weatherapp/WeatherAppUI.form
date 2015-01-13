@@ -74,7 +74,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                  <Component id="temperature" min="-2" pref="204" max="-2" attributes="0"/>
+                  <Component id="cityLabel" min="-2" pref="204" max="-2" attributes="0"/>
                   <EmptySpace pref="786" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
@@ -88,19 +88,19 @@
               <Component id="weatherImage" alignment="0" max="32767" attributes="0"/>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                  <Component id="temperature" min="-2" pref="69" max="-2" attributes="0"/>
+                  <Component id="cityLabel" min="-2" pref="69" max="-2" attributes="0"/>
                   <EmptySpace pref="304" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="temperature">
+        <Component class="javax.swing.JLabel" name="cityLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Heiti TC" size="24" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Temperature:"/>
+            <Property name="text" type="java.lang.String" value="City:"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JLayeredPane.layer" type="java.lang.Integer" value="100"/>

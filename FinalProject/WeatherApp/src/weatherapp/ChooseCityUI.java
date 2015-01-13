@@ -19,14 +19,13 @@ import javax.swing.DefaultListModel;
  */
 public class ChooseCityUI extends javax.swing.JFrame {
     private ArrayList<City> cities = new ArrayList();
-    
+    private FileIO file = new FileIO();
     /**
      * Creates new form Preferences
      */
     public ChooseCityUI() {
         initComponents();
-        
-        FileIO file = new FileIO();
+ 
         cities = file.makeCities();
 
         DefaultListModel listModel = new DefaultListModel();
@@ -159,7 +158,6 @@ public class ChooseCityUI extends javax.swing.JFrame {
         if (CitiesList.isSelectionEmpty()) {
             return;
         } else {
-            FileIO file = new FileIO();
             cities = file.makeCities();
             cities.remove(CitiesList.getAnchorSelectionIndex());
             DefaultListModel listModel = new DefaultListModel();
@@ -182,7 +180,6 @@ public class ChooseCityUI extends javax.swing.JFrame {
         if (CitiesList.isSelectionEmpty()){
             return;
         }else{
-            FileIO file = new FileIO();
             cities = file.makeCities();
             ModifyUI modify = new ModifyUI(CitiesList.getAnchorSelectionIndex());
             modify.runModify();
@@ -199,7 +196,6 @@ public class ChooseCityUI extends javax.swing.JFrame {
     private void EnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterActionPerformed
         int preferredCityIndex;
         
-        FileIO file = new FileIO();
         cities = file.makeCities();
         preferredCityIndex = CitiesList.getAnchorSelectionIndex();
         try {

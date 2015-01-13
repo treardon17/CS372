@@ -19,10 +19,11 @@ import java.util.logging.Logger;
 public class AddCityUI extends javax.swing.JFrame {
 
     private List<City> cities = new ArrayList();
+    private FileIO file = new FileIO();
     private String stateString;
     private String cityNameString;
     private String zipcodeString;
-
+    
     /**
      * Creates new form AddCityUI
      */
@@ -30,7 +31,6 @@ public class AddCityUI extends javax.swing.JFrame {
         initComponents();
         zipcode.setText("");
         cityName.setText("");
-        FileIO file = new FileIO();
         cities = file.makeCities();
     }
 
@@ -161,7 +161,6 @@ public class AddCityUI extends javax.swing.JFrame {
         else {
             zipcodeString = zipcode.getText();
             cityNameString = cityName.getText();
-            FileIO file = new FileIO();
 
             try {
                 file.addCity(zipcodeString, stateString, cityNameString);

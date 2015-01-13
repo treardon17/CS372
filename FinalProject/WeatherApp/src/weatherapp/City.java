@@ -5,6 +5,8 @@
  */
 package weatherapp;
 
+import java.util.Comparator;
+
 /**
  *
  * @author tylerreardon
@@ -43,4 +45,16 @@ public class City {
     public void setCityName(String cityName){
         _cityName = cityName;
     }
+    
+    public static Comparator<City> CityComparator = new Comparator<City>(){
+        
+        @Override
+        public int compare(City c1, City c2){
+            int cmp = c1.getCityName().compareTo(c2.getCityName());
+            if (cmp == 0){
+                cmp = c1.getCityName().compareTo(c2.getCityName());
+            }
+            return cmp;
+        }
+    };
 }

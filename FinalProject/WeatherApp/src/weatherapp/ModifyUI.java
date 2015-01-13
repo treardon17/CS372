@@ -15,6 +15,7 @@ import java.util.logging.Logger;
  */
 public class ModifyUI extends javax.swing.JFrame {
     private int _index;
+    private FileIO file = new FileIO();
     private ArrayList<City> cities = new ArrayList();
     /**
      * Creates new form ModifyUI
@@ -22,7 +23,6 @@ public class ModifyUI extends javax.swing.JFrame {
     public ModifyUI(int index) {
         initComponents();
         _index = index;
-        FileIO file = new FileIO();
         cities = file.makeCities();
         states.getModel().setSelectedItem(cities.get(index).getState());
         zipcode.setText(cities.get(index).getZipCode());
@@ -105,7 +105,6 @@ public class ModifyUI extends javax.swing.JFrame {
             cities.get(_index).setState(stateString);
             cities.get(_index).setCityName(cityNameString);
             cities.get(_index).setZipCode(zipcodeString);
-            FileIO file = new FileIO();
 
             try {
                 file.modifyOrRemoveCity(cities);

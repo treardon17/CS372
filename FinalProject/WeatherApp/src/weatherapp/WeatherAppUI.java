@@ -18,15 +18,16 @@ import javax.swing.ImageIcon;
  * @author tylerreardon
  */
 public class WeatherAppUI extends javax.swing.JFrame {
-
-    //WeatherApp app = new WeatherApp();
-
+    private City preferredCity;
+    FileIO file = new FileIO();
     /**
      * Creates new form WeatherAppUI
      */
     public WeatherAppUI() {
         initComponents();
         BufferedImage image = null;
+        preferredCity = file.getPreferredCity();
+        cityLabel.setText(preferredCity.getCityName());
         try {
             File weatherFile = new File("resources/images/sunny/sunny_boardwalk.jpeg");
             image = ImageIO.read(weatherFile);
@@ -48,7 +49,7 @@ public class WeatherAppUI extends javax.swing.JFrame {
     private void initComponents() {
 
         baseLayer = new javax.swing.JLayeredPane();
-        temperature = new javax.swing.JLabel();
+        cityLabel = new javax.swing.JLabel();
         weatherImage = new javax.swing.JLabel();
         MenuBar = new javax.swing.JMenuBar();
         File = new javax.swing.JMenu();
@@ -61,8 +62,8 @@ public class WeatherAppUI extends javax.swing.JFrame {
 
         baseLayer.setPreferredSize(new java.awt.Dimension(1000, 500));
 
-        temperature.setFont(new java.awt.Font("Heiti TC", 1, 24)); // NOI18N
-        temperature.setText("Temperature:");
+        cityLabel.setFont(new java.awt.Font("Heiti TC", 1, 24)); // NOI18N
+        cityLabel.setText("City:");
 
         javax.swing.GroupLayout baseLayerLayout = new javax.swing.GroupLayout(baseLayer);
         baseLayer.setLayout(baseLayerLayout);
@@ -70,7 +71,7 @@ public class WeatherAppUI extends javax.swing.JFrame {
             baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(baseLayerLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(temperature, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(786, Short.MAX_VALUE))
             .addGroup(baseLayerLayout.createSequentialGroup()
                 .addComponent(weatherImage, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -81,10 +82,10 @@ public class WeatherAppUI extends javax.swing.JFrame {
             .addComponent(weatherImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(baseLayerLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(temperature, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(304, Short.MAX_VALUE))
         );
-        baseLayer.setLayer(temperature, javax.swing.JLayeredPane.PALETTE_LAYER);
+        baseLayer.setLayer(cityLabel, javax.swing.JLayeredPane.PALETTE_LAYER);
         baseLayer.setLayer(weatherImage, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         getContentPane().add(baseLayer, java.awt.BorderLayout.LINE_START);
@@ -157,7 +158,7 @@ public class WeatherAppUI extends javax.swing.JFrame {
     private javax.swing.JMenuBar MenuBar;
     private javax.swing.JMenuItem Preferences;
     private javax.swing.JLayeredPane baseLayer;
-    private javax.swing.JLabel temperature;
+    private javax.swing.JLabel cityLabel;
     private javax.swing.JLabel weatherImage;
     // End of variables declaration//GEN-END:variables
 }
