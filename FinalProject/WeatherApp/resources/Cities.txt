@@ -1,3 +1,4 @@
+75206 Texas  Dallas
 98264 Washington  Lynden
-99251 Washington  Spokane
 98837 Washington  Moses Lake
+99251 Washington  Spokane
