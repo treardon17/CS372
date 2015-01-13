@@ -10,6 +10,7 @@ import java.util.*;
  * @author tylerreardon
  */
 public class HomeworkTracker {
+    //PT -- Do these need to be member variables? I don't think so
     double _max;
     double _min;
     double _average;
