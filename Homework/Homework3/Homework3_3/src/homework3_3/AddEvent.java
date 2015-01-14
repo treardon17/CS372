@@ -4,21 +4,28 @@
  * and open the template in the editor.
  */
 package homework3_3;
+
 import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.MutableComboBoxModel;
+
 /**
  *
  * @author tylerreardon
  */
 public class AddEvent extends javax.swing.JFrame {
+
     ArrayList<Event> events = new ArrayList<>();
     static EventList eventList;
-    
-    public void setEventList(EventList e) { eventList = e; }
-    
+
+    public void setEventList(EventList e) {
+        eventList = e;
+    }
+
     /**
      * Creates new form CalendarUI
      */
@@ -27,8 +34,8 @@ public class AddEvent extends javax.swing.JFrame {
         name.setText("");
         location.setText("");
         year.setText("");
+        date.setEnabled(false);
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -74,7 +81,12 @@ public class AddEvent extends javax.swing.JFrame {
             }
         });
 
-        month.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        month.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
+        month.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                monthActionPerformed(evt);
+            }
+        });
 
         date.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
 
@@ -102,9 +114,8 @@ public class AddEvent extends javax.swing.JFrame {
                                 .addComponent(year, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
                                 .addComponent(name)
                                 .addComponent(location)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(date, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(month, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .addComponent(date, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(month, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap(58, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -141,9 +152,20 @@ public class AddEvent extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        if ("".equals(location.getText()) || "".equals(year.getText()) || "".equals(name.getText())){
+        if ("".equals(location.getText()) 
+                || "".equals(year.getText()) 
+                || year.getText().length() < 4 
+                || year.getText().length() > 4
+                || "".equals(name.getText())) {
             return;
         }
+        try{
+            int yearInt = Integer.parseInt(year.getText());
+        }catch (Exception e){
+            System.out.println("Invalid year.");
+            return;
+        }
+
         ArrayList<Event> events = new ArrayList<>();
         FileIO file = new FileIO();
         try {
@@ -154,23 +176,80 @@ public class AddEvent extends javax.swing.JFrame {
         String nameString = name.getText();
         String locationString = location.getText();
         String monthString = (String) month.getSelectedItem();
-        String dateString = (String) date.getSelectedItem();
+        String dateString = date.getSelectedItem().toString();
         String yearString = year.getText();
-        
+
         Event e1 = new Event(nameString, locationString, monthString, dateString, yearString);
         events.add(e1);
         file.saveEvents(events);
         this.dispose();
-        
+
         eventList.setEventList(events);
     }//GEN-LAST:event_submitButtonActionPerformed
+
+    private void monthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monthActionPerformed
+       
+        date.setEnabled(true);
+        String selection = (String) month.getSelectedItem();
+        date.removeAllItems();
+        if ("January".equals(selection)) {
+            for (int i = 0; i < 31; i++) {
+                date.addItem(i+1);
+            }
+        } else if ("February".equals(selection)) {
+            for (int i = 0; i < 29; i++) {
+                date.addItem(i+1);
+            }
+        } else if ("March".equals(selection)) {
+            for (int i = 0; i < 31; i++) {
+                date.addItem(i+1);
+            }
+        } else if ("April".equals(selection)) {
+            for (int i = 0; i < 30; i++) {
+                date.addItem(i+1);
+            }
+        } else if ("May".equals(selection)) {
+            for (int i = 0; i < 31; i++) {
+                date.addItem(i+1);
+            }
+        } else if ("June".equals(selection)) {
+            for (int i = 0; i < 30; i++) {
+                date.addItem(i+1);
+            }
+        } else if ("July".equals(selection)) {
+            for (int i = 0; i < 31; i++) {
+                date.addItem(i+1);
+            }
+        } else if ("August".equals(selection)) {
+            for (int i = 0; i < 31; i++) {
+                date.addItem(i+1);
+            }
+        } else if ("September".equals(selection)) {
+            for (int i = 0; i < 30; i++) {
+                date.addItem(i+1);
+            }
+        } else if ("October".equals(selection)) {
+            for (int i = 0; i < 31; i++) {
+                date.addItem(i+1);
+            }
+        } else if ("November".equals(selection)) {
+            for (int i = 0; i < 30; i++) {
+                date.addItem(i+1);
+            }
+        } else if ("December".equals(selection)) {
+            for (int i = 0; i < 31; i++) {
+                date.addItem(i+1);
+            }
+        }
+
+    }//GEN-LAST:event_monthActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void runAddEvent(EventList el) {
         eventList = el;
-        
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

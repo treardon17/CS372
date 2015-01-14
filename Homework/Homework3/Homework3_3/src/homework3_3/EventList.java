@@ -5,6 +5,7 @@
  */
 package homework3_3;
 
+import static homework3_3.Event.*;
 import java.io.FileNotFoundException;
 import javax.swing.DefaultListModel;
 import java.util.*;
@@ -23,17 +24,13 @@ public class EventList extends javax.swing.JFrame {
         initComponents();
         FileIO file = new FileIO();
         events = file.readEvents();
-        DefaultListModel listModel = new DefaultListModel();
-        for (int i = 0; i < events.size(); i++) {
-            listModel.addElement(events.get(i).getName());
-        }
-        eventList.setModel(listModel);
+        setEventList(events);
     }
     
     public void setEventList(ArrayList<Event> events){
          DefaultListModel listModel = new DefaultListModel();
         for (int i = 0; i < events.size(); i++) {
-            listModel.addElement(events.get(i).getName());
+            listModel.addElement(events.get(i).displayFormat());
         }
         eventList.setModel(listModel);
     }
@@ -51,7 +48,7 @@ public class EventList extends javax.swing.JFrame {
         eventList = new javax.swing.JList();
         eventsDescr = new javax.swing.JLabel();
         addEvent = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox();
+        sortBy = new javax.swing.JComboBox();
         Delete = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -74,7 +71,12 @@ public class EventList extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Date", "Name", "Location" }));
+        sortBy.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Date", "Name", "Location" }));
+        sortBy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sortByActionPerformed(evt);
+            }
+        });
 
         Delete.setText("Delete");
         Delete.addActionListener(new java.awt.event.ActionListener() {
@@ -90,42 +92,43 @@ public class EventList extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(eventsDescr)
+                .addGap(167, 282, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(9, 9, 9)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Delete, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(eventsDescr)
-                                .addGap(161, 161, 161))
-                            .addComponent(jScrollPane1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(addEvent)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                        .addComponent(jLabel1))
+                    .addComponent(sortBy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(addEvent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(eventsDescr)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(13, 13, 13)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Delete)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addEvent)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Delete, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(addEvent))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(7, 7, 7)
+                        .addComponent(sortBy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -144,9 +147,29 @@ public class EventList extends javax.swing.JFrame {
             Logger.getLogger(EventList.class.getName()).log(Level.SEVERE, null, ex);
         }
         events.remove(eventList.getSelectedIndex());
-        
+        file.saveEvents(events);
+        setEventList(events);
 
     }//GEN-LAST:event_DeleteActionPerformed
+
+    private void sortByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortByActionPerformed
+        ArrayList<Event> events = new ArrayList<>();
+        FileIO file = new FileIO();
+        try {
+            events = file.readEvents();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(EventList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String selection = (String) sortBy.getSelectedItem();
+        if ("Date".equals(selection))
+            Collections.sort(events, DateComparator);
+        else if ("Name".equals(selection))
+            Collections.sort(events, NameComparator);
+        else if ("Location".equals(selection))
+            Collections.sort(events, LocationComparator);
+        
+        setEventList(events);
+    }//GEN-LAST:event_sortByActionPerformed
 
     /**
      * @param args the command line arguments
@@ -192,8 +215,8 @@ public class EventList extends javax.swing.JFrame {
     private javax.swing.JButton addEvent;
     private javax.swing.JList eventList;
     private javax.swing.JLabel eventsDescr;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox sortBy;
     // End of variables declaration//GEN-END:variables
 }

@@ -51,9 +51,6 @@ public class City {
         @Override
         public int compare(City c1, City c2){
             int cmp = c1.getCityName().compareTo(c2.getCityName());
-            if (cmp == 0){
-                cmp = c1.getCityName().compareTo(c2.getCityName());
-            }
             return cmp;
         }
     };

@@ -14,11 +14,16 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 
 /**
- *
+ * Allows for file Input and Output
  * @author tylerreardon
  */
 public class FileIO {
 
+    /**
+     * Creates an array of Event objects from a file
+     * @return an <code>ArrayList</code> of Events
+     * @throws FileNotFoundException 
+     */
     public ArrayList<Event> readEvents() throws FileNotFoundException {
         ArrayList<Event> events = new ArrayList<>();
         File f = new File("resources/events.txt");
@@ -28,12 +33,12 @@ public class FileIO {
         try {
             BufferedReader rdr = new BufferedReader(new FileReader(f));
 
-            while ((line = rdr.readLine()) != null) {
-                info = line.split("~ ");
-                date = info[2].split("/");
+            while ((line = rdr.readLine()) != null) { //read to the end of the file
+                info = line.split("~ "); //split items based on "~ "
+                date = info[2].split("/"); //splits date based on "/"
                 if (info.length == 3) {
-                    Event e1 = new Event(info[0], info[1], date[0], date[1], date[2]);
-                    events.add(e1);
+                    Event e1 = new Event(info[0], info[1], date[0], date[1], date[2]); //constructs object with file information
+                    events.add(e1); //add item to array
                 }
 
             }
@@ -41,9 +46,13 @@ public class FileIO {
         } catch (Exception ex) {
             System.out.println("Error!");
         }
-        return events;
+        return events; //return the ArrayList
     }
 
+    /**
+     * Saves the events to a file
+     * @param events 
+     */
     public void saveEvents(ArrayList<Event> events) {
         File file = new File("resources/events.txt");
         try {
