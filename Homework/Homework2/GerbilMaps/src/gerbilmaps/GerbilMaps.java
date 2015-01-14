@@ -18,6 +18,7 @@ public class GerbilMaps {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        //PT -- remove the TODO comment (it's done)
         Map<String,Gerbil> gerbilMap = new HashMap<String,Gerbil>(); //make a map
         for (int i = 0; i<10; i++){
             Gerbil g1 = new Gerbil(i); //make Gerbil object

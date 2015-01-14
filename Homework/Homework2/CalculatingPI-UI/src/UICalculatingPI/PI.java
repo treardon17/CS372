@@ -8,6 +8,7 @@ package UICalculatingPI;
  * Represents PI
  * @author tylerreardon
  */
+//Why not reuse from CS372.CalculatingPI? -2
 public class PI {
     /**
      * 
