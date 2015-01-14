@@ -14,26 +14,40 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 
 /**
- *
+ * Gives the user the option to choose a city they inputted
  * @author tylerreardon
  */
 public class ChooseCityUI extends javax.swing.JFrame {
     private ArrayList<City> cities = new ArrayList();
     private FileIO file = new FileIO();
     /**
-     * Creates new form Preferences
+     * Creates new form ChooseCityUI
      */
     public ChooseCityUI() {
         initComponents();
- 
+        
+        //update the array of cities
         cities = file.makeCities();
 
+        //update the list
         DefaultListModel listModel = new DefaultListModel();
         for (int i = 0; i < cities.size(); i++) {
             listModel.addElement(cities.get(i).getCityName());
         }
-
+        
+        //set the list
         CitiesList.setModel(listModel);
+    }
+    
+    public void updateList(){
+        //update list
+            DefaultListModel listModel = new DefaultListModel();
+            for (int i = 0; i < cities.size(); i++) {
+                listModel.addElement(cities.get(i).getCityName());
+            }
+            
+            //set list
+            CitiesList.setModel(listModel);
     }
 
     /**
@@ -154,16 +168,26 @@ public class ChooseCityUI extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_CancelActionPerformed
 
+    /**
+     * Deletes a location from the list of locations
+     * @param evt 
+     */
     private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
-        if (CitiesList.isSelectionEmpty()) {
+        if (CitiesList.isSelectionEmpty()) { //don't do anything if user didn't select anything
             return;
         } else {
+            //update cities array
             cities = file.makeCities();
+            //remove item from list
             cities.remove(CitiesList.getAnchorSelectionIndex());
+            
+            //update list
             DefaultListModel listModel = new DefaultListModel();
             for (int i = 0; i < cities.size(); i++) {
                 listModel.addElement(cities.get(i).getCityName());
             }
+            
+            //set list
             CitiesList.setModel(listModel);
             
             try {
