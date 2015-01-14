@@ -9,9 +9,14 @@ package weatherapp;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.net.MalformedURLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -19,24 +24,34 @@ import javax.swing.ImageIcon;
  */
 public class WeatherAppUI extends javax.swing.JFrame {
     private City preferredCity;
-    FileIO file = new FileIO();
+    private FileIO file = new FileIO();
+    private String content = new String();
     /**
      * Creates new form WeatherAppUI
      */
-    public WeatherAppUI() {
-        initComponents();
-        BufferedImage image = null;
-        preferredCity = file.getPreferredCity();
-        cityLabel.setText(preferredCity.getCityName());
+    public WeatherAppUI() throws IOException {
         try {
-            File weatherFile = new File("resources/images/sunny/sunny_boardwalk.jpeg");
-            image = ImageIO.read(weatherFile);
-            weatherImage.setIcon((Icon) new ImageIcon(image));
-        } catch (IOException ex) {
-            System.out.println("Could not find image!\n");
+            initComponents();
+            BufferedImage image = null;
+            preferredCity = file.getPreferredCity();
+            cityLabel.setText(preferredCity.getCityName());
+            Parser parse = new Parser(preferredCity.getZipCode());
+            //content = parse.getContent();
+            try {
+                File weatherFile = new File("resources/images/sunny/sunny_boardwalk.jpeg");
+                image = ImageIO.read(weatherFile);
+                weatherImage.setIcon((Icon) new ImageIcon(image));
+            } catch (IOException ex) {
+                System.out.println("Could not find image!\n");
+            }
+            //temperature.setOpaque(true);
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(WeatherAppUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SAXException ex) {
+            Logger.getLogger(WeatherAppUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(WeatherAppUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-       //temperature.setOpaque(true);
-
     }
 
     /**
@@ -148,7 +163,11 @@ public class WeatherAppUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new WeatherAppUI().setVisible(true);
+                try {
+                    new WeatherAppUI().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(WeatherAppUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
