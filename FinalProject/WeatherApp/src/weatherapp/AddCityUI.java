@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Gives the user the option to add locations to their list
  * @author tylerreardon
  */
 public class AddCityUI extends javax.swing.JFrame {
@@ -147,14 +147,24 @@ public class AddCityUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Cancels the AddCity window
+     * @param evt 
+     */
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
         this.dispose();
         ChooseCityUI choose = new ChooseCityUI();
         choose.runChooseCity();
     }//GEN-LAST:event_cancelActionPerformed
 
+    /**
+     * Adds a new location to the users list of cities
+     * @param evt 
+     */
     private void enterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterActionPerformed
         String stateString = (String) states.getSelectedItem();
+        
+        //if the user didn't enter all the required information, prevent the location from being added
         if ("".equals(zipcode.getText()) || "".equals(cityName.getText()) || "Choose...".equals(stateString)){
             System.out.println("User didn't specify an item..."); //debugging
         }
@@ -163,12 +173,14 @@ public class AddCityUI extends javax.swing.JFrame {
             cityNameString = cityName.getText();
 
             try {
+                //create a new city with user specifications
                 file.addCity(zipcodeString, stateString, cityNameString);
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(AddCityUI.class.getName()).log(Level.SEVERE, null, ex);
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(AddCityUI.class.getName()).log(Level.SEVERE, null, ex);
             }
+            //close window and update list of cities
             this.dispose();
             ChooseCityUI choose = new ChooseCityUI();
             choose.runChooseCity();

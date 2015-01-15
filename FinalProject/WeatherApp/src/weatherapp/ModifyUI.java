@@ -9,8 +9,9 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
- *
+ * Allows user to modify an item in the list of cities
  * @author tylerreardon
  */
 public class ModifyUI extends javax.swing.JFrame {
@@ -88,13 +89,22 @@ public class ModifyUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Cancels modify window
+     * @param evt 
+     */
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
         this.dispose();
         ChooseCityUI choose = new ChooseCityUI();
         choose.runChooseCity();
     }//GEN-LAST:event_CancelActionPerformed
 
+    /**
+     * Modifies city
+     * @param evt 
+     */
     private void EnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterActionPerformed
+        //Print debugging message if user doesn't specify an item
         String stateString = (String) states.getSelectedItem();
         if ("".equals(zipcode.getText()) || "".equals(cityName.getText()) || "Choose...".equals(stateString)){
             System.out.println("User didn't specify an item..."); //debugging
@@ -107,7 +117,7 @@ public class ModifyUI extends javax.swing.JFrame {
             cities.get(_index).setZipCode(zipcodeString);
 
             try {
-                file.modifyOrRemoveCity(cities);
+                file.modifyOrRemoveCity(cities); //modify city
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(AddCityUI.class.getName()).log(Level.SEVERE, null, ex);
             } catch (UnsupportedEncodingException ex) {

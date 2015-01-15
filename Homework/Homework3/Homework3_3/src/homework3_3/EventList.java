@@ -12,7 +12,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
- *
+ * Represents the list of events the user entered
  * @author tylerreardon
  */
 public class EventList extends javax.swing.JFrame {
@@ -27,6 +27,10 @@ public class EventList extends javax.swing.JFrame {
         setEventList(events);
     }
     
+    /**
+     * Updates the list of events
+     * @param events 
+     */
     public void setEventList(ArrayList<Event> events){
          DefaultListModel listModel = new DefaultListModel();
         for (int i = 0; i < events.size(); i++) {
@@ -134,10 +138,18 @@ public class EventList extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Open AddEvent window
+     * @param evt 
+     */
     private void addEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEventActionPerformed
         AddEvent.runAddEvent(this);
     }//GEN-LAST:event_addEventActionPerformed
 
+    /**
+     * Deletes selected item from Event List
+     * @param evt 
+     */
     private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
         ArrayList<Event> events = new ArrayList<>();
         FileIO file = new FileIO();
@@ -146,12 +158,16 @@ public class EventList extends javax.swing.JFrame {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(EventList.class.getName()).log(Level.SEVERE, null, ex);
         }
-        events.remove(eventList.getSelectedIndex());
-        file.saveEvents(events);
-        setEventList(events);
+        events.remove(eventList.getSelectedIndex()); //removes selected item from list
+        file.saveEvents(events); //save events to file
+        setEventList(events); //update Event List
 
     }//GEN-LAST:event_DeleteActionPerformed
 
+    /**
+     * Sorts items in list according to user specification
+     * @param evt 
+     */
     private void sortByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortByActionPerformed
         ArrayList<Event> events = new ArrayList<>();
         FileIO file = new FileIO();
@@ -160,15 +176,18 @@ public class EventList extends javax.swing.JFrame {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(EventList.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String selection = (String) sortBy.getSelectedItem();
+        String selection = (String) sortBy.getSelectedItem(); //get the user selection
+        //sort by date
         if ("Date".equals(selection))
             Collections.sort(events, DateComparator);
+        //sort by name
         else if ("Name".equals(selection))
             Collections.sort(events, NameComparator);
+        //sort by location
         else if ("Location".equals(selection))
             Collections.sort(events, LocationComparator);
         
-        setEventList(events);
+        setEventList(events); //update Event List
     }//GEN-LAST:event_sortByActionPerformed
 
     /**

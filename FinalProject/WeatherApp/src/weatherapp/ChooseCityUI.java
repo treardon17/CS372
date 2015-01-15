@@ -25,18 +25,9 @@ public class ChooseCityUI extends javax.swing.JFrame {
      */
     public ChooseCityUI() {
         initComponents();
-        
         //update the array of cities
         cities = file.makeCities();
-
-        //update the list
-        DefaultListModel listModel = new DefaultListModel();
-        for (int i = 0; i < cities.size(); i++) {
-            listModel.addElement(cities.get(i).getCityName());
-        }
-        
-        //set the list
-        CitiesList.setModel(listModel);
+        updateList();
     }
     
     public void updateList(){
@@ -181,14 +172,7 @@ public class ChooseCityUI extends javax.swing.JFrame {
             //remove item from list
             cities.remove(CitiesList.getAnchorSelectionIndex());
             
-            //update list
-            DefaultListModel listModel = new DefaultListModel();
-            for (int i = 0; i < cities.size(); i++) {
-                listModel.addElement(cities.get(i).getCityName());
-            }
-            
-            //set list
-            CitiesList.setModel(listModel);
+            updateList();
             
             try {
                 file.modifyOrRemoveCity(cities);
@@ -200,6 +184,10 @@ public class ChooseCityUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_DeleteActionPerformed
 
+    /**
+     * Runs the modify window
+     * @param evt 
+     */
     private void ModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifyActionPerformed
         if (CitiesList.isSelectionEmpty()){
             return;
@@ -211,12 +199,20 @@ public class ChooseCityUI extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_ModifyActionPerformed
 
+    /**
+     * Runs the AddCity window
+     * @param evt 
+     */
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
         AddCityUI add = new AddCityUI();
         add.runAddCity();
         this.dispose();
     }//GEN-LAST:event_AddActionPerformed
 
+    /**
+     * Sets the preferred city for app startup
+     * @param evt 
+     */
     private void EnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterActionPerformed
         int preferredCityIndex;
         
@@ -233,35 +229,6 @@ public class ChooseCityUI extends javax.swing.JFrame {
     /**
      */
     public static void runChooseCity() {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ChooseCityUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ChooseCityUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ChooseCityUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ChooseCityUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

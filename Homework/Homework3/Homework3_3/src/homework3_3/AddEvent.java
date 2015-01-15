@@ -14,7 +14,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.MutableComboBoxModel;
 
 /**
- *
+ * Allows a user to add an event to the event list
  * @author tylerreardon
  */
 public class AddEvent extends javax.swing.JFrame {
@@ -27,7 +27,7 @@ public class AddEvent extends javax.swing.JFrame {
     }
 
     /**
-     * Creates new form CalendarUI
+     * Creates new form AddEvent
      */
     public AddEvent() {
         initComponents();
@@ -151,8 +151,12 @@ public class AddEvent extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * When submit button pressed, add a new event to the list
+     * @param evt 
+     */
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        if ("".equals(location.getText()) 
+        if ("".equals(location.getText()) //if all fields have a valid value
                 || "".equals(year.getText()) 
                 || year.getText().length() < 4 
                 || year.getText().length() > 4
@@ -160,38 +164,47 @@ public class AddEvent extends javax.swing.JFrame {
             return;
         }
         try{
-            int yearInt = Integer.parseInt(year.getText());
+            int yearInt = Integer.parseInt(year.getText()); //if the text in the year field is a number
         }catch (Exception e){
-            System.out.println("Invalid year.");
+            System.out.println("Invalid year."); //else print debugging message
             return;
         }
 
-        ArrayList<Event> events = new ArrayList<>();
+        ArrayList<Event> events = new ArrayList<>(); //make 
         FileIO file = new FileIO();
         try {
             events = file.readEvents();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(AddEvent.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        //assign string values to variables
         String nameString = name.getText();
         String locationString = location.getText();
         String monthString = (String) month.getSelectedItem();
         String dateString = date.getSelectedItem().toString();
         String yearString = year.getText();
 
+        //make an event object
         Event e1 = new Event(nameString, locationString, monthString, dateString, yearString);
-        events.add(e1);
-        file.saveEvents(events);
+        events.add(e1); //add to array
+        file.saveEvents(events); //save to file
         this.dispose();
 
-        eventList.setEventList(events);
+        eventList.setEventList(events); //update list
     }//GEN-LAST:event_submitButtonActionPerformed
 
+    /**
+     * When the user selects a month, it sets the amount of days allowed to be selected for the date
+     * @param evt 
+     */
     private void monthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monthActionPerformed
        
-        date.setEnabled(true);
+        date.setEnabled(true); //prevent users from selecting day until month is chosen
         String selection = (String) month.getSelectedItem();
-        date.removeAllItems();
+        date.removeAllItems();//make the list empty
+        
+        //depending on the month, add the correct amount of days to the list
         if ("January".equals(selection)) {
             for (int i = 0; i < 31; i++) {
                 date.addItem(i+1);

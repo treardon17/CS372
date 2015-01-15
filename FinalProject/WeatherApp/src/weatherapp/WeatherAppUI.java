@@ -17,15 +17,17 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
+import weatherInfo.Parser;
+import weatherInfo.WeatherInfo;
 
 /**
- *
+ * Represents the window that displays weather information
  * @author tylerreardon
  */
 public class WeatherAppUI extends javax.swing.JFrame {
     private City preferredCity;
     private FileIO file = new FileIO();
-    private String content = new String();
+    private WeatherInfo _weatherInfo = new WeatherInfo();
     /**
      * Creates new form WeatherAppUI
      */
@@ -36,7 +38,7 @@ public class WeatherAppUI extends javax.swing.JFrame {
             preferredCity = file.getPreferredCity();
             cityLabel.setText(preferredCity.getCityName());
             Parser parse = new Parser(preferredCity.getZipCode());
-            //content = parse.getContent();
+            _weatherInfo = parse.getWeatherInfo();
             try {
                 File weatherFile = new File("resources/images/sunny/sunny_boardwalk.jpeg");
                 image = ImageIO.read(weatherFile);
@@ -65,6 +67,12 @@ public class WeatherAppUI extends javax.swing.JFrame {
 
         baseLayer = new javax.swing.JLayeredPane();
         cityLabel = new javax.swing.JLabel();
+        currentTemp = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         weatherImage = new javax.swing.JLabel();
         MenuBar = new javax.swing.JMenuBar();
         File = new javax.swing.JMenu();
@@ -72,38 +80,47 @@ public class WeatherAppUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 900, 550));
-        setMaximumSize(new java.awt.Dimension(950, 550));
-        setPreferredSize(new java.awt.Dimension(900, 550));
+        setPreferredSize(new java.awt.Dimension(900, 411));
 
-        baseLayer.setPreferredSize(new java.awt.Dimension(1000, 500));
+        baseLayer.setPreferredSize(new java.awt.Dimension(900, 500));
 
         cityLabel.setFont(new java.awt.Font("Heiti TC", 1, 24)); // NOI18N
         cityLabel.setText("City:");
-
-        javax.swing.GroupLayout baseLayerLayout = new javax.swing.GroupLayout(baseLayer);
-        baseLayer.setLayout(baseLayerLayout);
-        baseLayerLayout.setHorizontalGroup(
-            baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(baseLayerLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(cityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(786, Short.MAX_VALUE))
-            .addGroup(baseLayerLayout.createSequentialGroup()
-                .addComponent(weatherImage, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        baseLayerLayout.setVerticalGroup(
-            baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(weatherImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(baseLayerLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(cityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(304, Short.MAX_VALUE))
-        );
+        baseLayer.add(cityLabel);
+        cityLabel.setBounds(10, 10, 870, 30);
         baseLayer.setLayer(cityLabel, javax.swing.JLayeredPane.PALETTE_LAYER);
-        baseLayer.setLayer(weatherImage, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        getContentPane().add(baseLayer, java.awt.BorderLayout.LINE_START);
+        currentTemp.setFont(new java.awt.Font("Helvetica Neue", 0, 48)); // NOI18N
+        currentTemp.setText("?");
+        baseLayer.add(currentTemp);
+        currentTemp.setBounds(40, 60, 130, 130);
+
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
+        jLabel1.setText("Mon:");
+        baseLayer.add(jLabel1);
+        jLabel1.setBounds(10, 260, 50, 17);
+
+        jLabel2.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
+        jLabel2.setText("Tues:");
+        baseLayer.add(jLabel2);
+        jLabel2.setBounds(10, 280, 50, 17);
+
+        jLabel3.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
+        jLabel3.setText("Wed:");
+        baseLayer.add(jLabel3);
+        jLabel3.setBounds(10, 300, 50, 17);
+
+        jLabel4.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
+        jLabel4.setText("Thur:");
+        baseLayer.add(jLabel4);
+        jLabel4.setBounds(10, 320, 50, 17);
+
+        jLabel5.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
+        jLabel5.setText("Fri:");
+        baseLayer.add(jLabel5);
+        jLabel5.setBounds(10, 340, 50, 17);
+        baseLayer.add(weatherImage);
+        weatherImage.setBounds(0, 0, 900, 389);
 
         File.setText("File");
 
@@ -119,6 +136,19 @@ public class WeatherAppUI extends javax.swing.JFrame {
         MenuBar.add(File);
 
         setJMenuBar(MenuBar);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(baseLayer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(baseLayer, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -178,6 +208,12 @@ public class WeatherAppUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem Preferences;
     private javax.swing.JLayeredPane baseLayer;
     private javax.swing.JLabel cityLabel;
+    private javax.swing.JLabel currentTemp;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel weatherImage;
     // End of variables declaration//GEN-END:variables
 }
