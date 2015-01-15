@@ -84,6 +84,14 @@ public class Round {
         return diceSum;
     }
     
+    public int getDice1(){
+        return dice1;
+    }
+    
+    public int getDice2(){
+        return dice2;
+    }
+    
     /**
      * Saves the updated player to the file
      */

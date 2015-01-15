@@ -5,13 +5,19 @@
  */
 package exam1;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 /**
  * Represents the Under Over game
+ *
  * @author tylerreardon
  */
 public class UnderOverUI extends javax.swing.JFrame {
@@ -47,6 +53,8 @@ public class UnderOverUI extends javax.swing.JFrame {
         play = new javax.swing.JButton();
         messageCenter = new javax.swing.JLabel();
         betMessage = new javax.swing.JComboBox();
+        Dice1 = new javax.swing.JLabel();
+        Dice2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,11 +80,16 @@ public class UnderOverUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(Dice1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Dice2)
+                .addGap(58, 58, 58))
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(underOverDescr)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(play)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -87,12 +100,13 @@ public class UnderOverUI extends javax.swing.JFrame {
                                 .addComponent(money)
                                 .addComponent(userName)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(betMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(messageCenter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(underOverDescr)
+                            .addComponent(betMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(146, 146, 146)
+                        .addComponent(messageCenter, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(137, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,17 +127,24 @@ public class UnderOverUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(play)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(messageCenter, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(messageCenter, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(Dice2)
+                        .addGap(69, 69, 69))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(Dice1)
+                        .addGap(70, 70, 70))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
     /**
      * When the user presses the play button
-     * @param evt 
+     *
+     * @param evt
      */
     private void playActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playActionPerformed
         double betAmount = 0;
@@ -131,11 +152,11 @@ public class UnderOverUI extends javax.swing.JFrame {
         boolean won;
         String betMessageString;
         int diceSum;
-        
+
         //check to see if the user inputted a valid number
         try {
             betAmount = Double.parseDouble(bet.getText());
-            if (betAmount<0){ //check if the number is not negative
+            if (betAmount < 0) { //check if the number is not negative
                 messageCenter.setText("Cannot have a negative number!");
                 return;
             }
@@ -152,24 +173,65 @@ public class UnderOverUI extends javax.swing.JFrame {
         try {
             Round round = new Round(betAmount, _player, betMessageString);
             won = round.runRound();
-            
+
             players = file.readPlayers(); //update the players array
-            
+
             //update the money label
-            for (int i = 0; i<players.size(); i++){
-                if (_player.getUserName().equals(players.get(i).getUserName())){
+            for (int i = 0; i < players.size(); i++) {
+                if (_player.getUserName().equals(players.get(i).getUserName())) {
                     money.setText("Money: $" + players.get(i).getMoney());
                 }
             }
-            
+
             //notify the user if they won or lost
             diceSum = round.getDiceSum();
-            if (won){
-                messageCenter.setText("Dice Roll: "+ diceSum + " ---> You won!");
-            }else{
+            if (won) {
+                messageCenter.setText("Dice Roll: " + diceSum + " ---> You won!");
+            } else {
                 messageCenter.setText("Dice Roll: " + diceSum + " ---> You lost...");
             }
- 
+
+            //make image files to correspond to the dice being rolled
+            BufferedImage dice1 = null;
+            BufferedImage dice2 = null;
+            File dice1File = null;
+            File dice2File = null;
+
+            if (round.getDice1() == 1) {
+                dice1File = new File("resources/1Dice.png");
+            } else if (round.getDice1() == 2) {
+                dice1File = new File("resources/2Dice.png");
+            } else if (round.getDice1() == 3) {
+                dice1File = new File("resources/3Dice.png");
+            } else if (round.getDice1() == 4) {
+                dice1File = new File("resources/4Dice.png");
+            } else if (round.getDice1() == 5) {
+                dice1File = new File("resources/5Dice.png");
+            } else if (round.getDice1() == 6) {
+                dice1File = new File("resources/6Dice.png");
+            }
+
+            if (round.getDice2() == 1) {
+                dice2File = new File("resources/1Dice.png");
+            } else if (round.getDice2() == 2) {
+                dice2File = new File("resources/2Dice.png");
+            } else if (round.getDice2() == 3) {
+                dice2File = new File("resources/3Dice.png");
+            } else if (round.getDice2() == 4) {
+                dice2File = new File("resources/4Dice.png");
+            } else if (round.getDice2() == 5) {
+                dice2File = new File("resources/5Dice.png");
+            } else if (round.getDice2() == 6) {
+                dice2File = new File("resources/6Dice.png");
+            }
+
+            //set the images
+            dice1 = ImageIO.read(dice1File);
+            Dice1.setIcon((Icon) new ImageIcon(dice1));
+
+            dice2 = ImageIO.read(dice2File);
+            Dice2.setIcon((Icon) new ImageIcon(dice2));
+
         } catch (Exception e) {
             System.out.printf("%s", e.getMessage());
         }
@@ -192,6 +254,8 @@ public class UnderOverUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Dice1;
+    private javax.swing.JLabel Dice2;
     private javax.swing.JTextField bet;
     private javax.swing.JComboBox betMessage;
     private javax.swing.JLabel jLabel1;

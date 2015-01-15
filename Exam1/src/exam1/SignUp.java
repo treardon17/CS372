@@ -120,24 +120,26 @@ public class SignUp extends javax.swing.JFrame {
     private void signUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpActionPerformed
         String userNameString = userName.getText();
         String checkString = userName.getText();
-        checkString = checkString.trim();
+        checkString = checkString.trim(); //trims all whitespace
+        
+        //checks if name is just whitespace
         if ("".equals(checkString) || " ".equals(checkString)){
             messageCenter.setText("Invalid username. Cannot be blank or contain spaces.");
             return;
         }
-
+        //checks if username is taken
         for (int i = 0; i<players.size(); i++){
             if (userNameString.equals(players.get(i).getUserName())){
                 messageCenter.setText("Username Taken!");
                 return;
             }
         }
-        
+        //makes new player object
         Player player = new Player(userNameString, "500");
-        players.add(player);
-        file.savePlayers(players);
+        players.add(player); //adds player to ArrayList
+        file.savePlayers(players); //saves all players
         this.dispose();
-        UnderOverUI.runUnderOverUI(player);
+        UnderOverUI.runUnderOverUI(player); //runs the game
     }//GEN-LAST:event_signUpActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed

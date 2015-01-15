@@ -124,6 +124,10 @@ public class Login extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_signUpActionPerformed
 
+    /**
+     * Finds the user and starts game with that user
+     * @param evt 
+     */
     private void enterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterActionPerformed
         String userNameString = userName.getText();
         boolean found = false;
