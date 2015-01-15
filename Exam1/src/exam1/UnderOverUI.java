@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Represents the Under Over game
  * @author tylerreardon
  */
 public class UnderOverUI extends javax.swing.JFrame {
@@ -25,9 +25,9 @@ public class UnderOverUI extends javax.swing.JFrame {
      */
     public UnderOverUI() throws FileNotFoundException {
         initComponents();
-        players = file.readPlayers();
-        userName.setText("UserName: " + _player.getUserName());
-        money.setText("Money: $" + _player.getMoney());
+        players = file.readPlayers(); //makes an ArrayList of players
+        userName.setText("UserName: " + _player.getUserName()); //sets the username label
+        money.setText("Money: $" + _player.getMoney()); //sets the money label
     }
 
     /**
@@ -120,15 +120,22 @@ public class UnderOverUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    /**
+     * When the user presses the play button
+     * @param evt 
+     */
     private void playActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playActionPerformed
         double betAmount = 0;
         double playerMoney = 0;
         boolean won;
         String betMessageString;
         int diceSum;
+        
+        //check to see if the user inputted a valid number
         try {
             betAmount = Double.parseDouble(bet.getText());
-            if (betAmount<0){
+            if (betAmount<0){ //check if the number is not negative
                 messageCenter.setText("Cannot have a negative number!");
                 return;
             }
@@ -136,21 +143,26 @@ public class UnderOverUI extends javax.swing.JFrame {
             betMessageString = (String) betMessage.getSelectedItem();
 
         } catch (Exception e) {
+            //notify users what they did wrong
             messageCenter.setText("Invalid input! Must be a number.");
             return;
         }
 
+        //begin the round
         try {
             Round round = new Round(betAmount, _player, betMessageString);
             won = round.runRound();
             
-            players = file.readPlayers();
+            players = file.readPlayers(); //update the players array
             
+            //update the money label
             for (int i = 0; i<players.size(); i++){
                 if (_player.getUserName().equals(players.get(i).getUserName())){
                     money.setText("Money: $" + players.get(i).getMoney());
                 }
             }
+            
+            //notify the user if they won or lost
             diceSum = round.getDiceSum();
             if (won){
                 messageCenter.setText("Dice Roll: "+ diceSum + " ---> You won!");

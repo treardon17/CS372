@@ -9,7 +9,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
- *
+ * Allows user to sign up
  * @author tylerreardon
  */
 public class SignUp extends javax.swing.JFrame {
@@ -113,10 +113,15 @@ public class SignUp extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * When the user hits submit, username is validated
+     * @param evt 
+     */
     private void signUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpActionPerformed
         String userNameString = userName.getText();
-        userNameString = userNameString.trim();
-        if ("".equals(userNameString) || " ".equals(userNameString)){
+        String checkString = userName.getText();
+        checkString = checkString.trim();
+        if ("".equals(checkString) || " ".equals(checkString)){
             messageCenter.setText("Invalid username. Cannot be blank or contain spaces.");
             return;
         }
@@ -128,7 +133,7 @@ public class SignUp extends javax.swing.JFrame {
             }
         }
         
-        Player player = new Player(userName.getText(), "500");
+        Player player = new Player(userNameString, "500");
         players.add(player);
         file.savePlayers(players);
         this.dispose();
