@@ -8,9 +8,7 @@ package weatherapp;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -23,7 +21,6 @@ import org.xml.sax.SAXException;
  * @author tylerreardon
  */
 public class ChooseCityUI extends javax.swing.JFrame {
-
     private ArrayList<City> cities = new ArrayList();
     private static WeatherAppUI _weatherAppUI;
     private FileIO file = new FileIO();
@@ -241,7 +238,7 @@ public class ChooseCityUI extends javax.swing.JFrame {
     }//GEN-LAST:event_AddActionPerformed
 
     /**
-     * Sets the preferred city for app startup
+     * Sets the preferred city for application startup
      *
      * @param evt
      */

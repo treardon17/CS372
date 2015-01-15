@@ -45,10 +45,13 @@ public class WeatherAppUI extends javax.swing.JFrame {
         cityLabel.setText(preferredCity.getCityName());
         Parser parse = new Parser(preferredCity.getZipCode());
         _weatherInfo = parse.getWeatherInfo();
-
-        File weatherFile = new File("resources/images/sunny/sunny_boardwalk.jpeg");
+        try{
+        File weatherFile = new File("resources/images/rain/rainy_jellyfish.jpeg");
         BufferedImage image = ImageIO.read(weatherFile);
         weatherImage.setIcon((Icon) new ImageIcon(image));
+        }catch (Exception e){
+            System.out.println("Can't find file!");
+        }
     }
 
     /**
@@ -81,41 +84,79 @@ public class WeatherAppUI extends javax.swing.JFrame {
 
         cityLabel.setFont(new java.awt.Font("Heiti TC", 1, 24)); // NOI18N
         cityLabel.setText("City:");
-        baseLayer.add(cityLabel);
-        cityLabel.setBounds(10, 10, 870, 30);
-        baseLayer.setLayer(cityLabel, javax.swing.JLayeredPane.PALETTE_LAYER);
 
         currentTemp.setFont(new java.awt.Font("Helvetica Neue", 0, 48)); // NOI18N
         currentTemp.setText("?");
-        baseLayer.add(currentTemp);
-        currentTemp.setBounds(40, 60, 130, 130);
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
         jLabel1.setText("Mon:");
-        baseLayer.add(jLabel1);
-        jLabel1.setBounds(10, 260, 50, 17);
 
         jLabel2.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
         jLabel2.setText("Tues:");
-        baseLayer.add(jLabel2);
-        jLabel2.setBounds(180, 260, 50, 17);
 
         jLabel3.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
         jLabel3.setText("Wed:");
-        baseLayer.add(jLabel3);
-        jLabel3.setBounds(370, 260, 50, 17);
 
         jLabel4.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
         jLabel4.setText("Thur:");
-        baseLayer.add(jLabel4);
-        jLabel4.setBounds(540, 260, 50, 17);
 
         jLabel5.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
         jLabel5.setText("Fri:");
-        baseLayer.add(jLabel5);
-        jLabel5.setBounds(720, 260, 50, 17);
-        baseLayer.add(weatherImage);
-        weatherImage.setBounds(0, 0, 900, 389);
+
+        javax.swing.GroupLayout baseLayerLayout = new javax.swing.GroupLayout(baseLayer);
+        baseLayer.setLayout(baseLayerLayout);
+        baseLayerLayout.setHorizontalGroup(
+            baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(baseLayerLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(cityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(baseLayerLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(490, 490, 490)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(140, 140, 140)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(baseLayerLayout.createSequentialGroup()
+                .addGap(180, 180, 180)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(baseLayerLayout.createSequentialGroup()
+                .addGap(360, 360, 360)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(baseLayerLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(currentTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(weatherImage, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        baseLayerLayout.setVerticalGroup(
+            baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(baseLayerLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(cityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(320, 320, 320)
+                .addGroup(baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)))
+            .addGroup(baseLayerLayout.createSequentialGroup()
+                .addGap(360, 360, 360)
+                .addComponent(jLabel2))
+            .addGroup(baseLayerLayout.createSequentialGroup()
+                .addGap(360, 360, 360)
+                .addComponent(jLabel3))
+            .addGroup(baseLayerLayout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(currentTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(weatherImage, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        baseLayer.setLayer(cityLabel, javax.swing.JLayeredPane.PALETTE_LAYER);
+        baseLayer.setLayer(currentTemp, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        baseLayer.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        baseLayer.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        baseLayer.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        baseLayer.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        baseLayer.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        baseLayer.setLayer(weatherImage, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         File.setText("File");
 
