@@ -24,7 +24,6 @@ public class WeatherHandler extends DefaultHandler {
     boolean _maxTempB = false;
     boolean _minTempB = false;
     boolean _hourTempB = false;
-    boolean _currTempB = false;
 
     public WeatherInfo getWeatherInfo() {
         return _weatherInfo;
@@ -38,17 +37,14 @@ public class WeatherHandler extends DefaultHandler {
 
             if (_type.equals("maximum")) {
                 _maxTempB = true;
-                _minTempB = _hourTempB = _currTempB = false;
+                _minTempB = _hourTempB = false;
             } else if (_type.equals("minimum")) {
                 _minTempB = true;
-                _maxTempB = _hourTempB = _currTempB = false;
+                _maxTempB = _hourTempB = false;
             } else if (_type.equals("hourly")) {
                 _hourTempB = true;
-                _maxTempB = _minTempB = _currTempB = false;
+                _maxTempB = _minTempB = false;
             }
-        }
-        if (_hourTempB && qName.equals("value") && _type.equals("RTMA")) {
-            _currTempB = true;
         }
 
         _data = "";
@@ -67,7 +63,7 @@ public class WeatherHandler extends DefaultHandler {
                 _weatherInfo.addMaxTemp(Double.parseDouble(_data));
             } else if (qName.equals("value") && _minTempB && !_data.equals("")) {
                 _weatherInfo.addMinTemp(Double.parseDouble(_data));
-            } else if (qName.equals("value") && _currTempB && !_data.equals("")) {
+            } else if (qName.equals("value") && _hourTempB && !_data.equals("")) {
                 _weatherInfo.addCurrentTemp(Double.parseDouble(_data));
             }
         } catch (Exception e) {

@@ -95,8 +95,8 @@ public class ModifyUI extends javax.swing.JFrame {
      */
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
         this.dispose();
-        ChooseCityUI choose = new ChooseCityUI();
-        choose.runChooseCity();
+        //ChooseCityUI choose = new ChooseCityUI();
+        ChooseCityUI.runChooseCity();
     }//GEN-LAST:event_CancelActionPerformed
 
     /**
@@ -124,8 +124,8 @@ public class ModifyUI extends javax.swing.JFrame {
                 Logger.getLogger(AddCityUI.class.getName()).log(Level.SEVERE, null, ex);
             }
             this.dispose();
-            ChooseCityUI choose = new ChooseCityUI();
-            choose.runChooseCity();
+            //ChooseCityUI choose = new ChooseCityUI();
+            ChooseCityUI.runChooseCity();
         }
     }//GEN-LAST:event_EnterActionPerformed
 

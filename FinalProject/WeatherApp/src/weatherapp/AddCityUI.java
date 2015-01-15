@@ -153,8 +153,8 @@ public class AddCityUI extends javax.swing.JFrame {
      */
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
         this.dispose();
-        ChooseCityUI choose = new ChooseCityUI();
-        choose.runChooseCity();
+        //ChooseCityUI choose = new ChooseCityUI();
+        ChooseCityUI.runChooseCity();
     }//GEN-LAST:event_cancelActionPerformed
 
     /**
@@ -182,8 +182,8 @@ public class AddCityUI extends javax.swing.JFrame {
             }
             //close window and update list of cities
             this.dispose();
-            ChooseCityUI choose = new ChooseCityUI();
-            choose.runChooseCity();
+            //ChooseCityUI choose = new ChooseCityUI();
+            ChooseCityUI.runChooseCity();
         }
     }//GEN-LAST:event_enterActionPerformed
 

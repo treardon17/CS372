@@ -5,7 +5,6 @@
  */
 package weatherapp;
 
-
 import java.io.IOException;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -22,38 +21,34 @@ import weatherInfo.WeatherInfo;
 
 /**
  * Represents the window that displays weather information
+ *
  * @author tylerreardon
  */
 public class WeatherAppUI extends javax.swing.JFrame {
-    private City preferredCity;
-    private FileIO file = new FileIO();
-    private WeatherInfo _weatherInfo = new WeatherInfo();
+    
+    private static City preferredCity;
+    private static FileIO file = new FileIO();
+    private static WeatherInfo _weatherInfo = new WeatherInfo();
+    private ChooseCityUI chooseCity = new ChooseCityUI(this);
+
     /**
      * Creates new form WeatherAppUI
      */
-    public WeatherAppUI() throws IOException {
-        try {
-            initComponents();
-            BufferedImage image = null;
-            preferredCity = file.getPreferredCity();
-            cityLabel.setText(preferredCity.getCityName());
-            Parser parse = new Parser(preferredCity.getZipCode());
-            _weatherInfo = parse.getWeatherInfo();
-            try {
-                File weatherFile = new File("resources/images/sunny/sunny_boardwalk.jpeg");
-                image = ImageIO.read(weatherFile);
-                weatherImage.setIcon((Icon) new ImageIcon(image));
-            } catch (IOException ex) {
-                System.out.println("Could not find image!\n");
-            }
-            //temperature.setOpaque(true);
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(WeatherAppUI.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SAXException ex) {
-            Logger.getLogger(WeatherAppUI.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(WeatherAppUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public WeatherAppUI() throws IOException, MalformedURLException, SAXException, ParserConfigurationException {
+        initComponents();
+        updateWeatherUI();
+    }
+
+    public void updateWeatherUI() throws IOException, MalformedURLException, SAXException, ParserConfigurationException {
+        
+        preferredCity = file.getPreferredCity();
+        cityLabel.setText(preferredCity.getCityName());
+        Parser parse = new Parser(preferredCity.getZipCode());
+        _weatherInfo = parse.getWeatherInfo();
+
+        File weatherFile = new File("resources/images/sunny/sunny_boardwalk.jpeg");
+        BufferedImage image = ImageIO.read(weatherFile);
+        weatherImage.setIcon((Icon) new ImageIcon(image));
     }
 
     /**
@@ -103,22 +98,22 @@ public class WeatherAppUI extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
         jLabel2.setText("Tues:");
         baseLayer.add(jLabel2);
-        jLabel2.setBounds(10, 280, 50, 17);
+        jLabel2.setBounds(180, 260, 50, 17);
 
         jLabel3.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
         jLabel3.setText("Wed:");
         baseLayer.add(jLabel3);
-        jLabel3.setBounds(10, 300, 50, 17);
+        jLabel3.setBounds(370, 260, 50, 17);
 
         jLabel4.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
         jLabel4.setText("Thur:");
         baseLayer.add(jLabel4);
-        jLabel4.setBounds(10, 320, 50, 17);
+        jLabel4.setBounds(540, 260, 50, 17);
 
         jLabel5.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
         jLabel5.setText("Fri:");
         baseLayer.add(jLabel5);
-        jLabel5.setBounds(10, 340, 50, 17);
+        jLabel5.setBounds(720, 260, 50, 17);
         baseLayer.add(weatherImage);
         weatherImage.setBounds(0, 0, 900, 389);
 
@@ -155,15 +150,16 @@ public class WeatherAppUI extends javax.swing.JFrame {
 
     /**
      * Opens window, allowing user to specify which location to display
-     * @param evt 
+     *
+     * @param evt
      */
     private void PreferencesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PreferencesActionPerformed
-        ChooseCityUI choose = new ChooseCityUI();
-        choose.runChooseCity();
+        chooseCity.runChooseCity();
     }//GEN-LAST:event_PreferencesActionPerformed
 
     /**
      * Runs the application, beginning with the WeatherAppUI
+     *
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -196,6 +192,10 @@ public class WeatherAppUI extends javax.swing.JFrame {
                 try {
                     new WeatherAppUI().setVisible(true);
                 } catch (IOException ex) {
+                    Logger.getLogger(WeatherAppUI.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SAXException ex) {
+                    Logger.getLogger(WeatherAppUI.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ParserConfigurationException ex) {
                     Logger.getLogger(WeatherAppUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }

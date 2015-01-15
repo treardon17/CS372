@@ -6,39 +6,48 @@
 package weatherapp;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
 
 /**
  * Gives the user the option to choose a city they inputted
+ *
  * @author tylerreardon
  */
 public class ChooseCityUI extends javax.swing.JFrame {
+
     private ArrayList<City> cities = new ArrayList();
+    private static WeatherAppUI _weatherAppUI;
     private FileIO file = new FileIO();
+
     /**
      * Creates new form ChooseCityUI
      */
-    public ChooseCityUI() {
+    public ChooseCityUI(WeatherAppUI weatherAppUI) {
         initComponents();
         //update the array of cities
         cities = file.makeCities();
         updateList();
+        _weatherAppUI = weatherAppUI;
     }
-    
-    public void updateList(){
+
+    public void updateList() {
         //update list
-            DefaultListModel listModel = new DefaultListModel();
-            for (int i = 0; i < cities.size(); i++) {
-                listModel.addElement(cities.get(i).getCityName());
-            }
-            
-            //set list
-            CitiesList.setModel(listModel);
+        DefaultListModel listModel = new DefaultListModel();
+        for (int i = 0; i < cities.size(); i++) {
+            listModel.addElement(cities.get(i).getCityName());
+        }
+
+        //set list
+        CitiesList.setModel(listModel);
     }
 
     /**
@@ -161,7 +170,8 @@ public class ChooseCityUI extends javax.swing.JFrame {
 
     /**
      * Deletes a location from the list of locations
-     * @param evt 
+     *
+     * @param evt
      */
     private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
         if (CitiesList.isSelectionEmpty()) { //don't do anything if user didn't select anything
@@ -171,9 +181,9 @@ public class ChooseCityUI extends javax.swing.JFrame {
             cities = file.makeCities();
             //remove item from list
             cities.remove(CitiesList.getAnchorSelectionIndex());
-            
+
             updateList();
-            
+
             try {
                 file.modifyOrRemoveCity(cities);
             } catch (FileNotFoundException ex) {
@@ -182,26 +192,47 @@ public class ChooseCityUI extends javax.swing.JFrame {
                 Logger.getLogger(ChooseCityUI.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
+        try {
+            _weatherAppUI.updateWeatherUI();
+        } catch (IOException ex) {
+            Logger.getLogger(ChooseCityUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SAXException ex) {
+            Logger.getLogger(ChooseCityUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(ChooseCityUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_DeleteActionPerformed
 
     /**
      * Runs the modify window
-     * @param evt 
+     *
+     * @param evt
      */
     private void ModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifyActionPerformed
-        if (CitiesList.isSelectionEmpty()){
+        if (CitiesList.isSelectionEmpty()) {
             return;
-        }else{
+        } else {
             cities = file.makeCities();
             ModifyUI modify = new ModifyUI(CitiesList.getAnchorSelectionIndex());
             modify.runModify();
         }
         this.dispose();
+        try {
+            _weatherAppUI.updateWeatherUI();
+        } catch (IOException ex) {
+            Logger.getLogger(ChooseCityUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SAXException ex) {
+            Logger.getLogger(ChooseCityUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(ChooseCityUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_ModifyActionPerformed
 
     /**
      * Runs the AddCity window
-     * @param evt 
+     *
+     * @param evt
      */
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
         AddCityUI add = new AddCityUI();
@@ -211,11 +242,12 @@ public class ChooseCityUI extends javax.swing.JFrame {
 
     /**
      * Sets the preferred city for app startup
-     * @param evt 
+     *
+     * @param evt
      */
     private void EnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterActionPerformed
         int preferredCityIndex;
-        
+
         cities = file.makeCities();
         preferredCityIndex = CitiesList.getAnchorSelectionIndex();
         try {
@@ -224,6 +256,15 @@ public class ChooseCityUI extends javax.swing.JFrame {
             Logger.getLogger(ChooseCityUI.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.dispose();
+        try {
+            _weatherAppUI.updateWeatherUI();
+        } catch (IOException ex) {
+            Logger.getLogger(ChooseCityUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SAXException ex) {
+            Logger.getLogger(ChooseCityUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(ChooseCityUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_EnterActionPerformed
 
     /**
@@ -232,8 +273,9 @@ public class ChooseCityUI extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new ChooseCityUI().setVisible(true);
+                new ChooseCityUI(_weatherAppUI).setVisible(true);
             }
         });
     }

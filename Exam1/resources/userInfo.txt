@@ -1,3 +1,4 @@
-Tyler ~245.0
+Tyler ~175.0
 Bilbo ~500
 Bill ~500
+Weston ~380.0
