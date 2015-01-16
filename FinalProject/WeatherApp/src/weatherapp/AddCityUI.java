@@ -5,6 +5,8 @@
  */
 package weatherapp;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class AddCityUI extends javax.swing.JFrame {
 
-    private List<City> cities = new ArrayList();
+    private ArrayList<City> cities = new ArrayList();
     private FileIO file = new FileIO();
     private String stateString;
     private String cityNameString;
@@ -53,7 +55,7 @@ public class AddCityUI extends javax.swing.JFrame {
         enter = new javax.swing.JButton();
         cancel = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         addCityDescr.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         addCityDescr.setText("Add a Location:");
@@ -191,33 +193,14 @@ public class AddCityUI extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public void runAddCity() {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddCityUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddCityUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddCityUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddCityUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
+        
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddCityUI().setVisible(true);
+                Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+                AddCityUI addCity = new AddCityUI();
+                addCity.setLocation(dim.width/2-addCity.getSize().width/2, dim.height/2-addCity.getSize().height/2);
+                addCity.setVisible(true);
             }
         });
     }

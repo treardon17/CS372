@@ -51,7 +51,7 @@ public class ModifyUI extends javax.swing.JFrame {
         Enter = new javax.swing.JButton();
         states = new javax.swing.JComboBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(cityName, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 120, 144, -1));
 

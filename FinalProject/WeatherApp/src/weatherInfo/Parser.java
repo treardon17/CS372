@@ -34,6 +34,8 @@ public class Parser {
                     "Lon=&featureType=&requestedTime=&startTime=&endTime=&compType=&propertyName=&product=time-series&begin=2004-01-01T00%3A00" +
                     "%3A00&end=2019-01-15T00%3A00%3A00&Unit=e&maxt=maxt&mint=mint&temp=temp&snow=snow&sky=sky&wx=wx&appt=appt&precipa_r=precipa" +
                     "_r&temp_r=temp_r&Submit=Submit";
+            
+            
             /*
             "http://graphical.weather.gov/xml/SOAP_server/ndfdXMLclient.php?whichClient=NDFDgenMultiZipCode&lat=&lon"
                     + "=&listLatLon=&lat1=&lon1=&lat2=&lon2=&resolutionSub=&listLat1=&listLon1=&listLat2=&listLon2=&resolutionList"

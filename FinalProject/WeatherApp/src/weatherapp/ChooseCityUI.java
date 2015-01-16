@@ -38,7 +38,7 @@ public class ChooseCityUI extends javax.swing.JFrame {
         _weatherAppUI = weatherAppUI;
     }
 
-    public void updateList() {
+    private void updateList() {
         //update list
         DefaultListModel listModel = new DefaultListModel();
         for (int i = 0; i < cities.size(); i++) {
