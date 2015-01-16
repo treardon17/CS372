@@ -1,0 +1,24 @@
+Tyler
+7234 address
+Jimmy's
+1 Star
+this is a note
+<endElement>
+Tyler
+7234 address
+Red Robin
+2 Star
+this is a note
+<endElement>
+Tyler
+7234 address
+Sandwich
+2 Star
+this is a note
+<endElement>
+<endElement
+7323 hemmingway
+Test
+5 Star
+more notes
+<endElement>

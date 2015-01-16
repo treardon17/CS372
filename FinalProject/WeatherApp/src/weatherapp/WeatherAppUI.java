@@ -5,7 +5,6 @@
  */
 package weatherapp;
 
-
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.IOException;
@@ -217,21 +216,6 @@ public class WeatherAppUI extends JFrame {
         chooseCity.runChooseCity();
     }//GEN-LAST:event_PreferencesActionPerformed
 
-    /*
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-        int w = getWidth();
-        int h = getHeight();
-        Color color1 = Color.GRAY;
-        Color color2 = Color.WHITE;
-        GradientPaint gp = new GradientPaint(0, 0, color1, 0, h, color2);
-        g2d.setPaint(gp);
-        g2d.fillRect(0, 0, w, h);
-    }
-    */
     
     /**
      * Runs the application, beginning with the WeatherAppUI
@@ -263,16 +247,14 @@ public class WeatherAppUI extends JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
- 
                 Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
                 GradientPanel gradient = new GradientPanel();
                 
                 try {
                     WeatherAppUI weather = new WeatherAppUI();
-                    //gradient.setVisible(true);
-                    //weather.add(gradient);
                     weather.setSize(900, 600);
                     weather.setLocation(dim.width/2-weather.getSize().width/2, dim.height/2-weather.getSize().height/2);
                     weather.setVisible(true);
@@ -287,6 +269,7 @@ public class WeatherAppUI extends JFrame {
             }
 
         });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

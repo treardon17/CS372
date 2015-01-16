@@ -16,7 +16,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-public class GradientPanel extends JLayeredPane {
+public class GradientPanel extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -39,7 +39,7 @@ public class GradientPanel extends JLayeredPane {
                 JFrame frame = new JFrame();
                 GradientPanel panel = new GradientPanel();
                 frame.add(panel);
-                frame.setSize(200, 200);
+                frame.setSize(900, 600);
                 frame.setLocationRelativeTo(null);
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setVisible(true);
