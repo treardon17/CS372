@@ -15,59 +15,63 @@ import org.xml.sax.Attributes;
  */
 public class WeatherHandler extends DefaultHandler {
 
-    private WeatherInfo _weatherInfo = new WeatherInfo();
+    private WeatherInfo weatherInfo = new WeatherInfo();
 
-    private String _type;
-    private String _maxTemp;
-    private String _minTemp;
-    private String _data;
-    private boolean _maxTempB = false;
-    private boolean _minTempB = false;
-    private boolean _hourTempB = false;
+    private String type;
+    private String maxTemp;
+    private String minTemp;
+    private String data;
+    private boolean maxTempB = false;
+    private boolean minTempB = false;
+    private boolean rtmaTempB = false;
 
     public WeatherInfo getWeatherInfo() {
-        return _weatherInfo;
+        return weatherInfo;
     }
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) {
         if (qName.equals("temperature")) {
 
-            _type = attributes.getValue("type");
+            type = attributes.getValue("type");
 
-            if (_type.equals("maximum")) {
-                _maxTempB = true;
-                _minTempB = _hourTempB = false;
-            } else if (_type.equals("minimum")) {
-                _minTempB = true;
-                _maxTempB = _hourTempB = false;
-            } else if (_type.equals("hourly")) {
-                _hourTempB = true;
-                _maxTempB = _minTempB = false;
+            if (type.equals("maximum")) {
+                maxTempB = true;
+                minTempB = rtmaTempB = false;
+            } else if (type.equals("minimum")) {
+                minTempB = true;
+                maxTempB = rtmaTempB = false;
+            } else if (type.equals("rtma-hourly")) {
+                rtmaTempB = true;
+                maxTempB = minTempB = false;
             }
         }
 
-        _data = "";
+        data = "";
 
     }
 
     @Override
     public void characters(char[] ch, int start, int length) {
-        _data = _data + new String(ch, start, length);
+        data = data + new String(ch, start, length);
     }
 
     @Override
     public void endElement(String uri, String localName, String qName) {
         try {
-            if (qName.equals("value") && _maxTempB && !_data.equals("")) {
-                _weatherInfo.addMaxTemp(Double.parseDouble(_data));
-            } else if (qName.equals("value") && _minTempB && !_data.equals("")) {
-                _weatherInfo.addMinTemp(Double.parseDouble(_data));
-            } else if (qName.equals("value") && _hourTempB && !_data.equals("")) {
-                _weatherInfo.addCurrentTemp(Double.parseDouble(_data));
+            if (qName.equals("value") && maxTempB && !data.equals("")) {
+                weatherInfo.addMaxTemp(Double.parseDouble(data));
+            } else if (qName.equals("value") && minTempB && !data.equals("")) {
+                weatherInfo.addMinTemp(Double.parseDouble(data));
+            } else if (qName.equals("value") && rtmaTempB && !data.equals("")) {
+                weatherInfo.addCurrentTemp(Double.parseDouble(data));
+            }
+
+            if (qName.equals("temperature")) {
+                rtmaTempB = false;
             }
         } catch (Exception e) {
-            System.out.printf("%s\n", e.getMessage());
+            //System.out.printf("%s\n", e.getMessage());
         }
     }
 

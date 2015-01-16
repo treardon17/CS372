@@ -35,7 +35,11 @@ public class WeatherInfo {
     }
     
     public ArrayList<Double> getCurrentTemps(){
-        return currentTemps;
+       return currentTemps;
+    }
+    
+    public double getCurrentTemp(){
+        return currentTemps.get(currentTemps.size()-1);
     }
     
 }

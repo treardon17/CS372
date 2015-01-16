@@ -21,32 +21,25 @@ public class Parser {
     private final WeatherHandler whandler = new WeatherHandler();
     private WeatherInfo _weatherInfo = new WeatherInfo();
     private String _URLString = new String();
-    private final String _content = new String();
-    private static Document _xmlDoc;
 
     public Parser(String zipcode) throws MalformedURLException, IOException, SAXException, ParserConfigurationException {
         try {
-            _URLString = "http://graphical.weather.gov/xml/SOAP_server/ndfdXMLclient.php?whichClient=NDFDgenMultiZipCode&lat=&lon=&listLatLon=&lat1" +
-                    "=&lon1=&lat2=&lon2=&resolutionSub=&listLat1=&listLon1=&listLat2=&listLon2=&resolutionList=&endPoint1Lat=&endPoint1Lon" +
-                    "=&endPoint2Lat=&endPoint2Lon=&listEndPoint1Lat=&listEndPoint1Lon=&listEndPoint2Lat=&listEndPoint2Lon=&zipCodeList=" + zipcode +
-                    "&listZipCodeList=&centerPointLat=&centerPointLon=&distanceLat=&distanceLon=&resolutionSquare=&listCenterPointLat=&list" +
-                    "CenterPointLon=&listDistanceLat=&listDistanceLon=&listResolutionSquare=&citiesLevel=&listCitiesLevel=&sector=&gmlListLat" +
-                    "Lon=&featureType=&requestedTime=&startTime=&endTime=&compType=&propertyName=&product=time-series&begin=2004-01-01T00%3A00" +
-                    "%3A00&end=2019-01-15T00%3A00%3A00&Unit=e&maxt=maxt&mint=mint&temp=temp&snow=snow&sky=sky&wx=wx&appt=appt&precipa_r=precipa" +
-                    "_r&temp_r=temp_r&Submit=Submit";
-            
-            
-            /*
-            "http://graphical.weather.gov/xml/SOAP_server/ndfdXMLclient.php?whichClient=NDFDgenMultiZipCode&lat=&lon"
-                    + "=&listLatLon=&lat1=&lon1=&lat2=&lon2=&resolutionSub=&listLat1=&listLon1=&listLat2=&listLon2=&resolutionList"
-                    + "=&endPoint1Lat=&endPoint1Lon=&endPoint2Lat=&endPoint2Lon=&listEndPoint1Lat=&listEndPoint1Lon=&listEndPoint2"
-                    + "Lat=&listEndPoint2Lon=&zipCodeList=" + zipcode + "&listZipCodeList=&centerPointLat=&centerPointLon=&distance"
-                    + "Lat=&distanceLon=&resolutionSquare=&listCenterPointLat=&listCenterPointLon=&listDistanceLat=&listDistanceLon="
-                    + "&listResolutionSquare=&citiesLevel=&listCitiesLevel=&sector=&gmlListLatLon=&featureType=&requestedTime=&start"
-                    + "Time=&endTime=&compType=&propertyName=&product=time-series&begin=2004-01-01T00%3A00%3A00&end=2019-01-12T00%3A00"
-                    + "%3A00&Unit=e&maxt=maxt&mint=mint&temp=temp&snow=snow&wx=wx&appt=appt&Submit=Submit";
-            */
-            
+            _URLString = "http://graphical.weather.gov/xml/SOAP_server/ndfdXMLclient.php?"+
+                    "whichClient=NDFDgenMultiZipCode&lat=&lon=&listLatLon=&lat1=&lon1=&la"+
+                    "t2=&lon2=&resolutionSub=&listLat1=&listLon1=&listLat2=&listLon2=&res"+
+                    "olutionList=&endPoint1Lat=&endPoint1Lon=&endPoint2Lat=&endPoint2Lon="+
+                    "&listEndPoint1Lat=&listEndPoint1Lon=&listEndPoint2Lat=&listEndPoint2L"+
+                    "on=&zipCodeList="+zipcode+"&listZipCodeList=&centerPointLat=&centerPointLon"+
+                    "=&distanceLat=&distanceLon=&resolutionSquare=&listCenterPointLat=&list"+
+                    "CenterPointLon=&listDistanceLat=&listDistanceLon=&listResolutionSquare="+
+                    "&citiesLevel=&listCitiesLevel=&sector=&gmlListLatLon=&featureType=&reque"+
+                    "stedTime=&startTime=&endTime=&compType=&propertyName=&product=time-series"+
+                    "&begin=2004-01-01T00%3A00%3A00&end=2019-01-16T00%3A00%3A00&Unit=e&maxt=ma"+
+                    "xt&mint=mint&snow=snow&wspd=wspd&sky=sky&wx=wx&appt=appt&phail=phail&ptstmw"+
+                    "inds=ptstmwinds&pxhail=pxhail&pxtstmwinds=pxtstmwinds&ptotsvrtstm=ptotsvrts"+
+                    "tm&pxtotsvrtstm=pxtotsvrtstm&precipa_r=precipa_r&td_r=td_r&temp_r=temp_r&wdir"+
+                    "_r=wdir_r&wspd_r=wspd_r&wwa=wwa&maxrh=maxrh&Submit=Submit";
+
             
             URL weatherURL = new URL(_URLString);
 

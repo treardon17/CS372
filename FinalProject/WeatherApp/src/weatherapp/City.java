@@ -7,6 +7,7 @@ package weatherapp;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
@@ -34,8 +35,7 @@ public class City {
         _zipCode = zipCode;
         _state = state;
         _cityName = cityName;
-        parse = new Parser(zipCode);
-        _weatherInfo = parse.getWeatherInfo();
+        
     }
     
     /**
@@ -94,8 +94,25 @@ public class City {
         _cityName = cityName;
     }
     
+    /**
+     * Sets the weather info
+     * @param weatherInfo 
+     */
     public void setWeatherInfo(WeatherInfo weatherInfo){
         _weatherInfo = weatherInfo;
+    }
+    
+    /**
+     * Finds the 
+     * @param zipCode 
+     * @throws java.io.IOException 
+     * @throws java.net.MalformedURLException 
+     * @throws org.xml.sax.SAXException 
+     * @throws javax.xml.parsers.ParserConfigurationException 
+     */
+    public void parseForWeather() throws IOException, MalformedURLException, SAXException, ParserConfigurationException{
+        Parser parse = new Parser(_zipCode);        
+        _weatherInfo = parse.getWeatherInfo();
     }
     
     //Sorts cities alphabetically
