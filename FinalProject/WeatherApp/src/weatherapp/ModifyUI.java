@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package weatherapp;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -159,7 +161,11 @@ public class ModifyUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ModifyUI(_index).setVisible(true);
+                
+                Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+                ModifyUI modify = new ModifyUI(_index);
+                modify.setLocation(dim.width/2-modify.getSize().width/2, dim.height/2-modify.getSize().height/2);
+                modify.setVisible(true);
             }
         });
     }

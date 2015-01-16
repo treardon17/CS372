@@ -58,6 +58,7 @@ public class AddEvent extends javax.swing.JFrame {
         submitButton = new javax.swing.JButton();
         month = new javax.swing.JComboBox();
         date = new javax.swing.JComboBox();
+        messageCenter = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -68,11 +69,27 @@ public class AddEvent extends javax.swing.JFrame {
 
         locationDescr.setText("Location:");
 
+        year.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                yearFocusLost(evt);
+            }
+        });
+        year.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                yearActionPerformed(evt);
+            }
+        });
+        year.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                yearPropertyChange(evt);
+            }
+        });
+
         monthDescr.setText("Month:");
 
         dateDescr.setText("Date:");
 
-        yearDescr.setText("Year");
+        yearDescr.setText("Year:");
 
         submitButton.setText("Submit");
         submitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -95,34 +112,41 @@ public class AddEvent extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(calendarDescr))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nameDescr)
-                            .addComponent(locationDescr)
-                            .addComponent(monthDescr)
-                            .addComponent(dateDescr)
-                            .addComponent(yearDescr))
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(submitButton)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(nameDescr)
+                                .addComponent(locationDescr)
+                                .addComponent(yearDescr))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(year, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
                                 .addComponent(name)
-                                .addComponent(location)
-                                .addComponent(date, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(month, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(58, Short.MAX_VALUE))
+                                .addComponent(location, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                                .addComponent(year)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(monthDescr)
+                                .addComponent(dateDescr))
+                            .addGap(20, 20, 20)
+                            .addComponent(month, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(submitButton)
+                            .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(calendarDescr)
+                        .addGap(18, 18, 18)
+                        .addComponent(messageCenter, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(calendarDescr)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(calendarDescr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(messageCenter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -131,6 +155,10 @@ public class AddEvent extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(locationDescr)
                     .addComponent(location, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(yearDescr)
+                    .addComponent(year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(monthDescr)
@@ -139,13 +167,9 @@ public class AddEvent extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dateDescr)
                     .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(yearDescr))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(submitButton)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -210,7 +234,7 @@ public class AddEvent extends javax.swing.JFrame {
                 date.addItem(i+1);
             }
         } else if ("February".equals(selection)) {
-            for (int i = 0; i < 29; i++) {
+            for (int i = 0; i < 28; i++) {
                 date.addItem(i+1);
             }
         } else if ("March".equals(selection)) {
@@ -254,8 +278,47 @@ public class AddEvent extends javax.swing.JFrame {
                 date.addItem(i+1);
             }
         }
+        
+        try{
+        //accounts for leap year
+        if (Integer.parseInt(year.getText()) % 4 == 0 && "February".equals(selection)){
+            date.removeAll();
+            for (int i = 0; i < 29; i++) {
+                date.addItem(i+1);
+            }
+        }
+        } catch (Exception e){
+            messageCenter.setText("Must Enter Year!");
+        }
 
     }//GEN-LAST:event_monthActionPerformed
+
+    private void yearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yearActionPerformed
+
+    }//GEN-LAST:event_yearActionPerformed
+
+    /**
+     * Checks if year was changed and updates for a leap year
+     * @param evt 
+     */
+    private void yearFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_yearFocusLost
+        try{
+        //accounts for leap year
+        if (Integer.parseInt(year.getText()) % 4 == 0 
+                && "February".equals((String) month.getSelectedItem())){
+            date.removeAll();
+            for (int i = 0; i < 29; i++) {
+                date.addItem(i+1);
+            }
+        }
+        } catch (Exception e){
+            messageCenter.setText("Must Enter Year!");
+        }
+    }//GEN-LAST:event_yearFocusLost
+
+    private void yearPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_yearPropertyChange
+    
+    }//GEN-LAST:event_yearPropertyChange
 
     /**
      * @param args the command line arguments
@@ -301,6 +364,7 @@ public class AddEvent extends javax.swing.JFrame {
     private javax.swing.JLabel dateDescr;
     private javax.swing.JTextField location;
     private javax.swing.JLabel locationDescr;
+    private javax.swing.JLabel messageCenter;
     private javax.swing.JComboBox month;
     private javax.swing.JLabel monthDescr;
     private javax.swing.JTextField name;

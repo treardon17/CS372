@@ -29,6 +29,7 @@ public class FileIO {
     public ArrayList makeCities() {
         ArrayList<City> cities = new ArrayList();
         File cityFile = new File("resources/Cities.txt");
+        
         String line;
         String[] info;
         FileInputStream fis;
@@ -70,6 +71,7 @@ public class FileIO {
             e.printStackTrace();
         }
         Collections.sort(cities, City.CityComparator); //sort city alphabetically
+        
         return cities;
     }
 

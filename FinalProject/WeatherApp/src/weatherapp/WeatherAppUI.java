@@ -5,6 +5,9 @@
  */
 package weatherapp;
 
+
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -14,6 +17,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 import weatherInfo.Parser;
@@ -24,34 +28,40 @@ import weatherInfo.WeatherInfo;
  *
  * @author tylerreardon
  */
-public class WeatherAppUI extends javax.swing.JFrame {
-    
+public class WeatherAppUI extends JFrame {
+
     private static City preferredCity;
-    private static FileIO file = new FileIO();
+    private static final FileIO file = new FileIO();
     private static WeatherInfo _weatherInfo = new WeatherInfo();
-    private ChooseCityUI chooseCity = new ChooseCityUI(this);
+    private final ChooseCityUI chooseCity;
 
     /**
      * Creates new form WeatherAppUI
+     * @throws java.io.IOException
+     * @throws java.net.MalformedURLException
+     * @throws org.xml.sax.SAXException
      */
     public WeatherAppUI() throws IOException, MalformedURLException, SAXException, ParserConfigurationException {
+        this.chooseCity = new ChooseCityUI(this);
         initComponents();
         updateWeatherUI();
     }
 
     public void updateWeatherUI() throws IOException, MalformedURLException, SAXException, ParserConfigurationException {
-        
+
         preferredCity = file.getPreferredCity();
         cityLabel.setText(preferredCity.getCityName());
         Parser parse = new Parser(preferredCity.getZipCode());
         _weatherInfo = parse.getWeatherInfo();
-        try{
-        File weatherFile = new File("resources/images/rain/rainy_jellyfish.jpeg");
-        BufferedImage image = ImageIO.read(weatherFile);
-        weatherImage.setIcon((Icon) new ImageIcon(image));
-        }catch (Exception e){
+
+        try {
+            File weatherFile = new File("resources/images/rain/rainy_jellyfish.jpeg");
+            BufferedImage image = ImageIO.read(weatherFile);
+            weatherImage.setIcon((Icon) new ImageIcon(image));
+        } catch (Exception e) {
             System.out.println("Can't find file!");
         }
+
     }
 
     /**
@@ -109,14 +119,15 @@ public class WeatherAppUI extends javax.swing.JFrame {
             baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(baseLayerLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(cityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(baseLayerLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(490, 490, 490)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(140, 140, 140)
+                .addGap(530, 530, 530)
+                .addComponent(weatherImage, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(baseLayerLayout.createSequentialGroup()
+                .addGap(740, 740, 740)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(baseLayerLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(currentTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(baseLayerLayout.createSequentialGroup()
                 .addGap(180, 180, 180)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -124,20 +135,26 @@ public class WeatherAppUI extends javax.swing.JFrame {
                 .addGap(360, 360, 360)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(baseLayerLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(currentTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(weatherImage, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(550, 550, 550)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(baseLayerLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(cityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         baseLayerLayout.setVerticalGroup(
             baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(baseLayerLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(cityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(320, 320, 320)
-                .addGroup(baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)))
+                .addGap(360, 360, 360)
+                .addComponent(jLabel1))
+            .addGroup(baseLayerLayout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(weatherImage, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(baseLayerLayout.createSequentialGroup()
+                .addGap(360, 360, 360)
+                .addComponent(jLabel5))
+            .addGroup(baseLayerLayout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(currentTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(baseLayerLayout.createSequentialGroup()
                 .addGap(360, 360, 360)
                 .addComponent(jLabel2))
@@ -145,9 +162,11 @@ public class WeatherAppUI extends javax.swing.JFrame {
                 .addGap(360, 360, 360)
                 .addComponent(jLabel3))
             .addGroup(baseLayerLayout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(currentTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(weatherImage, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(360, 360, 360)
+                .addComponent(jLabel4))
+            .addGroup(baseLayerLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(cityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         baseLayer.setLayer(cityLabel, javax.swing.JLayeredPane.PALETTE_LAYER);
         baseLayer.setLayer(currentTemp, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -198,6 +217,22 @@ public class WeatherAppUI extends javax.swing.JFrame {
         chooseCity.runChooseCity();
     }//GEN-LAST:event_PreferencesActionPerformed
 
+    /*
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        int w = getWidth();
+        int h = getHeight();
+        Color color1 = Color.GRAY;
+        Color color2 = Color.WHITE;
+        GradientPaint gp = new GradientPaint(0, 0, color1, 0, h, color2);
+        g2d.setPaint(gp);
+        g2d.fillRect(0, 0, w, h);
+    }
+    */
+    
     /**
      * Runs the application, beginning with the WeatherAppUI
      *
@@ -230,8 +265,17 @@ public class WeatherAppUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+ 
+                Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+                GradientPanel gradient = new GradientPanel();
+                
                 try {
-                    new WeatherAppUI().setVisible(true);
+                    WeatherAppUI weather = new WeatherAppUI();
+                    //gradient.setVisible(true);
+                    //weather.add(gradient);
+                    weather.setSize(900, 600);
+                    weather.setLocation(dim.width/2-weather.getSize().width/2, dim.height/2-weather.getSize().height/2);
+                    weather.setVisible(true);
                 } catch (IOException ex) {
                     Logger.getLogger(WeatherAppUI.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SAXException ex) {
@@ -239,7 +283,9 @@ public class WeatherAppUI extends javax.swing.JFrame {
                 } catch (ParserConfigurationException ex) {
                     Logger.getLogger(WeatherAppUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
+
             }
+
         });
     }
 

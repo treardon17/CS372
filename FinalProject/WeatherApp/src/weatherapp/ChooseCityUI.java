@@ -5,6 +5,8 @@
  */
 package weatherapp;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -272,7 +274,11 @@ public class ChooseCityUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new ChooseCityUI(_weatherAppUI).setVisible(true);
+                
+                Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+                ChooseCityUI choose = new ChooseCityUI(_weatherAppUI);
+                choose.setLocation(dim.width/2-choose.getSize().width/2, dim.height/2-choose.getSize().height/2);
+                choose.setVisible(true);
             }
         });
     }
