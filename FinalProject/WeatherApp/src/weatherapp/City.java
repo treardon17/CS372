@@ -5,13 +5,21 @@
  */
 package weatherapp;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.Comparator;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
+import weatherInfo.Parser;
+import weatherInfo.WeatherInfo;
 
 /**
  * Contains all the information required for a city
  * @author tylerreardon
  */
 public class City {
+    private static WeatherInfo _weatherInfo = new WeatherInfo();
+    private Parser parse;
     private String _zipCode;
     private String _state;
     private String _cityName;
@@ -22,10 +30,12 @@ public class City {
      * @param state
      * @param cityName 
      */
-    public City(String zipCode, String state, String cityName){
+    public City(String zipCode, String state, String cityName) throws IOException, MalformedURLException, SAXException, ParserConfigurationException{
         _zipCode = zipCode;
         _state = state;
         _cityName = cityName;
+        parse = new Parser(zipCode);
+        _weatherInfo = parse.getWeatherInfo();
     }
     
     /**
@@ -53,6 +63,14 @@ public class City {
     }
     
     /**
+     * Represents the weather information associated with this city
+     * @return
+     */
+    public WeatherInfo getWeatherInfo(){
+        return _weatherInfo;
+    }
+    
+    /**
      * Sets the zipcode
      * @param zipCode 
      */
@@ -74,6 +92,10 @@ public class City {
      */
     public void setCityName(String cityName){
         _cityName = cityName;
+    }
+    
+    public void setWeatherInfo(WeatherInfo weatherInfo){
+        _weatherInfo = weatherInfo;
     }
     
     //Sorts cities alphabetically

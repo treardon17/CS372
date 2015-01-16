@@ -31,7 +31,7 @@ public class WeatherAppUI extends JFrame {
 
     private static City preferredCity;
     private static final FileIO file = new FileIO();
-    private static WeatherInfo _weatherInfo = new WeatherInfo();
+    //private static WeatherInfo _weatherInfo = new WeatherInfo();
     private final ChooseCityUI chooseCity;
 
     /**
@@ -50,8 +50,6 @@ public class WeatherAppUI extends JFrame {
 
         preferredCity = file.getPreferredCity();
         cityLabel.setText(preferredCity.getCityName());
-        Parser parse = new Parser(preferredCity.getZipCode());
-        _weatherInfo = parse.getWeatherInfo();
 
         try {
             File weatherFile = new File("resources/images/rain/rainy_jellyfish.jpeg");

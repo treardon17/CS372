@@ -8,11 +8,15 @@ package weatherapp;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
 
 /**
  * Gives the user the option to add locations to their list
@@ -28,11 +32,15 @@ public class AddCityUI extends javax.swing.JFrame {
     
     /**
      * Creates new form AddCityUI
+     * @throws java.net.MalformedURLException
+     * @throws org.xml.sax.SAXException
+     * @throws javax.xml.parsers.ParserConfigurationException
      */
-    public AddCityUI() {
+    public AddCityUI() throws MalformedURLException, SAXException, ParserConfigurationException {
         initComponents();
         zipcode.setText("");
         cityName.setText("");
+
         cities = file.makeCities();
     }
 
@@ -181,6 +189,12 @@ public class AddCityUI extends javax.swing.JFrame {
                 Logger.getLogger(AddCityUI.class.getName()).log(Level.SEVERE, null, ex);
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(AddCityUI.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(AddCityUI.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SAXException ex) {
+                Logger.getLogger(AddCityUI.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParserConfigurationException ex) {
+                Logger.getLogger(AddCityUI.class.getName()).log(Level.SEVERE, null, ex);
             }
             //close window and update list of cities
             this.dispose();
@@ -197,10 +211,18 @@ public class AddCityUI extends javax.swing.JFrame {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-                AddCityUI addCity = new AddCityUI();
-                addCity.setLocation(dim.width/2-addCity.getSize().width/2, dim.height/2-addCity.getSize().height/2);
-                addCity.setVisible(true);
+                try {
+                    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+                    AddCityUI addCity = new AddCityUI();
+                    addCity.setLocation(dim.width/2-addCity.getSize().width/2, dim.height/2-addCity.getSize().height/2);
+                    addCity.setVisible(true);
+                } catch (MalformedURLException ex) {
+                    Logger.getLogger(AddCityUI.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SAXException ex) {
+                    Logger.getLogger(AddCityUI.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ParserConfigurationException ex) {
+                    Logger.getLogger(AddCityUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

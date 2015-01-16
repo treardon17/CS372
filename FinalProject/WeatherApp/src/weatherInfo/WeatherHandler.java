@@ -21,9 +21,9 @@ public class WeatherHandler extends DefaultHandler {
     private String _maxTemp;
     private String _minTemp;
     private String _data;
-    boolean _maxTempB = false;
-    boolean _minTempB = false;
-    boolean _hourTempB = false;
+    private boolean _maxTempB = false;
+    private boolean _minTempB = false;
+    private boolean _hourTempB = false;
 
     public WeatherInfo getWeatherInfo() {
         return _weatherInfo;

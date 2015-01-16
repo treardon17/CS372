@@ -14,7 +14,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.util.Collections;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
 
 /**
  * Allows user to input and output information to relevant files
@@ -26,7 +29,7 @@ public class FileIO {
      * Reads cities from file and creates City objects
      * @return an ArrayList of City objects
      */
-    public ArrayList makeCities() {
+    public ArrayList makeCities() throws MalformedURLException, SAXException, ParserConfigurationException {
         ArrayList<City> cities = new ArrayList();
         File cityFile = new File("resources/Cities.txt");
         
@@ -83,7 +86,7 @@ public class FileIO {
      * @throws FileNotFoundException
      * @throws UnsupportedEncodingException 
      */
-    public void addCity(String zipcode, String state, String cityName) throws FileNotFoundException, UnsupportedEncodingException {
+    public void addCity(String zipcode, String state, String cityName) throws FileNotFoundException, UnsupportedEncodingException, IOException, MalformedURLException, SAXException, ParserConfigurationException {
         ArrayList<City> cities = new ArrayList();
         cities = makeCities(); //make cities array
         zipcode = zipcode.replaceAll("\\s+", ""); //remove all excess spaces from zipcode
@@ -140,8 +143,12 @@ public class FileIO {
     /**
      * Gets the preferred city from the file
      * @return preferred city
+     * @throws java.io.IOException
+     * @throws java.net.MalformedURLException
+     * @throws org.xml.sax.SAXException
+     * @throws javax.xml.parsers.ParserConfigurationException
      */
-    public City getPreferredCity() {
+    public City getPreferredCity() throws IOException, MalformedURLException, SAXException, ParserConfigurationException {
         File cityFile = new File("resources/Preferences.txt");
         String line;
         String[] info;

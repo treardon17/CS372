@@ -8,9 +8,12 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
 
 /**
  * Allows user to modify an item in the list of cities
@@ -22,8 +25,12 @@ public class ModifyUI extends javax.swing.JFrame {
     private ArrayList<City> cities = new ArrayList();
     /**
      * Creates new form ModifyUI
+     * @param index
+     * @throws java.net.MalformedURLException
+     * @throws org.xml.sax.SAXException
+     * @throws javax.xml.parsers.ParserConfigurationException
      */
-    public ModifyUI(int index) {
+    public ModifyUI(int index) throws MalformedURLException, SAXException, ParserConfigurationException {
         initComponents();
         _index = index;
         cities = file.makeCities();
@@ -120,9 +127,7 @@ public class ModifyUI extends javax.swing.JFrame {
 
             try {
                 file.modifyOrRemoveCity(cities); //modify city
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(AddCityUI.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (UnsupportedEncodingException ex) {
+            } catch (FileNotFoundException | UnsupportedEncodingException ex) {
                 Logger.getLogger(AddCityUI.class.getName()).log(Level.SEVERE, null, ex);
             }
             this.dispose();
@@ -159,13 +164,14 @@ public class ModifyUI extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
                 Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
                 ModifyUI modify = new ModifyUI(_index);
                 modify.setLocation(dim.width/2-modify.getSize().width/2, dim.height/2-modify.getSize().height/2);
                 modify.setVisible(true);
+            } catch (MalformedURLException | SAXException | ParserConfigurationException ex) {
+                Logger.getLogger(ModifyUI.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
