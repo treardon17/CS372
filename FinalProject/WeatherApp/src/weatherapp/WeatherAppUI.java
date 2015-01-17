@@ -75,8 +75,8 @@ public class WeatherAppUI extends JFrame {
     private void initComponents() {
 
         baseLayer = new javax.swing.JLayeredPane();
-        cityLabel = new javax.swing.JLabel();
         currentTemp = new javax.swing.JLabel();
+        cityLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -94,11 +94,11 @@ public class WeatherAppUI extends JFrame {
 
         baseLayer.setPreferredSize(new java.awt.Dimension(900, 500));
 
-        cityLabel.setFont(new java.awt.Font("Heiti TC", 1, 24)); // NOI18N
-        cityLabel.setText("City:");
-
         currentTemp.setFont(new java.awt.Font("Helvetica Neue", 0, 48)); // NOI18N
         currentTemp.setText("?");
+
+        cityLabel.setFont(new java.awt.Font("Heiti TC", 1, 24)); // NOI18N
+        cityLabel.setText("City:");
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
         jLabel1.setText("Mon:");
@@ -179,8 +179,8 @@ public class WeatherAppUI extends JFrame {
                         .addComponent(jLabel3)))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
-        baseLayer.setLayer(cityLabel, javax.swing.JLayeredPane.PALETTE_LAYER);
         baseLayer.setLayer(currentTemp, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        baseLayer.setLayer(cityLabel, javax.swing.JLayeredPane.PALETTE_LAYER);
         baseLayer.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         baseLayer.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         baseLayer.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -278,10 +278,9 @@ public class WeatherAppUI extends JFrame {
                     weatherImage.setIcon(icon);
                     
                     weatherImage.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
-                    weatherAppUI.baseLayer.add(weatherImage, new Integer(2), 0);
-
+                    weatherAppUI.baseLayer.add(weatherImage, -1, 6);
                     
-                    weatherAppUI.setSize(900, 600);
+                    weatherAppUI.setSize(900, 645);
                     Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
                     weatherAppUI.setLocation(dim.width / 2 - weatherAppUI.getSize().width / 2,
                             dim.height / 2 - weatherAppUI.getSize().height / 2);
