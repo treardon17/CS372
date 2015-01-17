@@ -267,11 +267,9 @@ public class WeatherAppUI extends JFrame {
                 try {
                     weatherAppUI = new WeatherAppUI();
 
-                    Gradient gradient = new Gradient();
-                    //weatherAppUI.setContentPane(gradient);
-                    //weatherAppUI.add(weatherImage);
+                    
 
-                    File weatherFile = new File("resources/images/clouds/cloudy_boats.jpeg");
+                    File weatherFile = new File("resources/images/sun/sun_desert.jpeg");
                     BufferedImage image = null;
                     image = ImageIO.read(weatherFile);
                     ImageIcon icon = new ImageIcon(image);
@@ -279,6 +277,11 @@ public class WeatherAppUI extends JFrame {
                     
                     weatherImage.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
                     weatherAppUI.baseLayer.add(weatherImage, -1, 6);
+                    
+                    //Gradient gradient = new Gradient();
+                    //weatherAppUI.baseLayer.add(gradient, -2, 6);
+                    //weatherAppUI.setContentPane(gradient);
+                    
                     
                     weatherAppUI.setSize(900, 645);
                     Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();

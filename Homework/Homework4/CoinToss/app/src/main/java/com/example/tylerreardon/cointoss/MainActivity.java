@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Random;
@@ -50,15 +51,18 @@ public class MainActivity extends ActionBarActivity {
      */
     public void flipCoin(View v){
         TextView view = (TextView) findViewById(R.id.tossOutcome); //finds the label
+        ImageView image = (ImageView) findViewById(R.id.coinImage); //finds the ImageView
+
 
         //initializes the toss value with a number between 1 and 2
         int toss = rand.nextInt()%2+1;
 
-
         //if the value is 1, then it's heads otherwise it's tails
         if (toss == 1){
+          image.setImageResource(R.drawable.heads); //sets the image to heads
           view.setText("Heads!");
         }else{
+          image.setImageResource(R.drawable.tails); //sets the image to tails
           view.setText("Tails!");
         }
 

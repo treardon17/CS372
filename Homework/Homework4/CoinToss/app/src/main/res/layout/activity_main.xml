@@ -31,7 +31,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/coinImage"
-        android:layout_alignLeft="@+id/flipButton"
-        android:layout_alignStart="@+id/flipButton" />
+        android:layout_above="@+id/flipButton"
+        android:layout_marginBottom="134dp"
+        android:contentDescription="Image of coin"
+        android:layout_toEndOf="@+id/flipButton"
+        android:layout_toRightOf="@+id/flipButton" />
 
 </RelativeLayout>
