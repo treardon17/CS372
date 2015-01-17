@@ -6,17 +6,19 @@
 package weatherapp;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-
+import java.awt.Toolkit;
 import javax.swing.JFrame;
-import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-public class GradientPanel extends JPanel {
+
+public class Gradient extends JPanel {
+    
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -36,8 +38,10 @@ public class GradientPanel extends JPanel {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
+                Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
                 JFrame frame = new JFrame();
-                GradientPanel panel = new GradientPanel();
+                frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+                Gradient panel = new Gradient();
                 frame.add(panel);
                 frame.setSize(900, 600);
                 frame.setLocationRelativeTo(null);
@@ -47,3 +51,6 @@ public class GradientPanel extends JPanel {
         });
     }
 }
+    
+
+

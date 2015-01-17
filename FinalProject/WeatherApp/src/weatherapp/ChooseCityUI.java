@@ -26,7 +26,7 @@ import org.xml.sax.SAXException;
 public class ChooseCityUI extends javax.swing.JFrame {
 
     private ArrayList<City> cities = new ArrayList();
-    private static WeatherAppUI _weatherAppUI;
+    private static WeatherAppUI _weatherApp;
     private FileIO file = new FileIO();
 
     /**
@@ -37,12 +37,12 @@ public class ChooseCityUI extends javax.swing.JFrame {
      * @throws org.xml.sax.SAXException
      * @throws javax.xml.parsers.ParserConfigurationException
      */
-    public ChooseCityUI(WeatherAppUI weatherAppUI) throws MalformedURLException, SAXException, ParserConfigurationException {
+    public ChooseCityUI(WeatherAppUI weatherApp) throws MalformedURLException, SAXException, ParserConfigurationException {
         initComponents();
         //update the array of cities
         cities = file.makeCities();
         updateList();
-        _weatherAppUI = weatherAppUI;
+        _weatherApp = weatherApp;
     }
 
     private void updateList() {
@@ -192,7 +192,7 @@ public class ChooseCityUI extends javax.swing.JFrame {
 
                 updateList();
                 file.modifyOrRemoveCity(cities);
-                _weatherAppUI.updateWeatherUI();
+                _weatherApp.updateWeatherUI();
 
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(ChooseCityUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -228,7 +228,7 @@ public class ChooseCityUI extends javax.swing.JFrame {
         }
         this.dispose();
         try {
-            _weatherAppUI.updateWeatherUI();
+            _weatherApp.updateWeatherUI();
         } catch (IOException | SAXException | ParserConfigurationException ex) {
             Logger.getLogger(ChooseCityUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -261,7 +261,7 @@ public class ChooseCityUI extends javax.swing.JFrame {
             cities = file.makeCities();
             preferredCityIndex = CitiesList.getAnchorSelectionIndex();
             file.setPreferredCity(cities.get(preferredCityIndex));
-            _weatherAppUI.updateWeatherUI();
+            _weatherApp.updateWeatherUI();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ChooseCityUI.class.getName()).log(Level.SEVERE, null, ex);
         } catch (MalformedURLException ex) {
@@ -284,7 +284,7 @@ public class ChooseCityUI extends javax.swing.JFrame {
 
                 try {
                     Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-                    ChooseCityUI choose = new ChooseCityUI(_weatherAppUI);
+                    ChooseCityUI choose = new ChooseCityUI(_weatherApp);
                     choose.setLocation(dim.width / 2 - choose.getSize().width / 2, dim.height / 2 - choose.getSize().height / 2);
                     choose.setVisible(true);
                 } catch (MalformedURLException | SAXException | ParserConfigurationException ex) {
