@@ -66,9 +66,6 @@ public class City {
      * Represents the weather information associated with this city
      * @return
      */
-    public WeatherInfo getWeatherInfo(){
-        return _weatherInfo;
-    }
     
     /**
      * Sets the zipcode
@@ -110,9 +107,10 @@ public class City {
      * @throws org.xml.sax.SAXException 
      * @throws javax.xml.parsers.ParserConfigurationException 
      */
-    public void parseForWeather() throws IOException, MalformedURLException, SAXException, ParserConfigurationException{
+    public WeatherInfo parseForWeather() throws IOException, MalformedURLException, SAXException, ParserConfigurationException{
         Parser parse = new Parser(_zipCode);        
         _weatherInfo = parse.getWeatherInfo();
+        return _weatherInfo;
     }
     
     //Sorts cities alphabetically

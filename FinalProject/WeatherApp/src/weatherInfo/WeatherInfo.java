@@ -13,6 +13,7 @@ public class WeatherInfo {
     private ArrayList<Double> maxTemps = new ArrayList();
     private ArrayList<Double> minTemps = new ArrayList();
     private ArrayList<Double> currentTemps = new ArrayList();
+    private ArrayList<WeatherCondition> weatherConditions = new ArrayList();
     
     public void addMaxTemp(double maxTemp){
         maxTemps.add(maxTemp);
@@ -24,6 +25,10 @@ public class WeatherInfo {
     
     public void addCurrentTemp(double currentTemp){
         currentTemps.add(currentTemp);
+    }
+    
+    public void addWeatherCondition(WeatherCondition weatherCondition){
+        weatherConditions.add(weatherCondition);
     }
     
     public ArrayList<Double> getMaxTemps(){
@@ -40,6 +45,10 @@ public class WeatherInfo {
     
     public double getCurrentTemp(){
         return currentTemps.get(currentTemps.size()-1);
+    }
+    
+    public ArrayList<WeatherCondition> getWeatherConditions(){
+        return weatherConditions;
     }
     
 }

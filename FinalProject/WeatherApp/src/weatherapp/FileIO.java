@@ -5,6 +5,7 @@
  */
 package weatherapp;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
@@ -16,8 +17,14 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
+import weatherInfo.WeatherCondition;
 
 /**
  * Allows user to input and output information to relevant files
@@ -192,5 +199,39 @@ public class FileIO {
             c1 = new City("99251", "Washington", "Spokane");
         }
         return c1;
+    }
+    
+    public ImageIcon getBackgroundImage(WeatherCondition weatherCondition){
+        String fileName = "resources/images/";
+        ImageIcon icon = null;
+            
+        if (weatherCondition == null){
+            fileName = fileName+"clouds/cloudy_planes.jpeg";
+        }else if (weatherCondition.getWeatherType().equals("rain")){
+            fileName = fileName+"rain/rain_field.jpeg";
+        }else if (weatherCondition.getWeatherType().equals("snow")){
+            fileName = fileName+"snow/snowy_lift.jpeg";
+        }else if (weatherCondition.getWeatherType().equals("fog")){
+            fileName = fileName+"fog/foggy_city.jpeg";
+        }else if (weatherCondition.getWeatherType().equals("clouds")){
+            fileName = fileName+"clouds/cloudy_boats.jpeg";
+        }else if (weatherCondition.getWeatherType().equals("sun")){
+            fileName = fileName+"sun/sun_boardwalk.jpeg";
+        }else{
+            fileName = fileName+"clouds/cloudy_planes.jpeg";
+        }
+
+        File weatherFile = new File(fileName);
+        try {
+            BufferedImage image = null;
+            image = ImageIO.read(weatherFile);
+            icon = new ImageIcon(image);
+            //weatherImage.setIcon(icon);
+            //weatherImage.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
+        } catch (IOException ex) {
+            Logger.getLogger(FileIO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return icon;
+        //return weatherImage;
     }
 }
