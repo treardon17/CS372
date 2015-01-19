@@ -207,7 +207,7 @@ public class FileIO {
             
         if (weatherCondition == null){
             fileName = fileName+"clouds/cloudy_planes.jpeg";
-        }else if (weatherCondition.getWeatherType().equals("rain")){
+        }else if (weatherCondition.getWeatherType().equals("rain") || weatherCondition.getWeatherType().equals("rain showers")){
             fileName = fileName+"rain/rain_field.jpeg";
         }else if (weatherCondition.getWeatherType().equals("snow")){
             fileName = fileName+"snow/snowy_lift.jpeg";

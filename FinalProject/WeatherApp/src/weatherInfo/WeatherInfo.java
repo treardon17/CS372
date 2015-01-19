@@ -14,6 +14,7 @@ public class WeatherInfo {
     private ArrayList<Double> minTemps = new ArrayList();
     private ArrayList<Double> currentTemps = new ArrayList();
     private ArrayList<WeatherCondition> weatherConditions = new ArrayList();
+    private Map<String,ArrayList<String>> timeLayout = new HashMap<>();
     
     public void addMaxTemp(double maxTemp){
         maxTemps.add(maxTemp);
@@ -31,6 +32,11 @@ public class WeatherInfo {
         weatherConditions.add(weatherCondition);
     }
     
+    /*
+    public void setTimeLayout(Map<String, ArrayList<String>> timeLayout){
+        this.timeLayout = timeLayout;
+    }
+    */
     public ArrayList<Double> getMaxTemps(){
         return maxTemps;
     }
@@ -51,4 +57,9 @@ public class WeatherInfo {
         return weatherConditions;
     }
     
+    /*
+    public Map<String, ArrayList<String>> getTimeLayout(){
+        return timeLayout;
+    }
+    */
 }

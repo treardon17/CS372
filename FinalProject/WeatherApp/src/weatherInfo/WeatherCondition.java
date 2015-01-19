@@ -37,7 +37,9 @@ public class WeatherCondition {
     public String toString() {
         if (coverage.equals("patchy") && !intensity.equals("none")) {
             return "There is " + coverage + " " + weatherType;
-        } else if (coverage.equals("slight chance") && !intensity.equals("none")) {
+        }else if(coverage.equals("patchy")){
+            return "There's going to be a little "+weatherType+" today";
+        }else if (coverage.equals("slight chance") && !intensity.equals("none")) {
             return "There's a " + coverage + " of " + intensity + " " + weatherType;
         } else if (coverage.equals("definitely") && !intensity.equals("none")) {
             return "There's " + coverage + " going to be " + intensity + " " + weatherType;
@@ -45,6 +47,8 @@ public class WeatherCondition {
             return coverage + " of " + intensity + " " + weatherType;
         } else if(coverage.equals("likely") && !intensity.equals("none")){
             return "It is likely that there will be "+weatherType;
+        }else if (coverage.equals("chance") && !intensity.equals("none")){
+            return "There is a chance of "+intensity+" "+weatherType;
         }else{
             return "Weather Type: " + weatherType + ",\n" + "Coverage: " + coverage + ",\n" + "Intensity: " + intensity;
         }

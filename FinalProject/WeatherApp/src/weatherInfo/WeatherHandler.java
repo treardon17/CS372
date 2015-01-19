@@ -5,7 +5,9 @@
  */
 package weatherInfo;
 
-import org.xml.sax.SAXException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.Attributes;
 
@@ -16,7 +18,9 @@ import org.xml.sax.Attributes;
 public class WeatherHandler extends DefaultHandler {
 
     private final WeatherInfo weatherInfo = new WeatherInfo();
+    private Map<String,ArrayList<String>> timeLayout = new HashMap<>();
 
+    private String layoutKey;
     private String type;
     private String maxTemp;
     private String minTemp;
@@ -35,6 +39,7 @@ public class WeatherHandler extends DefaultHandler {
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) {
+        
         type = attributes.getValue("type");
         if (qName.equals("temperature")) { 
             if (type.equals("maximum")) {
@@ -60,7 +65,6 @@ public class WeatherHandler extends DefaultHandler {
         }
 
         data = "";
-
     }
 
     @Override
@@ -71,6 +75,15 @@ public class WeatherHandler extends DefaultHandler {
     @Override
     public void endElement(String uri, String localName, String qName) {
         try {
+            if (qName.equals("layout-key")){
+                ArrayList<String> newArray = new ArrayList<>();
+                timeLayout.put(data, newArray);
+                layoutKey = data;
+            }else if(qName.equals("start-valid-time")){
+                timeLayout.get(layoutKey).add(data);
+                // NEED TO FINISH!!!!!
+            }
+
             if (qName.equals("value") && maxTempB && !data.trim().equals("")) {
                 weatherInfo.addMaxTemp(Double.parseDouble(data));
             }else if (qName.equals("value") && minTempB && !data.trim().equals("")) {
