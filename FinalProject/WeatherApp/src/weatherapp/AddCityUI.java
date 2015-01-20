@@ -56,7 +56,8 @@ public class AddCityUI extends javax.swing.JFrame {
         cityName = new javax.swing.JTextField();
         enter = new javax.swing.JButton();
         cancel = new javax.swing.JButton();
-        countryOrState = new javax.swing.JTextField();
+        state = new javax.swing.JTextField();
+        messageCenter = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
@@ -107,8 +108,10 @@ public class AddCityUI extends javax.swing.JFrame {
                                 .addComponent(stateDescr)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cityName, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
-                                    .addComponent(countryOrState))
+                                    .addComponent(messageCenter, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(cityName, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                                        .addComponent(state)))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
@@ -120,12 +123,14 @@ public class AddCityUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(stateDescr)
-                    .addComponent(countryOrState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(state, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cityNameDescr)
                     .addComponent(cityName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(messageCenter, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(enter)
                     .addComponent(cancel))
@@ -150,15 +155,15 @@ public class AddCityUI extends javax.swing.JFrame {
      * @param evt 
      */
     private void enterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterActionPerformed
-        stateString = countryOrState.getText();
-        stateString = stateString.trim();
+
         
         //if the user didn't enter all the required information, prevent the location from being added
-        if ("".equals(cityName.getText()) || "Choose...".equals(stateString)){
-            System.out.println("User didn't specify an item..."); //debugging
+        if ("".equals(cityName.getText()) || cityName.getText().contains("~") || "".equals(state.getText()) || state.getText().contains("~")){
+            messageCenter.setText("Invalid entry.");
         }
         else {
             cityNameString = cityName.getText();
+            stateString = state.getText();
 
             try {
                 //create a new city with user specifications
@@ -169,9 +174,7 @@ public class AddCityUI extends javax.swing.JFrame {
                 Logger.getLogger(AddCityUI.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(AddCityUI.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SAXException ex) {
-                Logger.getLogger(AddCityUI.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ParserConfigurationException ex) {
+            } catch (SAXException | ParserConfigurationException ex) {
                 Logger.getLogger(AddCityUI.class.getName()).log(Level.SEVERE, null, ex);
             }
             //close window and update list of cities
@@ -210,8 +213,9 @@ public class AddCityUI extends javax.swing.JFrame {
     private javax.swing.JButton cancel;
     private javax.swing.JTextField cityName;
     private javax.swing.JLabel cityNameDescr;
-    private javax.swing.JTextField countryOrState;
     private javax.swing.JButton enter;
+    private javax.swing.JLabel messageCenter;
+    private javax.swing.JTextField state;
     private javax.swing.JLabel stateDescr;
     // End of variables declaration//GEN-END:variables
 }

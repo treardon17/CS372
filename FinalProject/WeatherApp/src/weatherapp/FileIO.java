@@ -17,6 +17,9 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -26,22 +29,39 @@ import org.xml.sax.SAXException;
 
 /**
  * Allows user to input and output information to relevant files
+ *
  * @author tylerreardon
  */
 public class FileIO {
 
+    Map<String, File[]> imageFiles = new HashMap();
+
+    public FileIO() {
+        String[] weatherType = {"thunderstorm","drizzle","rain","snow","mist","smoke","haze",
+            "sand","fog","dust","clouds","sky is clear","windy","hail","breeze", "calm"};
+
+        String fileName;
+        for (int i = 0; i < weatherType.length; i++) {
+            fileName = "resources/images/"+weatherType[i];
+            File folder = new File(fileName);
+            File[] listOfFiles = folder.listFiles();
+            imageFiles.put(weatherType[i], listOfFiles);
+        }
+
+    }
+
     /**
      * Reads cities from file and creates City objects
+     *
      * @return an ArrayList of City objects
      * @throws java.net.MalformedURLException
      * @throws org.xml.sax.SAXException
      * @throws javax.xml.parsers.ParserConfigurationException
      */
-
     public ArrayList makeCities() throws MalformedURLException, SAXException, ParserConfigurationException {
         ArrayList<City> cities = new ArrayList();
         File cityFile = new File("resources/Cities.txt");
-        
+
         String line;
         String[] info;
         FileInputStream fis;
@@ -67,7 +87,7 @@ public class FileIO {
                         multiWordCity += " "; //append the next words to the end with a space in between
                         multiWordCity += info[i];
                     }
-                    City c1 = new City(info[0],multiWordCity); //create new city object
+                    City c1 = new City(info[0], multiWordCity); //create new city object
                     cities.add(c1); //add city to city ArrayList
                 }
             }
@@ -83,28 +103,30 @@ public class FileIO {
             System.out.println("File input output exception...");
         }
         Collections.sort(cities, City.CityComparator); //sort city alphabetically
-        
+
         return cities;
     }
 
     /**
      * Adds a city to the file
+     *
      * @param zipcode
      * @param state
      * @param cityName
      * @throws FileNotFoundException
-     * @throws UnsupportedEncodingException 
-     * @throws java.net.MalformedURLException 
-     * @throws org.xml.sax.SAXException 
-     * @throws javax.xml.parsers.ParserConfigurationException 
+     * @throws UnsupportedEncodingException
+     * @throws java.net.MalformedURLException
+     * @throws org.xml.sax.SAXException
+     * @throws javax.xml.parsers.ParserConfigurationException
      */
     public void addCity(String state, String cityName) throws FileNotFoundException, UnsupportedEncodingException, IOException, MalformedURLException, SAXException, ParserConfigurationException {
         ArrayList<City> cities = makeCities(); //make cities array
-        
 
         String[] cityNameParts = cityName.split(" "); //make sure the user didn't add any extra spaces
+        String[] stateNameParts = state.split(" ");
         boolean firstWord = false; //determines if the first word has been reached if there are multiple spaces before the word
         cityName = "";
+        state = "";
         for (int i = 0; i < cityNameParts.length; i++) { //take away excess spaces in city name
             if (!"".equals(cityNameParts[i]) && !" ".equals(cityNameParts[i]) && firstWord == false && cityNameParts[0] != null) {
                 cityNameParts[i] = cityNameParts[i].replaceAll("\\s+", ""); //replace all space characters with empty string
@@ -116,11 +138,22 @@ public class FileIO {
             }
         }
 
+        for (int i = 0; i < stateNameParts.length; i++) { //take away excess spaces in state name
+            if (!"".equals(stateNameParts[i]) && !" ".equals(stateNameParts[i]) && firstWord == false && stateNameParts[0] != null) {
+                stateNameParts[i] = stateNameParts[i].replaceAll("\\s+", ""); //replace all space characters with empty string
+                state = stateNameParts[i]; //make corrected string
+                firstWord = true;
+            } else if (!"".equals(stateNameParts[i]) && !" ".equals(stateNameParts[i]) && firstWord == true && stateNameParts[i] != null) {
+                state += " ";
+                state += stateNameParts[i];
+            }
+        }
+
         City c1 = new City(state, cityName); //create new city object
         cities.add(c1); //add object to city ArrayList
         //write city information to file
         try (PrintWriter writer = new PrintWriter("resources/Cities.txt", "UTF-8") //write the information to the file
-        ) {
+                ) {
             //write city information to file
             for (int i = 0; i < cities.size(); i++) {
                 writer.printf("%s ~%s\n", cities.get(i).getState(), cities.get(i).getCityName());
@@ -129,10 +162,12 @@ public class FileIO {
     }
 
     /**
-     * Gives the ability to modify a city in the file or remove a city from the file
+     * Gives the ability to modify a city in the file or remove a city from the
+     * file
+     *
      * @param cities
      * @throws FileNotFoundException
-     * @throws UnsupportedEncodingException 
+     * @throws UnsupportedEncodingException
      */
     public void modifyOrRemoveCity(ArrayList<City> cities) throws FileNotFoundException, UnsupportedEncodingException {
         try (PrintWriter writer = new PrintWriter("resources/Cities.txt", "UTF-8")) {
@@ -144,8 +179,9 @@ public class FileIO {
 
     /**
      * Saves preferred city in file for startup
+     *
      * @param city
-     * @throws FileNotFoundException 
+     * @throws FileNotFoundException
      */
     public void setPreferredCity(City city) throws FileNotFoundException {
         try (PrintWriter writer = new PrintWriter("resources/Preferences.txt")) {
@@ -155,6 +191,7 @@ public class FileIO {
 
     /**
      * Gets the preferred city from the file
+     *
      * @return preferred city
      * @throws java.io.IOException
      * @throws java.net.MalformedURLException
@@ -179,16 +216,8 @@ public class FileIO {
             // dis.available() returns 0 if the file does not have more lines.
             line = dis.readLine(); //reads line from file
             info = line.split(" ~"); //finds zipCode, state, and cityName separated by space
-            if (info.length == 3) {
-                c1 = new City(info[0], info[1]); //constructs city object based on array
-            } else {
-                String multiWordCity = info[1];
-                for (int i = 2; i < info.length; i++) {
-                    multiWordCity += " ";
-                    multiWordCity += info[i];
-                }
-                c1 = new City(info[0], multiWordCity);
-            }
+
+            c1 = new City(info[0], info[1]); //constructs city object based on array
 
             // dispose all the resources after using them.
             fis.close();
@@ -197,37 +226,49 @@ public class FileIO {
 
         } catch (FileNotFoundException e) {
             System.out.println("File not found!");
+            // if the file is empty or corrupted, set Spokane as the preferred city
+            c1 = new City("Washington", "Spokane");
         } catch (IOException e) {
             System.out.println("File input output error...");
-        }
-        // if the file is empty or corrupted, set Spokane as the preferred city
-        if (c1 == null){
             c1 = new City("Washington", "Spokane");
         }
+
         return c1;
     }
-    
-    public ImageIcon getBackgroundImage(String weatherCondition){
-        String fileName = "resources/images/";
-        ImageIcon icon = null;
-            
-        if (weatherCondition == null){
-            fileName = fileName+"clouds/cloudy_planes.jpeg";
-        }else if (weatherCondition.equals("rain") || weatherCondition.equals("rain showers")){
-            fileName = fileName+"rain/rain_field.jpeg";
-        }else if (weatherCondition.equals("snow")){
-            fileName = fileName+"snow/snowy_lift.jpeg";
-        }else if (weatherCondition.equals("fog")){
-            fileName = fileName+"fog/foggy_city.jpeg";
-        }else if (weatherCondition.equals("clouds") || weatherCondition.equals("broken clouds")){
-            fileName = fileName+"clouds/cloudy_boats.jpeg";
-        }else if (weatherCondition.equals("sun") || weatherCondition.equals("sky is clear")){
-            fileName = fileName+"sun/sun_boardwalk.jpeg";
-        }else{
-            fileName = fileName+"clouds/cloudy_planes.jpeg";
-        }
 
-        File weatherFile = new File(fileName);
+    public ImageIcon getBackgroundImage(String weatherCondition) {
+        Random rand = new Random();
+        File weatherFile;
+        
+
+        if (imageFiles.containsKey(weatherCondition)){
+            //get a random number between the first and last element of the array in the map
+            int fileSelection = rand.nextInt(imageFiles.get(weatherCondition).length-1);
+            File[] files = imageFiles.get(weatherCondition);
+            weatherFile = files[fileSelection];      
+        }else{
+            weatherFile = new File("resources/images/clouds/cloudy_planes.jpeg");
+        }
+        
+        /*
+        if (weatherCondition == null) {
+            fileName = fileName + "clouds/cloudy_planes.jpeg";
+        } else if (weatherCondition.equals("rain") || weatherCondition.equals("rain showers")) {
+            fileName = fileName + "rain/rain_field.jpeg";
+        } else if (weatherCondition.equals("snow")) {
+            fileName = fileName + "snow/snowy_lift.jpeg";
+        } else if (weatherCondition.equals("fog")) {
+            fileName = fileName + "fog/foggy_city.jpeg";
+        } else if (weatherCondition.equals("clouds") || weatherCondition.equals("broken clouds")) {
+            fileName = fileName + "clouds/cloudy_boats.jpeg";
+        } else if (weatherCondition.equals("sun") || weatherCondition.equals("sky is clear")) {
+            fileName = fileName + "sun/sun_boardwalk.jpeg";
+        } else {
+            fileName = fileName + "clouds/cloudy_planes.jpeg";
+        }
+*/
+        ImageIcon icon = null;
+        
         try {
             BufferedImage image = ImageIO.read(weatherFile);
             icon = new ImageIcon(image);

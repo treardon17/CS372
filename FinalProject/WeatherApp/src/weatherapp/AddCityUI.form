@@ -50,8 +50,11 @@
                               <Component id="stateDescr" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="cityName" pref="172" max="32767" attributes="0"/>
-                                  <Component id="countryOrState" max="32767" attributes="0"/>
+                                  <Component id="messageCenter" pref="172" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="cityName" pref="172" max="32767" attributes="0"/>
+                                      <Component id="state" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
@@ -70,14 +73,16 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="stateDescr" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="countryOrState" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="state" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="cityNameDescr" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cityName" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="15" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="messageCenter" pref="20" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="enter" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cancel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -124,7 +129,9 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="countryOrState">
+    <Component class="javax.swing.JTextField" name="state">
+    </Component>
+    <Component class="javax.swing.JLabel" name="messageCenter">
     </Component>
   </SubComponents>
 </Form>
