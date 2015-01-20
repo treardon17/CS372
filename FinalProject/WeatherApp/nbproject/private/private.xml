@@ -4,11 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherapp/Gradient.java</file>
-            <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherInfo/WeatherHandler.java</file>
             <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/resources/Cities.txt</file>
             <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherapp/FileIO.java</file>
-            <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherInfo/WeatherInfo.java</file>
+            <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherInfo/Hour.java</file>
             <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherapp/AddCityUI.java</file>
+            <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherInfo/CurrentWeatherHandler.java</file>
             <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherapp/ChooseCityUI.java</file>
             <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherInfo/Parser.java</file>
             <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherapp/City.java</file>

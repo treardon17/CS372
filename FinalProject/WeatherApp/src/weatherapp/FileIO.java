@@ -57,17 +57,17 @@ public class FileIO {
             // dis.available() returns 0 if the file does not have more lines.
             while (dis.available() != 0) {
                 line = dis.readLine(); //reads line from file
-                info = line.split(" "); //finds zipCode, state, and cityName separated by space
-                if (info.length == 3) {
-                    City c1 = new City(info[0], info[1], info[2]); //constructs city object based on array
+                info = line.split(" ~"); //finds zipCode, state, and cityName separated by space
+                if (info.length == 2) {
+                    City c1 = new City(info[0], info[1]); //constructs city object based on array
                     cities.add(c1); //adds city object to cities ArrayList
                 } else { //if the city is more than one word
-                    String multiWordCity = info[2]; //set the first word of the city
-                    for (int i = 3; i < info.length; i++) {
+                    String multiWordCity = info[1]; //set the first word of the city
+                    for (int i = 2; i < info.length; i++) {
                         multiWordCity += " "; //append the next words to the end with a space in between
                         multiWordCity += info[i];
                     }
-                    City c1 = new City(info[0], info[1], multiWordCity); //create new city object
+                    City c1 = new City(info[0],multiWordCity); //create new city object
                     cities.add(c1); //add city to city ArrayList
                 }
             }
@@ -98,9 +98,9 @@ public class FileIO {
      * @throws org.xml.sax.SAXException 
      * @throws javax.xml.parsers.ParserConfigurationException 
      */
-    public void addCity(String zipcode, String state, String cityName) throws FileNotFoundException, UnsupportedEncodingException, IOException, MalformedURLException, SAXException, ParserConfigurationException {
+    public void addCity(String state, String cityName) throws FileNotFoundException, UnsupportedEncodingException, IOException, MalformedURLException, SAXException, ParserConfigurationException {
         ArrayList<City> cities = makeCities(); //make cities array
-        zipcode = zipcode.replaceAll("\\s+", ""); //remove all excess spaces from zipcode
+        
 
         String[] cityNameParts = cityName.split(" "); //make sure the user didn't add any extra spaces
         boolean firstWord = false; //determines if the first word has been reached if there are multiple spaces before the word
@@ -116,14 +116,14 @@ public class FileIO {
             }
         }
 
-        City c1 = new City(zipcode, state, cityName); //create new city object
+        City c1 = new City(state, cityName); //create new city object
         cities.add(c1); //add object to city ArrayList
         //write city information to file
         try (PrintWriter writer = new PrintWriter("resources/Cities.txt", "UTF-8") //write the information to the file
         ) {
             //write city information to file
             for (int i = 0; i < cities.size(); i++) {
-                writer.printf("%s %s %s\n", cities.get(i).getZipCode(), cities.get(i).getState(), cities.get(i).getCityName());
+                writer.printf("%s ~%s\n", cities.get(i).getState(), cities.get(i).getCityName());
             }
         }
     }
@@ -137,7 +137,7 @@ public class FileIO {
     public void modifyOrRemoveCity(ArrayList<City> cities) throws FileNotFoundException, UnsupportedEncodingException {
         try (PrintWriter writer = new PrintWriter("resources/Cities.txt", "UTF-8")) {
             for (int i = 0; i < cities.size(); i++) {
-                writer.printf("%s %s %s\n", cities.get(i).getZipCode(), cities.get(i).getState(), cities.get(i).getCityName());
+                writer.printf("%s ~%s\n", cities.get(i).getState(), cities.get(i).getCityName());
             }
         }
     }
@@ -149,7 +149,7 @@ public class FileIO {
      */
     public void setPreferredCity(City city) throws FileNotFoundException {
         try (PrintWriter writer = new PrintWriter("resources/Preferences.txt")) {
-            writer.printf("%s %s %s\n", city.getZipCode(), city.getState(), city.getCityName());
+            writer.printf("%s ~%s\n", city.getState(), city.getCityName());
         }
     }
 
@@ -178,16 +178,16 @@ public class FileIO {
 
             // dis.available() returns 0 if the file does not have more lines.
             line = dis.readLine(); //reads line from file
-            info = line.split(" "); //finds zipCode, state, and cityName separated by space
+            info = line.split(" ~"); //finds zipCode, state, and cityName separated by space
             if (info.length == 3) {
-                c1 = new City(info[0], info[1], info[2]); //constructs city object based on array
+                c1 = new City(info[0], info[1]); //constructs city object based on array
             } else {
-                String multiWordCity = info[2];
-                for (int i = 3; i < info.length; i++) {
+                String multiWordCity = info[1];
+                for (int i = 2; i < info.length; i++) {
                     multiWordCity += " ";
                     multiWordCity += info[i];
                 }
-                c1 = new City(info[0], info[1], multiWordCity);
+                c1 = new City(info[0], multiWordCity);
             }
 
             // dispose all the resources after using them.
@@ -202,7 +202,7 @@ public class FileIO {
         }
         // if the file is empty or corrupted, set Spokane as the preferred city
         if (c1 == null){
-            c1 = new City("99251", "Washington", "Spokane");
+            c1 = new City("Washington", "Spokane");
         }
         return c1;
     }

@@ -20,7 +20,7 @@ import org.xml.sax.SAXException;
  * @author tylerreardon
  */
 public class ModifyUI extends javax.swing.JFrame {
-    private int _index;
+    private int index;
     private FileIO file = new FileIO();
     private ArrayList<City> cities = new ArrayList();
     /**
@@ -32,10 +32,9 @@ public class ModifyUI extends javax.swing.JFrame {
      */
     public ModifyUI(int index) throws MalformedURLException, SAXException, ParserConfigurationException {
         initComponents();
-        _index = index;
+        this.index = index;
         cities = file.makeCities();
-        states.getModel().setSelectedItem(cities.get(index).getState());
-        zipcode.setText(cities.get(index).getZipCode());
+        states.setText(cities.get(index).getState());
         cityName.setText(cities.get(index).getCityName());
     }
 
@@ -49,32 +48,21 @@ public class ModifyUI extends javax.swing.JFrame {
     private void initComponents() {
 
         cityName = new javax.swing.JTextField();
-        zipcodeDescr = new javax.swing.JLabel();
         stateDescr = new javax.swing.JLabel();
         cityNameDescr = new javax.swing.JLabel();
         modifyLocationDescr = new javax.swing.JLabel();
-        zipcode = new javax.swing.JTextField();
         Cancel = new javax.swing.JButton();
         Enter = new javax.swing.JButton();
-        states = new javax.swing.JComboBox();
+        states = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(cityName, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 120, 144, -1));
 
-        zipcodeDescr.setText("Zipcode");
-        getContentPane().add(zipcodeDescr, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 154, -1, -1));
+        stateDescr.setText("State:");
 
-        stateDescr.setText("State");
-        getContentPane().add(stateDescr, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 42, -1, -1));
-
-        cityNameDescr.setText("City Name");
-        getContentPane().add(cityNameDescr, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 98, -1, -1));
+        cityNameDescr.setText("City Name:");
 
         modifyLocationDescr.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         modifyLocationDescr.setText("Modify Location:");
-        getContentPane().add(modifyLocationDescr, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
-        getContentPane().add(zipcode, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 176, 144, -1));
 
         Cancel.setText("Cancel");
         Cancel.addActionListener(new java.awt.event.ActionListener() {
@@ -82,7 +70,6 @@ public class ModifyUI extends javax.swing.JFrame {
                 CancelActionPerformed(evt);
             }
         });
-        getContentPane().add(Cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 228, -1, -1));
 
         Enter.setText("Enter");
         Enter.addActionListener(new java.awt.event.ActionListener() {
@@ -90,10 +77,56 @@ public class ModifyUI extends javax.swing.JFrame {
                 EnterActionPerformed(evt);
             }
         });
-        getContentPane().add(Enter, new org.netbeans.lib.awtextra.AbsoluteConstraints(152, 228, -1, -1));
 
-        states.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Choose...", "Alabama ", "Alaska ", "Arizona ", "Arkansas ", "California ", "Colorado ", "Connecticut ", "Delaware ", "Florida ", "Georgia ", "Hawaii ", "Idaho ", "Illinois Indiana ", "Iowa ", "Kansas ", "Kentucky ", "Louisiana ", "Maine ", "Maryland ", "Massachusetts ", "Michigan ", "Minnesota ", "Mississippi ", "Missouri ", "Montana Nebraska ", "Nevada ", "New Hampshire ", "New Jersey ", "New Mexico ", "New York ", "North Carolina ", "North Dakota ", "Ohio ", "Oklahoma ", "Oregon ", "Pennsylvania Rhode Island ", "South Carolina ", "South Dakota ", "Tennessee ", "Texas ", "Utah ", "Vermont ", "Virginia ", "Washington ", "West Virginia ", "Wisconsin ", "Wyoming" }));
-        getContentPane().add(states, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 190, -1));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Cancel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Enter))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(cityNameDescr))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addComponent(stateDescr)))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cityName, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                                    .addComponent(states)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(modifyLocationDescr)))
+                        .addGap(0, 11, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(modifyLocationDescr)
+                .addGap(8, 8, 8)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(stateDescr)
+                    .addComponent(states, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cityNameDescr)
+                    .addComponent(cityName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Cancel)
+                    .addComponent(Enter))
+                .addContainerGap())
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -114,16 +147,15 @@ public class ModifyUI extends javax.swing.JFrame {
      */
     private void EnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterActionPerformed
         //Print debugging message if user doesn't specify an item
-        String stateString = (String) states.getSelectedItem();
-        if ("".equals(zipcode.getText()) || "".equals(cityName.getText()) || "Choose...".equals(stateString)){
+        String stateString = states.getText();
+        stateString = stateString.trim();
+        if ("".equals(cityName.getText()) || "".equals(stateString)){
             System.out.println("User didn't specify an item..."); //debugging
         }
         else {
-            String zipcodeString = zipcode.getText();
             String cityNameString = cityName.getText();
-            cities.get(_index).setState(stateString);
-            cities.get(_index).setCityName(cityNameString);
-            cities.get(_index).setZipCode(zipcodeString);
+            cities.get(index).setState(stateString);
+            cities.get(index).setCityName(cityNameString);
 
             try {
                 file.modifyOrRemoveCity(cities); //modify city
@@ -167,7 +199,7 @@ public class ModifyUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             try {
                 Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-                ModifyUI modify = new ModifyUI(_index);
+                ModifyUI modify = new ModifyUI(index);
                 modify.setLocation(dim.width/2-modify.getSize().width/2, dim.height/2-modify.getSize().height/2);
                 modify.setVisible(true);
             } catch (MalformedURLException | SAXException | ParserConfigurationException ex) {
@@ -183,8 +215,6 @@ public class ModifyUI extends javax.swing.JFrame {
     private javax.swing.JLabel cityNameDescr;
     private javax.swing.JLabel modifyLocationDescr;
     private javax.swing.JLabel stateDescr;
-    private javax.swing.JComboBox states;
-    private javax.swing.JTextField zipcode;
-    private javax.swing.JLabel zipcodeDescr;
+    private javax.swing.JTextField states;
     // End of variables declaration//GEN-END:variables
 }

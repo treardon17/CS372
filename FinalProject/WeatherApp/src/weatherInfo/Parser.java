@@ -25,9 +25,9 @@ public class Parser {
     private Map<String,ArrayList<Hour>> _weatherInfo = new HashMap<>();
     private String forecastString = new String();
 
-    public Parser(String cityName) throws MalformedURLException, IOException, SAXException, ParserConfigurationException {
+    public Parser(String state, String cityName) throws MalformedURLException, IOException, SAXException, ParserConfigurationException {
         try {
-            forecastString = "http://api.openweathermap.org/data/2.5/forecast?q="+cityName+"&mode=xml&units=imperial&APPID=4b55385bebda5f273b763dafa99745c7";
+            forecastString = "http://api.openweathermap.org/data/2.5/forecast?q="+cityName+","+state+"&mode=xml&units=imperial&APPID=4b55385bebda5f273b763dafa99745c7";
 
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser parser = factory.newSAXParser();

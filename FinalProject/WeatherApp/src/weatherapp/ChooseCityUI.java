@@ -256,7 +256,11 @@ public class ChooseCityUI extends javax.swing.JFrame {
      */
     private void EnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterActionPerformed
         int preferredCityIndex;
-
+        
+        if (CitiesList.isSelectionEmpty()){
+            this.dispose();
+        }
+        
         try {
             cities = file.makeCities();
             preferredCityIndex = CitiesList.getAnchorSelectionIndex();

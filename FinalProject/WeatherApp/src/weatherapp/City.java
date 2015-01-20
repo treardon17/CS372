@@ -23,7 +23,6 @@ import weatherInfo.Parser;
 public class City {
     private static Map<String, ArrayList<Hour>> _weatherInfo = new HashMap<>();
     private Parser parse;
-    private String _zipCode;
     private String _state;
     private String _cityName;
     
@@ -33,20 +32,11 @@ public class City {
      * @param state
      * @param cityName 
      */
-    public City(String zipCode, String state, String cityName) throws IOException, MalformedURLException, SAXException, ParserConfigurationException{
-        _zipCode = zipCode;
+    public City(String state, String cityName) throws IOException, MalformedURLException, SAXException, ParserConfigurationException{
         _state = state;
-        _cityName = cityName;
-        
+        _cityName = cityName;     
     }
     
-    /**
-     * Get the zipcode for the city
-     * @return zipcode of city
-     */
-    public String getZipCode(){
-        return _zipCode;
-    }
     
     /**
      * Get the state the city is in
@@ -69,14 +59,7 @@ public class City {
      * @return
      */
     
-    /**
-     * Sets the zipcode
-     * @param zipCode 
-     */
-     public void setZipCode(String zipCode){
-        _zipCode = zipCode;
-    }
-    
+
      /**
       * Sets the state
       * @param state 
@@ -110,7 +93,7 @@ public class City {
      * @throws javax.xml.parsers.ParserConfigurationException 
      */
     public Map parseForWeather() throws IOException, MalformedURLException, SAXException, ParserConfigurationException{
-        Parser parse = new Parser(_cityName);        
+        Parser parse = new Parser(_state,_cityName);        
         _weatherInfo = parse.getWeatherInfo();
         return _weatherInfo;
     }

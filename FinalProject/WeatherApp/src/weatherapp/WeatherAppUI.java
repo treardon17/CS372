@@ -59,7 +59,7 @@ public class WeatherAppUI extends JFrame {
     public void updateWeatherUI() throws IOException, MalformedURLException, SAXException, ParserConfigurationException {
 
         preferredCity = file.getPreferredCity();
-        cityLabel.setText(preferredCity.getCityName());
+        cityLabel.setText(preferredCity.getCityName()+", "+preferredCity.getState());
         weatherInfo = preferredCity.parseForWeather();
         ImageIcon icon;
         todayDateString = dateFormat.format(todayDate);
@@ -123,9 +123,15 @@ public class WeatherAppUI extends JFrame {
             day4.setText(daysOfWeek.get(3));
             
             //NEXT DAY'S INFORMATION
+            if (sortedDates.size()==6){
             nextWeather5.setText(weatherInfo.get(sortedDates.get(5)).get(0).getWeatherDescr());
             temp5.setText(weatherInfo.get(sortedDates.get(5)).get(0).getTemp() + "°F");
             day5.setText(daysOfWeek.get(4));
+            }else{
+                nextWeather5.setText("");
+                temp5.setText("");
+                day5.setText("");
+            }
             
             //Set background image with relavent picture
             icon = file.getBackgroundImage(weatherInfo.get(sortedDates.get(0)).get(0).getWeatherDescr());
@@ -133,11 +139,11 @@ public class WeatherAppUI extends JFrame {
             weatherImage.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
 
         } catch (Exception ex) {
+            System.out.printf("%s\n", ex.getMessage());
             System.out.println("Invalid weather information\n");
             icon = file.getBackgroundImage(null);
             weatherImage.setIcon(icon);
             weatherImage.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
-            currentWeather.setText("Weather information not available");
         }
 
     }
