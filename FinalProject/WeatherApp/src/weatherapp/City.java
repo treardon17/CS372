@@ -9,17 +9,19 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
+import weatherInfo.Hour;
 import weatherInfo.Parser;
-import weatherInfo.WeatherInfo;
 
 /**
  * Contains all the information required for a city
  * @author tylerreardon
  */
 public class City {
-    private static WeatherInfo _weatherInfo = new WeatherInfo();
+    private static Map<String, ArrayList<Hour>> _weatherInfo = new HashMap<>();
     private Parser parse;
     private String _zipCode;
     private String _state;
@@ -95,7 +97,7 @@ public class City {
      * Sets the weather info
      * @param weatherInfo 
      */
-    public void setWeatherInfo(WeatherInfo weatherInfo){
+    public void setWeatherInfo(Map<String, ArrayList<Hour>> weatherInfo){
         _weatherInfo = weatherInfo;
     }
     
@@ -107,8 +109,8 @@ public class City {
      * @throws org.xml.sax.SAXException 
      * @throws javax.xml.parsers.ParserConfigurationException 
      */
-    public WeatherInfo parseForWeather() throws IOException, MalformedURLException, SAXException, ParserConfigurationException{
-        Parser parse = new Parser(_zipCode);        
+    public Map parseForWeather() throws IOException, MalformedURLException, SAXException, ParserConfigurationException{
+        Parser parse = new Parser(_cityName);        
         _weatherInfo = parse.getWeatherInfo();
         return _weatherInfo;
     }

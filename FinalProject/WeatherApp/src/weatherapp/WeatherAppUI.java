@@ -12,6 +12,14 @@ import java.io.IOException;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.MalformedURLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -21,7 +29,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
-import weatherInfo.WeatherInfo;
+import weatherInfo.Hour;
 
 /**
  * Represents the window that displays weather information
@@ -32,9 +40,12 @@ public class WeatherAppUI extends JFrame {
 
     private static City preferredCity;
     private static final FileIO file = new FileIO();
-    private static WeatherInfo _weatherInfo = new WeatherInfo();
+    private Map<String, ArrayList<Hour>> weatherInfo = new HashMap<>();
     private final ChooseCityUI chooseCity;
     private JLabel weatherImage = new JLabel();
+    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    Date todayDate = new Date();
+    String todayDateString;
 
     /**
      * Creates new form WeatherAppUI
@@ -47,42 +58,56 @@ public class WeatherAppUI extends JFrame {
         this.chooseCity = new ChooseCityUI(this);
         initComponents();
         updateWeatherUI();
-        this.baseLayer.add(weatherImage, -1, 6);  
+        this.baseLayer.add(weatherImage, -1, 6);
     }
 
     public void updateWeatherUI() throws IOException, MalformedURLException, SAXException, ParserConfigurationException {
 
         preferredCity = file.getPreferredCity();
         cityLabel.setText(preferredCity.getCityName());
-        WeatherInfo weatherInfo = preferredCity.parseForWeather();
+        weatherInfo = preferredCity.parseForWeather();
+
         ImageIcon icon = new ImageIcon();
+        todayDateString = dateFormat.format(todayDate);
 
         try {
-            currentTemp.setText(Double.toString(weatherInfo.getCurrentTemp()));
+            if (weatherInfo.containsKey(todayDate)) {
+                currentTemp.setText(weatherInfo.get(todayDateString).get(0).getTemp());
+                dayMaxTemp.setText("Max: " + weatherInfo.get(todayDateString).get(0).getDayMaxTemp());
+                dayMinTemp.setText("Min: " + weatherInfo.get(todayDateString).get(0).getDayMinTemp());
+                currentWeather.setText(weatherInfo.get(todayDateString).get(0).getWeatherDescr());
+            } else if (!weatherInfo.isEmpty()) {
+                Iterator it = weatherInfo.keySet().iterator(); //make iterator for map
+                String lowestDate = it.next().toString();
+                String temp;
+                lowestDate = lowestDate.substring(8, Math.min(lowestDate.length(), 10));
+                while (it.hasNext()) {
+                    temp = it.next().toString();
+                    temp = temp.substring(8, Math.min(temp.length(), 10));
+                    if (Integer.parseInt(temp) < Integer.parseInt(lowestDate)) {
+                        lowestDate = temp;
+                    }
+                    todayDateString = todayDateString.substring(0, Math.min(todayDateString.length(), 8)) + temp;
+                }
 
-            if (weatherInfo.getMaxTemps().size() > 0 && weatherInfo.getMinTemps().size() > 0) {
-                dayMaxTemp.setText("Max: " + Double.toString(weatherInfo.getMaxTemps().get(0)));
-                dayMinTemp.setText("Min: " + Double.toString(weatherInfo.getMinTemps().get(0)));
-            } else {
-                dayMaxTemp.setText("N/A");
-                dayMinTemp.setText("N/A");
+                currentTemp.setText(weatherInfo.get(todayDateString).get(0).getTemp());
+                dayMaxTemp.setText("Max: " + weatherInfo.get(todayDateString).get(0).getDayMaxTemp());
+                dayMinTemp.setText("Min: " + weatherInfo.get(todayDateString).get(0).getDayMinTemp());
+                currentWeather.setText(weatherInfo.get(todayDateString).get(0).getWeatherDescr());
+                
             }
-            
-            currentWeather.setText(weatherInfo.getWeatherConditions().get(0).toString());
-            
-            icon = file.getBackgroundImage(weatherInfo.getWeatherConditions().get(0));
+
+            icon = file.getBackgroundImage(weatherInfo.get(todayDateString).get(0).getWeatherDescr());
             weatherImage.setIcon(icon);
             weatherImage.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
-            
-        } catch (IndexOutOfBoundsException ex) {
+
+        } catch (Exception ex) {
             System.out.println("Invalid weather information\n");
             icon = file.getBackgroundImage(null);
             weatherImage.setIcon(icon);
             weatherImage.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
             currentWeather.setText("Weather information not available");
         }
-        
-        
 
     }
 

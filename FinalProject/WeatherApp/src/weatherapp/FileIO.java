@@ -201,21 +201,21 @@ public class FileIO {
         return c1;
     }
     
-    public ImageIcon getBackgroundImage(WeatherCondition weatherCondition){
+    public ImageIcon getBackgroundImage(String weatherCondition){
         String fileName = "resources/images/";
         ImageIcon icon = null;
             
         if (weatherCondition == null){
             fileName = fileName+"clouds/cloudy_planes.jpeg";
-        }else if (weatherCondition.getWeatherType().equals("rain") || weatherCondition.getWeatherType().equals("rain showers")){
+        }else if (weatherCondition.equals("rain") || weatherCondition.equals("rain showers")){
             fileName = fileName+"rain/rain_field.jpeg";
-        }else if (weatherCondition.getWeatherType().equals("snow")){
+        }else if (weatherCondition.equals("snow")){
             fileName = fileName+"snow/snowy_lift.jpeg";
-        }else if (weatherCondition.getWeatherType().equals("fog")){
+        }else if (weatherCondition.equals("fog")){
             fileName = fileName+"fog/foggy_city.jpeg";
-        }else if (weatherCondition.getWeatherType().equals("clouds")){
+        }else if (weatherCondition.equals("clouds") || weatherCondition.equals("broken clouds")){
             fileName = fileName+"clouds/cloudy_boats.jpeg";
-        }else if (weatherCondition.getWeatherType().equals("sun")){
+        }else if (weatherCondition.equals("sun") || weatherCondition.equals("sky is clear")){
             fileName = fileName+"sun/sun_boardwalk.jpeg";
         }else{
             fileName = fileName+"clouds/cloudy_planes.jpeg";
