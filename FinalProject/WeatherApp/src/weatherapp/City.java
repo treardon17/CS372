@@ -103,7 +103,7 @@ public class City {
     
     /**
      * Finds the 
-     * @param zipCode 
+     * @return A Map of strings and hours
      * @throws java.io.IOException 
      * @throws java.net.MalformedURLException 
      * @throws org.xml.sax.SAXException 

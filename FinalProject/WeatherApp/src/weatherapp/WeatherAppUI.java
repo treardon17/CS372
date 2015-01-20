@@ -15,6 +15,7 @@ import java.net.MalformedURLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -66,38 +67,39 @@ public class WeatherAppUI extends JFrame {
         preferredCity = file.getPreferredCity();
         cityLabel.setText(preferredCity.getCityName());
         weatherInfo = preferredCity.parseForWeather();
-
         ImageIcon icon = new ImageIcon();
         todayDateString = dateFormat.format(todayDate);
 
+        ArrayList<String> sortedDates = new ArrayList<>();
+
         try {
-            if (weatherInfo.containsKey(todayDate)) {
-                currentTemp.setText(weatherInfo.get(todayDateString).get(0).getTemp());
-                dayMaxTemp.setText("Max: " + weatherInfo.get(todayDateString).get(0).getDayMaxTemp());
-                dayMinTemp.setText("Min: " + weatherInfo.get(todayDateString).get(0).getDayMinTemp());
-                currentWeather.setText(weatherInfo.get(todayDateString).get(0).getWeatherDescr());
-            } else if (!weatherInfo.isEmpty()) {
+            if (!weatherInfo.isEmpty()) {
                 Iterator it = weatherInfo.keySet().iterator(); //make iterator for map
-                String lowestDate = it.next().toString();
-                String temp;
-                lowestDate = lowestDate.substring(8, Math.min(lowestDate.length(), 10));
+                //String lowestDate = it.next().toString();
+                //String temp;
+                //lowestDate = lowestDate.substring(8, Math.min(lowestDate.length(), 10));
                 while (it.hasNext()) {
-                    temp = it.next().toString();
-                    temp = temp.substring(8, Math.min(temp.length(), 10));
-                    if (Integer.parseInt(temp) < Integer.parseInt(lowestDate)) {
-                        lowestDate = temp;
-                    }
-                    todayDateString = todayDateString.substring(0, Math.min(todayDateString.length(), 8)) + temp;
+                    String aDate = it.next().toString();
+                    //aDate = aDate.substring(8, Math.min(aDate.length(), 10));
+                    sortedDates.add(aDate);
                 }
 
-                currentTemp.setText(weatherInfo.get(todayDateString).get(0).getTemp());
-                dayMaxTemp.setText("Max: " + weatherInfo.get(todayDateString).get(0).getDayMaxTemp());
-                dayMinTemp.setText("Min: " + weatherInfo.get(todayDateString).get(0).getDayMinTemp());
-                currentWeather.setText(weatherInfo.get(todayDateString).get(0).getWeatherDescr());
-                
+                Collections.sort(sortedDates);
+
             }
 
-            icon = file.getBackgroundImage(weatherInfo.get(todayDateString).get(0).getWeatherDescr());
+            //TODAY'S INFORMATION
+            currentTemp.setText(weatherInfo.get(sortedDates.get(0)).get(0).getTemp() + " degrees F");
+            dayMaxTemp.setText("Max: " + weatherInfo.get(sortedDates.get(0)).get(0).getDayMaxTemp());
+            dayMinTemp.setText("Min: " + weatherInfo.get(sortedDates.get(0)).get(0).getDayMinTemp());
+            currentWeather.setText(weatherInfo.get(sortedDates.get(0)).get(0).getWeatherDescr());
+            
+            //TOMORROW'S INFORMATION
+            tomorrowWeather.setText(weatherInfo.get(sortedDates.get(1)).get(0).getWeatherDescr()+
+                    "--"+weatherInfo.get(sortedDates.get(1)).get(0).getTemp() + " degrees");
+            
+
+            icon = file.getBackgroundImage(weatherInfo.get(sortedDates.get(0)).get(0).getWeatherDescr());
             weatherImage.setIcon(icon);
             weatherImage.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
 
@@ -123,7 +125,6 @@ public class WeatherAppUI extends JFrame {
         baseLayer = new javax.swing.JLayeredPane();
         currentTemp = new javax.swing.JLabel();
         cityLabel = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -133,6 +134,12 @@ public class WeatherAppUI extends JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         currentWeather = new javax.swing.JLabel();
+        tomorrowWeather = new javax.swing.JLabel();
+        nextWeather = new javax.swing.JLabel();
+        nextWeather2 = new javax.swing.JLabel();
+        nextWeather3 = new javax.swing.JLabel();
+        nextWeather4 = new javax.swing.JLabel();
+        nextWeather5 = new javax.swing.JLabel();
         MenuBar = new javax.swing.JMenuBar();
         File = new javax.swing.JMenu();
         Preferences = new javax.swing.JMenuItem();
@@ -149,30 +156,39 @@ public class WeatherAppUI extends JFrame {
         cityLabel.setFont(new java.awt.Font("Heiti TC", 1, 24)); // NOI18N
         cityLabel.setText("City:");
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
-        jLabel1.setText("Mon:");
-
         jLabel2.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
-        jLabel2.setText("Tues:");
+        jLabel2.setText("Tomorrow:");
 
         jLabel3.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
-        jLabel3.setText("Wed:");
+        jLabel3.setText("Next day:");
 
         jLabel4.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
-        jLabel4.setText("Thur:");
+        jLabel4.setText("Next day:");
 
         jLabel5.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
-        jLabel5.setText("Fri:");
+        jLabel5.setText("Next day:");
 
         dayMaxTemp.setText("Max:");
 
         dayMinTemp.setText("Min:");
 
-        jLabel6.setText("Sat:");
+        jLabel6.setText("Next day:");
 
-        jLabel7.setText("Sun:");
+        jLabel7.setText("Next day:");
 
         currentWeather.setText("Currently:");
+
+        tomorrowWeather.setText("weather data");
+
+        nextWeather.setText("weather data");
+
+        nextWeather2.setText("weather data");
+
+        nextWeather3.setText("weather data");
+
+        nextWeather4.setText("weather data");
+
+        nextWeather5.setText("weather data");
 
         javax.swing.GroupLayout baseLayerLayout = new javax.swing.GroupLayout(baseLayer);
         baseLayer.setLayout(baseLayerLayout);
@@ -194,17 +210,25 @@ public class WeatherAppUI extends JFrame {
                             .addGroup(baseLayerLayout.createSequentialGroup()
                                 .addGroup(baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(currentWeather)
-                                    .addComponent(currentTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel7))
-                                .addGap(47, 47, 47)))))
+                                    .addComponent(currentTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(91, 91, 91)
+                        .addGroup(baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tomorrowWeather)
+                            .addComponent(nextWeather)
+                            .addComponent(nextWeather2)
+                            .addComponent(nextWeather3)
+                            .addComponent(nextWeather4)
+                            .addComponent(nextWeather5))
+                        .addGap(55, 55, 55)))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         baseLayerLayout.setVerticalGroup(
@@ -212,40 +236,44 @@ public class WeatherAppUI extends JFrame {
             .addGroup(baseLayerLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(cityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGap(27, 27, 27)
+                .addGroup(baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(baseLayerLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18))
-                    .addGroup(baseLayerLayout.createSequentialGroup()
-                        .addGap(27, 27, 27)
                         .addComponent(currentTemp)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(38, 38, 38)
                         .addGroup(baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(dayMaxTemp)
                             .addComponent(dayMinTemp))
-                        .addGap(7, 7, 7)))
-                .addComponent(jLabel5)
-                .addGroup(baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(33, 33, 33)
+                        .addComponent(currentWeather))
                     .addGroup(baseLayerLayout.createSequentialGroup()
+                        .addGroup(baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(tomorrowWeather))
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel6))
-                    .addGroup(baseLayerLayout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(currentWeather)))
+                        .addGroup(baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(nextWeather))
+                        .addGap(18, 18, 18)
+                        .addGroup(baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(nextWeather2))
+                        .addGap(18, 18, 18)
+                        .addGroup(baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(nextWeather3))
+                        .addGap(18, 18, 18)
+                        .addGroup(baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(nextWeather4))))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel7)
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addGroup(baseLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(nextWeather5))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
         baseLayer.setLayer(currentTemp, javax.swing.JLayeredPane.DEFAULT_LAYER);
         baseLayer.setLayer(cityLabel, javax.swing.JLayeredPane.PALETTE_LAYER);
-        baseLayer.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         baseLayer.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         baseLayer.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         baseLayer.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -255,6 +283,12 @@ public class WeatherAppUI extends JFrame {
         baseLayer.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
         baseLayer.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
         baseLayer.setLayer(currentWeather, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        baseLayer.setLayer(tomorrowWeather, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        baseLayer.setLayer(nextWeather, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        baseLayer.setLayer(nextWeather2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        baseLayer.setLayer(nextWeather3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        baseLayer.setLayer(nextWeather4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        baseLayer.setLayer(nextWeather5, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         File.setText("File");
 
@@ -358,12 +392,17 @@ public class WeatherAppUI extends JFrame {
     private javax.swing.JLabel currentWeather;
     private javax.swing.JLabel dayMaxTemp;
     private javax.swing.JLabel dayMinTemp;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel nextWeather;
+    private javax.swing.JLabel nextWeather2;
+    private javax.swing.JLabel nextWeather3;
+    private javax.swing.JLabel nextWeather4;
+    private javax.swing.JLabel nextWeather5;
+    private javax.swing.JLabel tomorrowWeather;
     // End of variables declaration//GEN-END:variables
 }

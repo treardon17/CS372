@@ -21,10 +21,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
-import weatherInfo.WeatherCondition;
 
 /**
  * Allows user to input and output information to relevant files
@@ -35,7 +33,11 @@ public class FileIO {
     /**
      * Reads cities from file and creates City objects
      * @return an ArrayList of City objects
+     * @throws java.net.MalformedURLException
+     * @throws org.xml.sax.SAXException
+     * @throws javax.xml.parsers.ParserConfigurationException
      */
+
     public ArrayList makeCities() throws MalformedURLException, SAXException, ParserConfigurationException {
         ArrayList<City> cities = new ArrayList();
         File cityFile = new File("resources/Cities.txt");
@@ -76,9 +78,9 @@ public class FileIO {
             dis.close();
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("File not found!");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("File input output exception...");
         }
         Collections.sort(cities, City.CityComparator); //sort city alphabetically
         
@@ -92,10 +94,12 @@ public class FileIO {
      * @param cityName
      * @throws FileNotFoundException
      * @throws UnsupportedEncodingException 
+     * @throws java.net.MalformedURLException 
+     * @throws org.xml.sax.SAXException 
+     * @throws javax.xml.parsers.ParserConfigurationException 
      */
     public void addCity(String zipcode, String state, String cityName) throws FileNotFoundException, UnsupportedEncodingException, IOException, MalformedURLException, SAXException, ParserConfigurationException {
-        ArrayList<City> cities = new ArrayList();
-        cities = makeCities(); //make cities array
+        ArrayList<City> cities = makeCities(); //make cities array
         zipcode = zipcode.replaceAll("\\s+", ""); //remove all excess spaces from zipcode
 
         String[] cityNameParts = cityName.split(" "); //make sure the user didn't add any extra spaces
@@ -114,12 +118,14 @@ public class FileIO {
 
         City c1 = new City(zipcode, state, cityName); //create new city object
         cities.add(c1); //add object to city ArrayList
-        PrintWriter writer = new PrintWriter("resources/Cities.txt", "UTF-8"); //write the information to the file
         //write city information to file
-        for (int i = 0; i < cities.size(); i++) {
-            writer.printf("%s %s %s\n", cities.get(i).getZipCode(), cities.get(i).getState(), cities.get(i).getCityName());
+        try (PrintWriter writer = new PrintWriter("resources/Cities.txt", "UTF-8") //write the information to the file
+        ) {
+            //write city information to file
+            for (int i = 0; i < cities.size(); i++) {
+                writer.printf("%s %s %s\n", cities.get(i).getZipCode(), cities.get(i).getState(), cities.get(i).getCityName());
+            }
         }
-        writer.close();
     }
 
     /**
@@ -129,11 +135,11 @@ public class FileIO {
      * @throws UnsupportedEncodingException 
      */
     public void modifyOrRemoveCity(ArrayList<City> cities) throws FileNotFoundException, UnsupportedEncodingException {
-        PrintWriter writer = new PrintWriter("resources/Cities.txt", "UTF-8");
-        for (int i = 0; i < cities.size(); i++) {
-            writer.printf("%s %s %s\n", cities.get(i).getZipCode(), cities.get(i).getState(), cities.get(i).getCityName());
+        try (PrintWriter writer = new PrintWriter("resources/Cities.txt", "UTF-8")) {
+            for (int i = 0; i < cities.size(); i++) {
+                writer.printf("%s %s %s\n", cities.get(i).getZipCode(), cities.get(i).getState(), cities.get(i).getCityName());
+            }
         }
-        writer.close();
     }
 
     /**
@@ -142,9 +148,9 @@ public class FileIO {
      * @throws FileNotFoundException 
      */
     public void setPreferredCity(City city) throws FileNotFoundException {
-        PrintWriter writer = new PrintWriter("resources/Preferences.txt");
-        writer.printf("%s %s %s\n", city.getZipCode(), city.getState(), city.getCityName());
-        writer.close();
+        try (PrintWriter writer = new PrintWriter("resources/Preferences.txt")) {
+            writer.printf("%s %s %s\n", city.getZipCode(), city.getState(), city.getCityName());
+        }
     }
 
     /**
@@ -190,9 +196,9 @@ public class FileIO {
             dis.close();
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("File not found!");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("File input output error...");
         }
         // if the file is empty or corrupted, set Spokane as the preferred city
         if (c1 == null){
@@ -223,8 +229,7 @@ public class FileIO {
 
         File weatherFile = new File(fileName);
         try {
-            BufferedImage image = null;
-            image = ImageIO.read(weatherFile);
+            BufferedImage image = ImageIO.read(weatherFile);
             icon = new ImageIcon(image);
             //weatherImage.setIcon(icon);
             //weatherImage.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
