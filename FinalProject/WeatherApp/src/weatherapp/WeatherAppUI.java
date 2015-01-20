@@ -86,10 +86,13 @@ public class WeatherAppUI extends JFrame {
                 Date dt1=dateFormat.parse(sortedDates.get(i));
                 calendar.setTime(dt1);
                 int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-                if (dayOfWeek == 1){daysOfWeek.add("Sunday");}
-                else if (dayOfWeek == 2){daysOfWeek.add("Monday");}
-                else if (dayOfWeek == 3){daysOfWeek.add("Tuesday");}
-                //NEED TO FINISH!!!
+                if (dayOfWeek == 1){daysOfWeek.add("Sunday:");}
+                else if (dayOfWeek == 2){daysOfWeek.add("Monday:");}
+                else if (dayOfWeek == 3){daysOfWeek.add("Tuesday:");}
+                else if (dayOfWeek == 4){daysOfWeek.add("Wednesday:");}
+                else if (dayOfWeek == 5){daysOfWeek.add("Thursday:");}
+                else if (dayOfWeek == 6){daysOfWeek.add("Friday:");}
+                else if (dayOfWeek == 7){daysOfWeek.add("Saturday:");}
             }
             
 
@@ -102,22 +105,27 @@ public class WeatherAppUI extends JFrame {
             //TOMORROW'S INFORMATION
             nextWeather1.setText(weatherInfo.get(sortedDates.get(1)).get(0).getWeatherDescr());
             temp1.setText(weatherInfo.get(sortedDates.get(1)).get(0).getTemp() + "°F");
+            //day1.setText(daysOfWeek.get(0));
             
             //NEXT DAY'S INFORMATION
             nextWeather2.setText(weatherInfo.get(sortedDates.get(2)).get(0).getWeatherDescr());
             temp2.setText(weatherInfo.get(sortedDates.get(2)).get(0).getTemp() + "°F");
+            day2.setText(daysOfWeek.get(1));
             
             //NEXT DAY'S INFORMATION
             nextWeather3.setText(weatherInfo.get(sortedDates.get(3)).get(0).getWeatherDescr());
-            temp3.setText(weatherInfo.get(sortedDates.get(3)).get(0).getTemp() + "°F");        
+            temp3.setText(weatherInfo.get(sortedDates.get(3)).get(0).getTemp() + "°F"); 
+            day3.setText(daysOfWeek.get(2));
             
             //NEXT DAY'S INFORMATION
             nextWeather4.setText(weatherInfo.get(sortedDates.get(4)).get(0).getWeatherDescr());
             temp4.setText(weatherInfo.get(sortedDates.get(4)).get(0).getTemp() + "°F");
+            day4.setText(daysOfWeek.get(3));
             
             //NEXT DAY'S INFORMATION
             nextWeather5.setText(weatherInfo.get(sortedDates.get(5)).get(0).getWeatherDescr());
             temp5.setText(weatherInfo.get(sortedDates.get(5)).get(0).getTemp() + "°F");
+            day5.setText(daysOfWeek.get(4));
             
             //Set background image with relavent picture
             icon = file.getBackgroundImage(weatherInfo.get(sortedDates.get(0)).get(0).getWeatherDescr());

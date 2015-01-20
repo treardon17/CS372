@@ -20,6 +20,8 @@ public class CurrentWeatherHandler extends DefaultHandler {
     Map<String, ArrayList<Hour>> weatherInfo = new HashMap<>();
     private String currentDate = "";
     private String compareDate = "";
+    private String sunrise = "";
+    private String sunset = "";
     private boolean newHour = false;
     private boolean updateHour = false;
     int index = 0;
@@ -31,6 +33,11 @@ public class CurrentWeatherHandler extends DefaultHandler {
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) {
+        
+        if (qName.equals("sun")){
+            
+        }
+        
         if (qName.equals("time") && !newHour && !updateHour) {
             newHour = true;
             currentDate = attributes.getValue("from");
