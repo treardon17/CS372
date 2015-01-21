@@ -9,8 +9,10 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.HeadlessException;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.geom.Line2D;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.DateFormat;
@@ -43,8 +45,8 @@ public class WeatherAppUI extends JFrame {
     private static final FileIO file = new FileIO();
     private Map<String, ArrayList<Hour>> weatherInfo = new HashMap<>();
     private final ChooseCityUI chooseCity;
-    private Gradient gradient = new Gradient();
-    private JLabel weatherImage = new JLabel();
+    private Gradient gradient;
+    private BufferedImage weatherImage;
     private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private Date todayDate = new Date();
 
@@ -59,10 +61,10 @@ public class WeatherAppUI extends JFrame {
         this.chooseCity = new ChooseCityUI(this);
         initComponents();
         updateWeatherUI();
-        gradient.setSize(dim.width, dim.height);
-        baseLayer.setSize(dim);
-        this.add(gradient);
-        this.baseLayer.add(weatherImage, -1, 6);
+        gradient = new Gradient(weatherImage, this);
+        gradient.setSize(dim);
+        this.add(gradient,-1);
+        //this.baseLayer.add(weatherImage, -1, 6);
         
     }
 
@@ -151,17 +153,19 @@ public class WeatherAppUI extends JFrame {
         }
 
         try {
+            weatherImage = file.getBackgroundImage(weatherInfo.get(sortedDates.get(0)).get(0).getWeatherDescr());
             //Set background image with relavent picture
-            icon = file.getBackgroundImage(weatherInfo.get(sortedDates.get(0)).get(0).getWeatherDescr());
-            weatherImage.setIcon(icon);
-            weatherImage.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
+            //icon = file.getBackgroundImage(weatherInfo.get(sortedDates.get(0)).get(0).getWeatherDescr());
+            //weatherImage.setIcon(icon);
+            //weatherImage.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
 
         } catch (Exception ex) {
             System.out.printf("%s\n", ex.getMessage());
             System.out.println("Invalid image\n");
-            icon = file.getBackgroundImage(null);
-            weatherImage.setIcon(icon);
-            weatherImage.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
+            weatherImage = file.getBackgroundImage(null);
+            //icon = file.getBackgroundImage(null);
+            //weatherImage.setIcon(icon);
+            //weatherImage.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
         }
     }
 

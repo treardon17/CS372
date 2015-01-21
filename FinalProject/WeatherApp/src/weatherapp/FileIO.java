@@ -5,6 +5,7 @@
  */
 package weatherapp;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.io.BufferedInputStream;
@@ -235,7 +236,7 @@ public class FileIO {
         return c1;
     }
 
-    public ImageIcon getBackgroundImage(String weatherCondition) {
+    public BufferedImage getBackgroundImage(String weatherCondition) {
         //String fileName = "resources/images/";
         Random rand = new Random();
         File weatherFile = null;
@@ -259,19 +260,18 @@ public class FileIO {
             weatherFile = new File("resources/images/clouds/cloudy_planes.jpeg");
         }
 
-        ImageIcon icon = null;
+        //ImageIcon icon = null;
         
-        
+        BufferedImage image = null;
         
         try {
-            BufferedImage image = ImageIO.read(weatherFile);
-            icon = new ImageIcon(image);
-            //weatherImage.setIcon(icon);
-            //weatherImage.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
+            image = ImageIO.read(weatherFile);
+            //icon = new ImageIcon(image);
         } catch (IOException ex) {
             Logger.getLogger(FileIO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return icon;
-        //return weatherImage;
+        
+        //return icon;
+        return image;
     }
 }
