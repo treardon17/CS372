@@ -259,19 +259,15 @@ public class FileIO {
         if (!containsValue) {
             weatherFile = new File("resources/images/clouds/cloudy_planes.jpeg");
         }
-
-        //ImageIcon icon = null;
         
         BufferedImage image = null;
         
         try {
             image = ImageIO.read(weatherFile);
-            //icon = new ImageIcon(image);
         } catch (IOException ex) {
             Logger.getLogger(FileIO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        //return icon;
+
         return image;
     }
 }

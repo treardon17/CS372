@@ -45,7 +45,7 @@ public class WeatherAppUI extends JFrame {
     private static final FileIO file = new FileIO();
     private Map<String, ArrayList<Hour>> weatherInfo = new HashMap<>();
     private final ChooseCityUI chooseCity;
-    private Gradient gradient;
+    private Background background;
     private BufferedImage weatherImage;
     private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private Date todayDate = new Date();
@@ -61,11 +61,9 @@ public class WeatherAppUI extends JFrame {
         this.chooseCity = new ChooseCityUI(this);
         initComponents();
         updateWeatherUI();
-        gradient = new Gradient(weatherImage, this);
-        gradient.setSize(dim);
-        this.add(gradient,-1);
-        //this.baseLayer.add(weatherImage, -1, 6);
-        
+        background = new Background(weatherImage, this);
+        background.setSize(dim);
+        this.add(background,-1);   
     }
 
     public void updateWeatherUI() throws IOException, MalformedURLException, SAXException, ParserConfigurationException {
@@ -153,19 +151,14 @@ public class WeatherAppUI extends JFrame {
         }
 
         try {
-            weatherImage = file.getBackgroundImage(weatherInfo.get(sortedDates.get(0)).get(0).getWeatherDescr());
             //Set background image with relavent picture
-            //icon = file.getBackgroundImage(weatherInfo.get(sortedDates.get(0)).get(0).getWeatherDescr());
-            //weatherImage.setIcon(icon);
-            //weatherImage.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
+            weatherImage = file.getBackgroundImage(weatherInfo.get(sortedDates.get(0)).get(0).getWeatherDescr());
+            
 
         } catch (Exception ex) {
             System.out.printf("%s\n", ex.getMessage());
             System.out.println("Invalid image\n");
             weatherImage = file.getBackgroundImage(null);
-            //icon = file.getBackgroundImage(null);
-            //weatherImage.setIcon(icon);
-            //weatherImage.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
         }
     }
 
@@ -467,7 +460,7 @@ public class WeatherAppUI extends JFrame {
                 try {
                     weatherAppUI = new WeatherAppUI();
 
-                    weatherAppUI.setSize(900, 645);
+                    weatherAppUI.setSize(900, 600);
                     Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
                     weatherAppUI.setLocation(dim.width / 2 - weatherAppUI.getSize().width / 2,
                             dim.height / 2 - weatherAppUI.getSize().height / 2);
