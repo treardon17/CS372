@@ -248,7 +248,7 @@ public class FileIO {
             weatherComparator = it.next().toString();
             if (weatherCondition.contains(weatherComparator)) {
                 //get a random number between the first and last element of the array in the map
-                int fileSelection = rand.nextInt(imageFiles.get(weatherComparator).length);
+                int fileSelection = rand.nextInt(imageFiles.get(weatherComparator).length-1)+1;
                 File[] files = imageFiles.get(weatherComparator);
                 weatherFile = files[fileSelection];
                 containsValue = true;
