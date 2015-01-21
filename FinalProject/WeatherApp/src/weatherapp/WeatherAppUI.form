@@ -78,50 +78,66 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                          <Component id="cityLabel" min="-2" pref="870" max="-2" attributes="0"/>
+                          <Component id="cityLabel" min="-2" pref="530" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                          <EmptySpace min="15" pref="15" max="-2" attributes="0"/>
+                          <Component id="currentTemp" min="-2" pref="504" max="-2" attributes="0"/>
+                          <EmptySpace min="94" pref="94" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="dayMaxTemp" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                                  <Component id="dayMinTemp" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="currentWeather" min="-2" max="-2" attributes="0"/>
-                              <Component id="currentTemp" min="-2" pref="504" max="-2" attributes="0"/>
+                              <Component id="day1" min="-2" pref="74" max="-2" attributes="0"/>
+                              <Component id="day2" min="-2" pref="74" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="day1" max="32767" attributes="0"/>
-                              <Component id="day2" alignment="0" max="32767" attributes="0"/>
-                              <Component id="day3" alignment="0" max="32767" attributes="0"/>
-                              <Component id="day4" alignment="0" max="32767" attributes="0"/>
-                              <Component id="day5" alignment="0" min="-2" pref="74" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="nextWeather5" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="nextWeather1" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="nextWeather2" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="nextWeather3" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="nextWeather4" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="temp4" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="temp5" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="temp1" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="temp2" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="temp3" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="nextWeather1" min="-2" max="-2" attributes="0"/>
+                              <Component id="nextWeather2" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                          <EmptySpace min="51" pref="51" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="temp1" min="-2" max="-2" attributes="0"/>
+                              <Component id="temp2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="613" pref="613" max="-2" attributes="0"/>
+                          <Component id="day3" min="-2" pref="74" max="-2" attributes="0"/>
+                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                          <Component id="nextWeather3" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="51" pref="51" max="-2" attributes="0"/>
+                          <Component id="temp3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="15" pref="15" max="-2" attributes="0"/>
+                          <Component id="dayMaxTemp" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="35" pref="35" max="-2" attributes="0"/>
+                          <Component id="dayMinTemp" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="506" pref="506" max="-2" attributes="0"/>
+                          <Component id="day4" min="-2" pref="74" max="-2" attributes="0"/>
+                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                          <Component id="nextWeather4" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="51" pref="51" max="-2" attributes="0"/>
+                          <Component id="temp4" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="15" pref="15" max="-2" attributes="0"/>
+                          <Component id="currentWeather" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="536" pref="536" max="-2" attributes="0"/>
+                          <Component id="day5" min="-2" pref="74" max="-2" attributes="0"/>
+                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                          <Component id="nextWeather5" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="51" pref="51" max="-2" attributes="0"/>
+                          <Component id="temp5" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="20" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <Component id="jLabel1" min="-2" pref="350" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -130,51 +146,56 @@
               <Group type="102" attributes="0">
                   <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                   <Component id="cityLabel" min="-2" pref="30" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                  <EmptySpace min="27" pref="27" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="currentTemp" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="dayMaxTemp" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="dayMinTemp" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                          <Component id="currentWeather" min="-2" max="-2" attributes="0"/>
+                      <Component id="currentTemp" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="day1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
+                          <Component id="day2" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="day1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="nextWeather1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="temp1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="day2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="nextWeather2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="temp2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="day3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="nextWeather3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="temp3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="day4" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="nextWeather4" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="temp4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="day5" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="nextWeather5" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="temp5" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="nextWeather1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="19" pref="19" max="-2" attributes="0"/>
+                          <Component id="nextWeather2" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="temp1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="19" pref="19" max="-2" attributes="0"/>
+                          <Component id="temp2" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="day3" min="-2" max="-2" attributes="0"/>
+                      <Component id="nextWeather3" min="-2" max="-2" attributes="0"/>
+                      <Component id="temp3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="9" pref="9" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="dayMaxTemp" min="-2" max="-2" attributes="0"/>
+                      <Component id="dayMinTemp" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="9" pref="9" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="day4" min="-2" max="-2" attributes="0"/>
+                              <Component id="nextWeather4" min="-2" max="-2" attributes="0"/>
+                              <Component id="temp4" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="167" max="32767" attributes="0"/>
+                  <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
+                          <Component id="currentWeather" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="day5" min="-2" max="-2" attributes="0"/>
+                      <Component id="nextWeather5" min="-2" max="-2" attributes="0"/>
+                      <Component id="temp5" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="151" max="32767" attributes="0"/>
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -299,6 +320,11 @@
         <Component class="javax.swing.JLabel" name="temp5">
           <Properties>
             <Property name="text" type="java.lang.String" value="temp"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Weather information provided by openweathermap.org"/>
           </Properties>
         </Component>
       </SubComponents>

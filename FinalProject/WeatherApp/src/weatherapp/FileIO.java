@@ -244,11 +244,11 @@ public class FileIO {
         Iterator it = keywords.iterator();
         boolean containsValue = false;
         String weatherComparator;
-        while (it.hasNext() && !containsValue) {
+        while (it.hasNext() && !containsValue && weatherCondition != null) {
             weatherComparator = it.next().toString();
             if (weatherCondition.contains(weatherComparator)) {
                 //get a random number between the first and last element of the array in the map
-                int fileSelection = rand.nextInt(imageFiles.get(weatherComparator).length + 1);
+                int fileSelection = rand.nextInt(imageFiles.get(weatherComparator).length);
                 File[] files = imageFiles.get(weatherComparator);
                 weatherFile = files[fileSelection];
                 containsValue = true;
