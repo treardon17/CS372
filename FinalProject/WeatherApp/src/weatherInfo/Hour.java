@@ -33,15 +33,21 @@ public class Hour {
     }
     
     public void setTemp(String temperature){
-        this.temperature = temperature;
+        double d = Double.parseDouble(temperature);
+        int i = (int)d;
+        this.temperature = Integer.toString(i);
     }
     
     public void setDayMinTemp(String dayMinTemp){
-        this.dayMinTemp = dayMinTemp;
+        double d = Double.parseDouble(dayMinTemp);
+        int i = (int)d;
+        this.dayMinTemp = Integer.toString(i);
     }
     
     public void setDayMaxTemp(String dayMaxTemp){
-        this.dayMaxTemp = dayMaxTemp;
+        double d = Double.parseDouble(dayMaxTemp);
+        int i = (int)d;
+        this.dayMaxTemp = Integer.toString(i);
     }
     
     public void setHumidity(String humidity){
@@ -49,7 +55,9 @@ public class Hour {
     }
     
     public void setWindSpeed(String windSpeed){
-        this.windSpeed = windSpeed;
+        double d = Double.parseDouble(windSpeed);
+        int i = (int)d;
+        this.windSpeed = Integer.toString(i);
     }
     
     public void setWindDescr(String windDescr){

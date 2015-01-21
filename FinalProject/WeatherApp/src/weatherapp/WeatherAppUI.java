@@ -11,6 +11,7 @@ import java.awt.Toolkit;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,6 +26,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 import weatherInfo.Hour;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Represents the window that displays weather information
@@ -67,9 +70,8 @@ public class WeatherAppUI extends JFrame {
 
         ArrayList<String> sortedDates = new ArrayList<>();
         ArrayList<String> daysOfWeek = new ArrayList<>();
-
-        try {
-            if (!weatherInfo.isEmpty()) {
+        
+        if (!weatherInfo.isEmpty()) {
                 Iterator it = weatherInfo.keySet().iterator(); //make iterator for map
                 //String lowestDate = it.next().toString();
                 //String temp;
@@ -81,8 +83,9 @@ public class WeatherAppUI extends JFrame {
                 }
                 Collections.sort(sortedDates);
             }
-            
-            for (int i = 0; i<sortedDates.size(); i++){
+
+        try{
+        for (int i = 0; i<sortedDates.size(); i++){
                 Date dt1=dateFormat.parse(sortedDates.get(i));
                 calendar.setTime(dt1);
                 int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
@@ -94,8 +97,11 @@ public class WeatherAppUI extends JFrame {
                 else if (dayOfWeek == 6){daysOfWeek.add("Friday:");}
                 else if (dayOfWeek == 7){daysOfWeek.add("Saturday:");}
             }
-            
-
+        }catch (ParseException ex) {
+            Logger.getLogger(WeatherAppUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try{
             //TODAY'S INFORMATION
             currentTemp.setText(weatherInfo.get(sortedDates.get(0)).get(0).getTemp() + "°F");
             dayMaxTemp.setText("Max: " + weatherInfo.get(sortedDates.get(0)).get(0).getDayMaxTemp() + "°F");
@@ -133,6 +139,13 @@ public class WeatherAppUI extends JFrame {
                 day5.setText("");
             }
             
+        }catch(IndexOutOfBoundsException ex){
+            System.out.println("Invalid weather information!\n");
+            System.out.printf("%s\n", ex.getMessage());
+        }
+            
+            
+        try {
             //Set background image with relavent picture
             icon = file.getBackgroundImage(weatherInfo.get(sortedDates.get(0)).get(0).getWeatherDescr());
             weatherImage.setIcon(icon);
@@ -140,7 +153,7 @@ public class WeatherAppUI extends JFrame {
 
         } catch (Exception ex) {
             System.out.printf("%s\n", ex.getMessage());
-            System.out.println("Invalid weather information\n");
+            System.out.println("Invalid image\n");
             icon = file.getBackgroundImage(null);
             weatherImage.setIcon(icon);
             weatherImage.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());

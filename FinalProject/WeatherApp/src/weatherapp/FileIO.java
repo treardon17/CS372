@@ -18,8 +18,10 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -37,15 +39,12 @@ public class FileIO {
     Map<String, File[]> imageFiles = new HashMap();
 
     public FileIO() {
-        String[] weatherType = {"thunderstorm","drizzle","rain","snow","mist","smoke","haze",
-            "sand","fog","dust","clouds","sky is clear","windy","hail","breeze", "calm"};
 
-        String fileName;
-        for (int i = 0; i < weatherType.length; i++) {
-            fileName = "resources/images/"+weatherType[i];
-            File folder = new File(fileName);
-            File[] listOfFiles = folder.listFiles();
-            imageFiles.put(weatherType[i], listOfFiles);
+        File imageFolder = new File("resources/images");
+        File[] listOfFolders = imageFolder.listFiles();
+        for (int i = 1; i < listOfFolders.length; i++) {
+            File[] listOfFiles = listOfFolders[i].listFiles();
+            imageFiles.put(listOfFolders[i].getName(), listOfFiles);
         }
 
     }
@@ -237,38 +236,32 @@ public class FileIO {
     }
 
     public ImageIcon getBackgroundImage(String weatherCondition) {
+        //String fileName = "resources/images/";
         Random rand = new Random();
-        File weatherFile;
-        
+        File weatherFile = null;
 
-        if (imageFiles.containsKey(weatherCondition)){
-            //get a random number between the first and last element of the array in the map
-            int fileSelection = rand.nextInt(imageFiles.get(weatherCondition).length-1);
-            File[] files = imageFiles.get(weatherCondition);
-            weatherFile = files[fileSelection];      
-        }else{
+        Set<String> keywords = imageFiles.keySet();
+        Iterator it = keywords.iterator();
+        boolean containsValue = false;
+        String weatherComparator;
+        while (it.hasNext() && !containsValue) {
+            weatherComparator = it.next().toString();
+            if (weatherCondition.contains(weatherComparator)) {
+                //get a random number between the first and last element of the array in the map
+                int fileSelection = rand.nextInt(imageFiles.get(weatherComparator).length + 1);
+                File[] files = imageFiles.get(weatherComparator);
+                weatherFile = files[fileSelection];
+                containsValue = true;
+            }
+        }
+
+
+        if (!containsValue) {
             weatherFile = new File("resources/images/clouds/cloudy_planes.jpeg");
         }
-        
-        /*
-        if (weatherCondition == null) {
-            fileName = fileName + "clouds/cloudy_planes.jpeg";
-        } else if (weatherCondition.equals("rain") || weatherCondition.equals("rain showers")) {
-            fileName = fileName + "rain/rain_field.jpeg";
-        } else if (weatherCondition.equals("snow")) {
-            fileName = fileName + "snow/snowy_lift.jpeg";
-        } else if (weatherCondition.equals("fog")) {
-            fileName = fileName + "fog/foggy_city.jpeg";
-        } else if (weatherCondition.equals("clouds") || weatherCondition.equals("broken clouds")) {
-            fileName = fileName + "clouds/cloudy_boats.jpeg";
-        } else if (weatherCondition.equals("sun") || weatherCondition.equals("sky is clear")) {
-            fileName = fileName + "sun/sun_boardwalk.jpeg";
-        } else {
-            fileName = fileName + "clouds/cloudy_planes.jpeg";
-        }
-*/
+
         ImageIcon icon = null;
-        
+
         try {
             BufferedImage image = ImageIO.read(weatherFile);
             icon = new ImageIcon(image);
