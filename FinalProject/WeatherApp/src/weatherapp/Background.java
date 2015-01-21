@@ -23,19 +23,28 @@ import javax.swing.SwingUtilities;
 
 public class Background extends JPanel {
 
-    BufferedImage image;
-    JFrame frame;
+    private Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+    private BufferedImage image;
+    private JFrame frame;
 
-    public Background(BufferedImage image, JFrame frame) {
-        this.image = enlarge(image,2);
-        this.frame = frame;
+    public Background() {
+        //this.image = enlarge(image, 2);
+        //this.frame = frame;
     }
 
+    public void setBackground(BufferedImage image, JFrame frame){
+        this.frame = frame;
+        this.image = enlarge(image,2);
+        this.frame.repaint();
+        
+    }
+
+    
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        
+
         //THIS ADDS A GRADIENT BACKGROUND
         //g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         //int w = getWidth();
@@ -45,9 +54,11 @@ public class Background extends JPanel {
         //GradientPaint gp = new GradientPaint(0, 0, color1, 0, h, color2);
         //g2d.setPaint(gp);
         //g2d.fillRect(0, 0, w, h);
-
+        
+        
         drawScaledImage(image, frame, g2d);
     }
+    
 
     public static void drawScaledImage(Image image, Component canvas, Graphics g) {
         int imgWidth = image.getWidth(null);
@@ -91,7 +102,6 @@ public class Background extends JPanel {
         g.drawImage(image, x1, y1, x2, y2, 0, 0, imgWidth, imgHeight, null);
     }
 
-    
     public static BufferedImage enlarge(BufferedImage image, int n) {
 
         int w = n * image.getWidth();
