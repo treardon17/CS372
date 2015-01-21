@@ -47,7 +47,6 @@ public class WeatherAppUI extends JFrame {
     private JLabel weatherImage = new JLabel();
     private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private Date todayDate = new Date();
-    private String todayDateString;
 
     /**
      * Creates new form WeatherAppUI
@@ -61,8 +60,10 @@ public class WeatherAppUI extends JFrame {
         initComponents();
         updateWeatherUI();
         gradient.setSize(dim.width, dim.height);
+        baseLayer.setSize(dim);
         this.add(gradient);
         this.baseLayer.add(weatherImage, -1, 6);
+        
     }
 
     public void updateWeatherUI() throws IOException, MalformedURLException, SAXException, ParserConfigurationException {
@@ -71,7 +72,6 @@ public class WeatherAppUI extends JFrame {
         cityLabel.setText(preferredCity.getCityName() + ", " + preferredCity.getState());
         weatherInfo = preferredCity.parseForWeather();
         ImageIcon icon;
-        todayDateString = dateFormat.format(todayDate);
         Calendar calendar = Calendar.getInstance();
 
         ArrayList<String> sortedDates = new ArrayList<>();
@@ -95,21 +95,13 @@ public class WeatherAppUI extends JFrame {
                 Date dt1 = dateFormat.parse(sortedDates.get(i));
                 calendar.setTime(dt1);
                 int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-                if (dayOfWeek == 1) {
-                    daysOfWeek.add("Sunday:");
-                } else if (dayOfWeek == 2) {
-                    daysOfWeek.add("Monday:");
-                } else if (dayOfWeek == 3) {
-                    daysOfWeek.add("Tuesday:");
-                } else if (dayOfWeek == 4) {
-                    daysOfWeek.add("Wednesday:");
-                } else if (dayOfWeek == 5) {
-                    daysOfWeek.add("Thursday:");
-                } else if (dayOfWeek == 6) {
-                    daysOfWeek.add("Friday:");
-                } else if (dayOfWeek == 7) {
-                    daysOfWeek.add("Saturday:");
-                }
+                if (dayOfWeek == 1) {daysOfWeek.add("Sunday:");
+                } else if (dayOfWeek == 2) {daysOfWeek.add("Monday:");
+                } else if (dayOfWeek == 3) {daysOfWeek.add("Tuesday:");
+                } else if (dayOfWeek == 4) {daysOfWeek.add("Wednesday:");
+                } else if (dayOfWeek == 5) {daysOfWeek.add("Thursday:");
+                } else if (dayOfWeek == 6) {daysOfWeek.add("Friday:");
+                } else if (dayOfWeek == 7) {daysOfWeek.add("Saturday:");}
             }
         } catch (ParseException ex) {
             Logger.getLogger(WeatherAppUI.class.getName()).log(Level.SEVERE, null, ex);

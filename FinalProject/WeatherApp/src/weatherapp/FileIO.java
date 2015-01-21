@@ -255,13 +255,14 @@ public class FileIO {
             }
         }
 
-
         if (!containsValue) {
             weatherFile = new File("resources/images/clouds/cloudy_planes.jpeg");
         }
 
         ImageIcon icon = null;
-
+        
+        
+        
         try {
             BufferedImage image = ImageIO.read(weatherFile);
             icon = new ImageIcon(image);
