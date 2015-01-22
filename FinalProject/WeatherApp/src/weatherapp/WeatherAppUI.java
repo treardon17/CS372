@@ -96,7 +96,6 @@ public class WeatherAppUI extends JFrame {
      * @throws ParserConfigurationException 
      */
     public void updateWeatherUI() throws IOException, MalformedURLException, SAXException, ParserConfigurationException {
-
         preferredCity = file.getPreferredCity();
         cityLabel.setText(preferredCity.getCityName() + ", " + preferredCity.getState());
         weatherInfo = preferredCity.parseForWeather();
@@ -535,7 +534,7 @@ public class WeatherAppUI extends JFrame {
                     Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
                     weatherAppUI.setLocation(dim.width / 2 - weatherAppUI.getSize().width / 2,
                             dim.height / 2 - weatherAppUI.getSize().height / 2);
-
+                    weatherAppUI.setMaximumSize(dim);
                     weatherAppUI.setVisible(true);
                 } catch (IOException | SAXException | ParserConfigurationException | HeadlessException e) {
                     System.out.printf("%s", e.getMessage());
