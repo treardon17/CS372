@@ -194,6 +194,33 @@ public class WeatherAppUI extends JFrame {
 
     }
 
+    public void getCurrentLocation() {
+        boolean error = false;
+        LocationParser parse = null;
+        try {
+            parse = new LocationParser();
+            this.updateWeatherUI();
+            currentLocation = parse.getCity();
+        } catch (MalformedURLException ex) {
+            error = true;
+            Logger.getLogger(WeatherAppUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParserConfigurationException | SAXException | IOException ex) {
+            error = true;
+            Logger.getLogger(WeatherAppUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            if (!error) {
+                SaveDialogue dialogue = new SaveDialogue(currentLocation);
+                dialogue.runDialogue();
+            }else {
+                ErrorDialogue errorDialogue = new ErrorDialogue(this);
+                errorDialogue.runDialogue();
+            }
+        } catch (Exception ex) {
+            System.out.printf("%s\n", ex.getMessage());
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -440,27 +467,7 @@ public class WeatherAppUI extends JFrame {
      * @param evt
      */
     private void CurrentLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CurrentLocationActionPerformed
-        boolean error = false;
-        LocationParser parse = null;
-        try {
-            parse = new LocationParser();
-            this.updateWeatherUI();
-            currentLocation = parse.getCity();
-        } catch (MalformedURLException ex) {
-            error = true;
-            Logger.getLogger(WeatherAppUI.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParserConfigurationException | SAXException | IOException ex) {
-            error = true;
-            Logger.getLogger(WeatherAppUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            if (!error) {
-                Dialogue dialogue = new Dialogue(currentLocation);
-                dialogue.runDialogue();
-            }
-        } catch (Exception ex) {
-            System.out.printf("%s\n", ex.getMessage());
-        }
+        getCurrentLocation();
 
     }//GEN-LAST:event_CurrentLocationActionPerformed
 

@@ -19,7 +19,7 @@ import org.xml.sax.SAXException;
  *
  * @author tylerreardon
  */
-public class Dialogue extends javax.swing.JFrame {
+public class SaveDialogue extends javax.swing.JFrame {
 
     City city;
     FileIO file = new FileIO();
@@ -32,7 +32,7 @@ public class Dialogue extends javax.swing.JFrame {
      * Creates new form YesNoDialogue
      *
      */
-    public Dialogue(City city) {
+    public SaveDialogue(City city) {
         initComponents();
         this.city = city;
     }
@@ -108,7 +108,7 @@ public class Dialogue extends javax.swing.JFrame {
         try {
             file.addCity(city);
         } catch (MalformedURLException | SAXException | ParserConfigurationException | FileNotFoundException | UnsupportedEncodingException ex) {
-            Logger.getLogger(Dialogue.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SaveDialogue.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         this.dispose();
@@ -128,21 +128,23 @@ public class Dialogue extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Dialogue.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SaveDialogue.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Dialogue.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SaveDialogue.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Dialogue.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SaveDialogue.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Dialogue.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SaveDialogue.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Dialogue dialogue = new Dialogue(city);
+                SaveDialogue dialogue = new SaveDialogue(city);
                 Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
                 dialogue.setLocation(dim.width / 2 - dialogue.getSize().width / 2, dim.height / 2 - dialogue.getSize().height / 2);
                 dialogue.setVisible(true);

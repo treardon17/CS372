@@ -56,11 +56,6 @@ public class City {
         return _cityName;
     }
     
-    /**
-     * Represents the weather information associated with this city
-     * @return
-     */
-    
 
      /**
       * Sets the state
