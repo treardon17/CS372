@@ -17,16 +17,20 @@ import weatherapp.City;
  * @author tylerreardon
  */
 public class CurrentLocationHandler extends DefaultHandler{
-    City city = new City();
+    String cityName;
+    String stateName;
     String data;
     
-    public City getCity(){
-        return city;
+    public String getCityName(){
+        return cityName;
+    }
+    
+    public String getStateName(){
+        return stateName;
     }
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) {
-
         data = "";
     }
 
@@ -38,9 +42,9 @@ public class CurrentLocationHandler extends DefaultHandler{
     @Override
     public void endElement(String uri, String localName, String qName) {
         if (qName.equals("RegionName")){
-            city.setState(data);
+            stateName = data;
         }else if (qName.equals("City")){
-            city.setCityName(data);
+            cityName = data;
         }
     }
 }

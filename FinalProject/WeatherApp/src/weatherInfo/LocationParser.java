@@ -64,13 +64,21 @@ public class LocationParser {
             URL IPURL = new URL(URLString);
 
             parser.parse(IPURL.openStream(), cLHandler);
-            this.city = cLHandler.getCity();
-            //file.addCity(city);
+            this.city.setCityName(cLHandler.getCityName());
+            this.city.setState(cLHandler.getStateName());
+
             file.setPreferredCity(city);
+            
         } catch (ParserConfigurationException | SAXException ex) {
             Logger.getLogger(LocationParser.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            System.out.println("Server error\n");
+            System.out.printf("%s\n", ex.getMessage());
         }
+    }
 
+    public City getCity() {
+        return city;
     }
 
 }

@@ -15,7 +15,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -44,8 +46,10 @@ import weatherInfo.LocationParser;
  * @author tylerreardon
  */
 public class WeatherAppUI extends JFrame {
+
     private Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
     private static City preferredCity;
+    private City currentLocation;
     private static final FileIO file = new FileIO();
     private Map<String, ArrayList<Hour>> weatherInfo = new HashMap<>();
     private final ChooseCityUI chooseCity;
@@ -64,9 +68,9 @@ public class WeatherAppUI extends JFrame {
     public WeatherAppUI() throws IOException, MalformedURLException, SAXException, ParserConfigurationException {
         this.chooseCity = new ChooseCityUI(this);
         initComponents();
-        
+
         //Refresh weather information every hour
-        Timer tm = new Timer(3600000, new ActionListener(){
+        Timer tm = new Timer(3600000, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -76,12 +80,12 @@ public class WeatherAppUI extends JFrame {
                     Logger.getLogger(WeatherAppUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            
+
         });
-        
+
         updateWeatherUI();
         background.setSize(dim);
-        this.add(background,-1);   
+        this.add(background, -1);
     }
 
     public void updateWeatherUI() throws IOException, MalformedURLException, SAXException, ParserConfigurationException {
@@ -91,7 +95,7 @@ public class WeatherAppUI extends JFrame {
         weatherInfo = preferredCity.parseForWeather();
         ImageIcon icon;
         Calendar calendar = Calendar.getInstance();
-        
+
         ArrayList<String> sortedDates = new ArrayList<>();
         ArrayList<String> daysOfWeek = new ArrayList<>();
 
@@ -107,7 +111,7 @@ public class WeatherAppUI extends JFrame {
             }
             Collections.sort(sortedDates);
         }
-        
+
         try {
             //Set background image with relavent picture
             weatherImage = file.getBackgroundImage(weatherInfo.get(sortedDates.get(0)).get(0).getWeatherDescr());
@@ -124,13 +128,21 @@ public class WeatherAppUI extends JFrame {
                 Date dt1 = dateFormat.parse(sortedDates.get(i));
                 calendar.setTime(dt1);
                 int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-                if (dayOfWeek == 1) {daysOfWeek.add("Sunday:");
-                } else if (dayOfWeek == 2) {daysOfWeek.add("Monday:");
-                } else if (dayOfWeek == 3) {daysOfWeek.add("Tuesday:");
-                } else if (dayOfWeek == 4) {daysOfWeek.add("Wednesday:");
-                } else if (dayOfWeek == 5) {daysOfWeek.add("Thursday:");
-                } else if (dayOfWeek == 6) {daysOfWeek.add("Friday:");
-                } else if (dayOfWeek == 7) {daysOfWeek.add("Saturday:");}
+                if (dayOfWeek == 1) {
+                    daysOfWeek.add("Sunday:");
+                } else if (dayOfWeek == 2) {
+                    daysOfWeek.add("Monday:");
+                } else if (dayOfWeek == 3) {
+                    daysOfWeek.add("Tuesday:");
+                } else if (dayOfWeek == 4) {
+                    daysOfWeek.add("Wednesday:");
+                } else if (dayOfWeek == 5) {
+                    daysOfWeek.add("Thursday:");
+                } else if (dayOfWeek == 6) {
+                    daysOfWeek.add("Friday:");
+                } else if (dayOfWeek == 7) {
+                    daysOfWeek.add("Saturday:");
+                }
             }
         } catch (ParseException ex) {
             Logger.getLogger(WeatherAppUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -141,8 +153,8 @@ public class WeatherAppUI extends JFrame {
             currentTemp.setText(weatherInfo.get(sortedDates.get(0)).get(0).getTemp() + "°F");
             dayMaxTemp.setText("Max: " + weatherInfo.get(sortedDates.get(0)).get(0).getDayMaxTemp() + "°F");
             dayMinTemp.setText("Min: " + weatherInfo.get(sortedDates.get(0)).get(0).getDayMinTemp() + "°F");
-            humidity.setText("Humidity: "+weatherInfo.get(sortedDates.get(0)).get(0).getHumidity());
-            currentWeather.setText("Current conditions: "+weatherInfo.get(sortedDates.get(0)).get(0).getWeatherDescr());   
+            humidity.setText("Humidity: " + weatherInfo.get(sortedDates.get(0)).get(0).getHumidity());
+            currentWeather.setText("Current conditions: " + weatherInfo.get(sortedDates.get(0)).get(0).getWeatherDescr());
 
             //TOMORROW'S INFORMATION
             nextWeather1.setText(weatherInfo.get(sortedDates.get(1)).get(0).getWeatherDescr());
@@ -180,10 +192,7 @@ public class WeatherAppUI extends JFrame {
             System.out.printf("%s\n", ex.getMessage());
         }
 
-        
     }
-
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -427,18 +436,32 @@ public class WeatherAppUI extends JFrame {
 
     /**
      * Allows user to get weather information from their current location
-     * @param evt 
+     *
+     * @param evt
      */
     private void CurrentLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CurrentLocationActionPerformed
+        boolean error = false;
+        LocationParser parse = null;
         try {
-            LocationParser parse = new LocationParser();
+            parse = new LocationParser();
             this.updateWeatherUI();
+            currentLocation = parse.getCity();
         } catch (MalformedURLException ex) {
+            error = true;
             Logger.getLogger(WeatherAppUI.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParserConfigurationException | SAXException | IOException ex) {
+            error = true;
             Logger.getLogger(WeatherAppUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        try {
+            if (!error) {
+                Dialogue dialogue = new Dialogue(currentLocation);
+                dialogue.runDialogue();
+            }
+        } catch (Exception ex) {
+            System.out.printf("%s\n", ex.getMessage());
+        }
+
     }//GEN-LAST:event_CurrentLocationActionPerformed
 
     /**
