@@ -160,6 +160,12 @@ public class FileIO {
             }
         }
     }
+    
+    public void addCity(City city) throws MalformedURLException, SAXException, ParserConfigurationException, FileNotFoundException, UnsupportedEncodingException{
+        ArrayList<City> cities = makeCities(); //make cities array
+        cities.add(city);
+        modifyOrRemoveCity(cities);//just writes the city to the file
+    }
 
     /**
      * Gives the ability to modify a city in the file or remove a city from the
@@ -249,7 +255,7 @@ public class FileIO {
             weatherComparator = it.next().toString();
             if (weatherCondition.contains(weatherComparator)) {
                 //get a random number between the first and last element of the array in the map
-                int fileSelection = rand.nextInt(imageFiles.get(weatherComparator).length-1)+1;
+                int fileSelection = rand.nextInt(imageFiles.get(weatherComparator).length+1)-1;
                 File[] files = imageFiles.get(weatherComparator);
                 weatherFile = files[fileSelection];
                 containsValue = true;

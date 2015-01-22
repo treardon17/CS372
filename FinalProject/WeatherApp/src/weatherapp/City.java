@@ -14,7 +14,8 @@ import java.util.Map;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 import weatherInfo.Hour;
-import weatherInfo.Parser;
+import weatherInfo.LocationParser;
+import weatherInfo.WeatherParser;
 
 /**
  * Contains all the information required for a city
@@ -22,7 +23,6 @@ import weatherInfo.Parser;
  */
 public class City {
     private static Map<String, ArrayList<Hour>> _weatherInfo = new HashMap<>();
-    private Parser parse;
     private String _state;
     private String _cityName;
     
@@ -36,6 +36,8 @@ public class City {
         _state = state;
         _cityName = cityName;     
     }
+
+    public City() {}
     
     
     /**
@@ -93,11 +95,11 @@ public class City {
      * @throws javax.xml.parsers.ParserConfigurationException 
      */
     public Map parseForWeather() throws IOException, MalformedURLException, SAXException, ParserConfigurationException{
-        Parser parse = new Parser(_state,_cityName);        
+        WeatherParser parse = new WeatherParser(_state,_cityName);        
         _weatherInfo = parse.getWeatherInfo();
         return _weatherInfo;
     }
-    
+ 
     //Sorts cities alphabetically
     public static Comparator<City> CityComparator = new Comparator<City>(){
         

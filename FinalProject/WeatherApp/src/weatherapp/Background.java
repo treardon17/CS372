@@ -24,6 +24,7 @@ import javax.swing.SwingUtilities;
 public class Background extends JPanel {
 
     private Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+    private LineAnimation line = new LineAnimation();
     private BufferedImage image;
     private JFrame frame;
 
@@ -32,33 +33,33 @@ public class Background extends JPanel {
         //this.frame = frame;
     }
 
-    public void setBackground(BufferedImage image, JFrame frame){
+    public void setBackground(BufferedImage image, JFrame frame) {
         this.frame = frame;
-        this.image = enlarge(image,2);
+        this.image = enlarge(image, 2);
         this.frame.repaint();
-        
+
     }
 
-    
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-
-        //THIS ADDS A GRADIENT BACKGROUND
-        //g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-        //int w = getWidth();
-        //int h = getHeight();
-        //Color color1 = Color.GRAY;
-        //Color color2 = Color.WHITE;
-        //GradientPaint gp = new GradientPaint(0, 0, color1, 0, h, color2);
-        //g2d.setPaint(gp);
-        //g2d.fillRect(0, 0, w, h);
         
+        //THIS ADDS A GRADIENT BACKGROUND
+        /*
+        g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        int w = getWidth();
+        int h = getHeight();
+        Color color1 = Color.GRAY;
+        Color color2 = Color.WHITE;
+        GradientPaint gp = new GradientPaint(0, 0, color1, 0, h, color2);
+        g2d.setPaint(gp);
+        g2d.fillRect(0, 0, w, h);
+                */
         
         drawScaledImage(image, frame, g2d);
+        //line.draw(g, 30, 30, 60, 30);
     }
-    
 
     public static void drawScaledImage(Image image, Component canvas, Graphics g) {
         int imgWidth = image.getWidth(null);
@@ -116,5 +117,4 @@ public class Background extends JPanel {
         }
         return enlargedImage;
     }
-
 }

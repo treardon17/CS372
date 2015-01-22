@@ -4,5 +4,4 @@ Washington  ~Moses Lake
 Nevada  ~Reno
 California  ~Sacramento
 Washington  ~Seattle
-Washington ~Spokane
 British Columbia ~Vancouver

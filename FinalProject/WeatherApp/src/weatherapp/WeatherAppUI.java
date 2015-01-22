@@ -11,6 +11,8 @@ import java.awt.Graphics2D;
 import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -33,6 +35,8 @@ import weatherInfo.Hour;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Timer;
+import weatherInfo.LocationParser;
 
 /**
  * Represents the window that displays weather information
@@ -60,6 +64,21 @@ public class WeatherAppUI extends JFrame {
     public WeatherAppUI() throws IOException, MalformedURLException, SAXException, ParserConfigurationException {
         this.chooseCity = new ChooseCityUI(this);
         initComponents();
+        
+        //Refresh weather information every hour
+        Timer tm = new Timer(3600000, new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    updateWeatherUI();
+                } catch (IOException | SAXException | ParserConfigurationException ex) {
+                    Logger.getLogger(WeatherAppUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+        });
+        
         updateWeatherUI();
         background.setSize(dim);
         this.add(background,-1);   
@@ -122,7 +141,8 @@ public class WeatherAppUI extends JFrame {
             currentTemp.setText(weatherInfo.get(sortedDates.get(0)).get(0).getTemp() + "°F");
             dayMaxTemp.setText("Max: " + weatherInfo.get(sortedDates.get(0)).get(0).getDayMaxTemp() + "°F");
             dayMinTemp.setText("Min: " + weatherInfo.get(sortedDates.get(0)).get(0).getDayMinTemp() + "°F");
-            currentWeather.setText(weatherInfo.get(sortedDates.get(0)).get(0).getWeatherDescr());
+            humidity.setText("Humidity: "+weatherInfo.get(sortedDates.get(0)).get(0).getHumidity());
+            currentWeather.setText("Current conditions: "+weatherInfo.get(sortedDates.get(0)).get(0).getWeatherDescr());   
 
             //TOMORROW'S INFORMATION
             nextWeather1.setText(weatherInfo.get(sortedDates.get(1)).get(0).getWeatherDescr());
@@ -179,7 +199,8 @@ public class WeatherAppUI extends JFrame {
         dayMaxTemp = new javax.swing.JLabel();
         dayMinTemp = new javax.swing.JLabel();
         currentWeather = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        humidity = new javax.swing.JLabel();
+        openweathermap = new javax.swing.JLabel();
         day1 = new javax.swing.JLabel();
         day2 = new javax.swing.JLabel();
         day3 = new javax.swing.JLabel();
@@ -198,6 +219,7 @@ public class WeatherAppUI extends JFrame {
         MenuBar = new javax.swing.JMenuBar();
         File = new javax.swing.JMenu();
         Preferences = new javax.swing.JMenuItem();
+        CurrentLocation = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 900, 600));
@@ -215,8 +237,10 @@ public class WeatherAppUI extends JFrame {
 
         currentWeather.setText("Currently:");
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jLabel1.setText("Weather information provided by openweathermap.org");
+        humidity.setText("Humidity:");
+
+        openweathermap.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        openweathermap.setText("Weather information provided by openweathermap.org");
 
         day1.setFont(new java.awt.Font("Helvetica Neue", 0, 13)); // NOI18N
         day1.setText("Tomorrow:");
@@ -269,6 +293,15 @@ public class WeatherAppUI extends JFrame {
         });
         File.add(Preferences);
 
+        CurrentLocation.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        CurrentLocation.setText("Use Current Location");
+        CurrentLocation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CurrentLocationActionPerformed(evt);
+            }
+        });
+        File.add(CurrentLocation);
+
         MenuBar.add(File);
 
         setJMenuBar(MenuBar);
@@ -307,18 +340,11 @@ public class WeatherAppUI extends JFrame {
                                 .addComponent(nextWeather4, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(currentWeather)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(dayMaxTemp)
-                                .addGap(66, 66, 66)
-                                .addComponent(dayMinTemp)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(day5, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(nextWeather5, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(dayMaxTemp)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(day5, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(nextWeather5, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -331,7 +357,14 @@ public class WeatherAppUI extends JFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1))
+                .addComponent(openweathermap))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(currentWeather)
+                    .addComponent(humidity)
+                    .addComponent(dayMinTemp))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -343,11 +376,7 @@ public class WeatherAppUI extends JFrame {
                         .addGap(20, 20, 20)
                         .addComponent(currentTemp)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(dayMaxTemp)
-                            .addComponent(dayMinTemp))
-                        .addGap(18, 18, 18)
-                        .addComponent(currentWeather))
+                        .addComponent(dayMaxTemp))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(temp1)
@@ -373,8 +402,14 @@ public class WeatherAppUI extends JFrame {
                             .addComponent(temp5)
                             .addComponent(nextWeather5)
                             .addComponent(day5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 199, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(dayMinTemp)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(humidity)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(currentWeather)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
+                .addComponent(openweathermap)
                 .addContainerGap())
         );
 
@@ -389,6 +424,22 @@ public class WeatherAppUI extends JFrame {
     private void PreferencesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PreferencesActionPerformed
         chooseCity.runChooseCity();
     }//GEN-LAST:event_PreferencesActionPerformed
+
+    /**
+     * Allows user to get weather information from their current location
+     * @param evt 
+     */
+    private void CurrentLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CurrentLocationActionPerformed
+        try {
+            LocationParser parse = new LocationParser();
+            this.updateWeatherUI();
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(WeatherAppUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParserConfigurationException | SAXException | IOException ex) {
+            Logger.getLogger(WeatherAppUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_CurrentLocationActionPerformed
 
     /**
      * Runs the application, beginning with the WeatherAppUI
@@ -443,6 +494,7 @@ public class WeatherAppUI extends JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem CurrentLocation;
     private javax.swing.JMenu File;
     private javax.swing.JMenuBar MenuBar;
     private javax.swing.JMenuItem Preferences;
@@ -456,12 +508,13 @@ public class WeatherAppUI extends JFrame {
     private javax.swing.JLabel day5;
     private javax.swing.JLabel dayMaxTemp;
     private javax.swing.JLabel dayMinTemp;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel humidity;
     private javax.swing.JLabel nextWeather1;
     private javax.swing.JLabel nextWeather2;
     private javax.swing.JLabel nextWeather3;
     private javax.swing.JLabel nextWeather4;
     private javax.swing.JLabel nextWeather5;
+    private javax.swing.JLabel openweathermap;
     private javax.swing.JLabel temp1;
     private javax.swing.JLabel temp2;
     private javax.swing.JLabel temp3;
