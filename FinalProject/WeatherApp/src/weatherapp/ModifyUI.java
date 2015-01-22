@@ -198,6 +198,7 @@ public class ModifyUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             try {
+                //Sets the location of the window to the center of the screen
                 Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
                 ModifyUI modify = new ModifyUI(index);
                 modify.setLocation(dim.width/2-modify.getSize().width/2, dim.height/2-modify.getSize().height/2);

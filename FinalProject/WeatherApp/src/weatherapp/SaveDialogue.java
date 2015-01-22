@@ -16,7 +16,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 /**
- *
+ * Prompts user to save current location to the file
  * @author tylerreardon
  */
 public class SaveDialogue extends javax.swing.JFrame {
@@ -144,6 +144,7 @@ public class SaveDialogue extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                //Makes the dialogue appear in the center of the application
                 SaveDialogue dialogue = new SaveDialogue(city);
                 Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
                 dialogue.setLocation(dim.width / 2 - dialogue.getSize().width / 2, dim.height / 2 - dialogue.getSize().height / 2);

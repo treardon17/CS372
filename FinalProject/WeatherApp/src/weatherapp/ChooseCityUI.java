@@ -45,11 +45,14 @@ public class ChooseCityUI extends javax.swing.JFrame {
         _weatherApp = weatherApp;
     }
 
+    /**
+     * Updates the list of cities currently available
+     */
     private void updateList() {
         //update list
         DefaultListModel listModel = new DefaultListModel();
         for (int i = 0; i < cities.size(); i++) {
-            listModel.addElement(cities.get(i).getCityName());
+            listModel.addElement(cities.get(i).getCityName()+", "+cities.get(i).getState());
         }
 
         //set list
@@ -285,6 +288,7 @@ public class ChooseCityUI extends javax.swing.JFrame {
             public void run() {
 
                 try {
+                    //Opens window in the middle of the screen
                     Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
                     ChooseCityUI choose = new ChooseCityUI(_weatherApp);
                     choose.setLocation(dim.width / 2 - choose.getSize().width / 2, dim.height / 2 - choose.getSize().height / 2);

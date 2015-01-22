@@ -3,16 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherapp/Gradient.java</file>
+            <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherInfo/LocationParser.java</file>
+            <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherapp/ErrorDialogue.java</file>
             <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/resources/Cities.txt</file>
             <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherapp/FileIO.java</file>
-            <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherInfo/Hour.java</file>
             <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherapp/AddCityUI.java</file>
-            <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherInfo/CurrentWeatherHandler.java</file>
+            <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherInfo/CurrentLocationHandler.java</file>
             <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherapp/ChooseCityUI.java</file>
-            <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherInfo/Parser.java</file>
-            <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherapp/City.java</file>
             <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherapp/WeatherAppUI.java</file>
+            <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherapp/SaveDialogue.java</file>
+            <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherInfo/Hour.java</file>
+            <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherInfo/CurrentWeatherHandler.java</file>
+            <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherInfo/WeatherParser.java</file>
+            <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherapp/City.java</file>
+            <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherapp/LineAnimation.java</file>
+            <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherapp/Background.java</file>
             <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/src/weatherapp/ModifyUI.java</file>
             <file>file:/Users/tylerreardon/Google%20Drive/College/Sophomore/Jan/CS372-Repository/FinalProject/WeatherApp/resources/Preferences.txt</file>
         </group>

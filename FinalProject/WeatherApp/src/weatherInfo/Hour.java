@@ -6,7 +6,7 @@
 package weatherInfo;
 
 /**
- *
+ * Represents a predicted hour of weather
  * @author tylerreardon
  */
 public class Hour {
@@ -98,6 +98,10 @@ public class Hour {
     
     public String getWindDirection(){
         return windDirection;
+    }
+    
+    public String getWindDescr(){
+        return windDescr;
     }
     
     public String getWeatherDescr(){

@@ -161,6 +161,15 @@ public class FileIO {
         }
     }
     
+    /**
+     * Adds a city to the file
+     * @param city
+     * @throws MalformedURLException
+     * @throws SAXException
+     * @throws ParserConfigurationException
+     * @throws FileNotFoundException
+     * @throws UnsupportedEncodingException 
+     */
     public void addCity(City city) throws MalformedURLException, SAXException, ParserConfigurationException, FileNotFoundException, UnsupportedEncodingException{
         ArrayList<City> cities = makeCities(); //make cities array
         cities.add(city);
@@ -168,7 +177,7 @@ public class FileIO {
     }
 
     /**
-     * Gives the ability to modify a city in the file or remove a city from the
+     * Gives the ability rewrite a modified city to the file or remove a city from the
      * file
      *
      * @param cities

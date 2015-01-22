@@ -10,13 +10,11 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.text.Document;
 import javax.xml.parsers.*;
 import org.xml.sax.*;
-import org.xml.sax.helpers.DefaultHandler;
 
 /**
- *
+ * Constructs url used to obtain weather information
  * @author tylerreardon
  */
 public class WeatherParser {
@@ -25,6 +23,15 @@ public class WeatherParser {
     private Map<String,ArrayList<Hour>> _weatherInfo = new HashMap<>();
     private String forecastString = new String();
 
+    /**
+     * 
+     * @param state
+     * @param cityName
+     * @throws MalformedURLException
+     * @throws IOException
+     * @throws SAXException
+     * @throws ParserConfigurationException 
+     */
     public WeatherParser(String state, String cityName) throws MalformedURLException, IOException, SAXException, ParserConfigurationException {
         try {
             forecastString = "http://api.openweathermap.org/data/2.5/forecast?q="+cityName+","+state+"&mode=xml&units=imperial&APPID=4b55385bebda5f273b763dafa99745c7";

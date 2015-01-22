@@ -21,6 +21,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+/**
+ * Creates the image background of the application
+ * @author tylerreardon
+ */
 public class Background extends JPanel {
 
     private Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -28,11 +32,16 @@ public class Background extends JPanel {
     private BufferedImage image;
     private JFrame frame;
 
-    public Background() {
-        //this.image = enlarge(image, 2);
-        //this.frame = frame;
-    }
+    /**
+     * No argument constructor
+     */
+    public Background() {}
 
+    /**
+     * Sets the image contents and the frame it's placed on
+     * @param image
+     * @param frame 
+     */
     public void setBackground(BufferedImage image, JFrame frame) {
         this.frame = frame;
         this.image = enlarge(image, 2);
@@ -40,6 +49,10 @@ public class Background extends JPanel {
 
     }
 
+    /**
+     * Paints background when frame changes size
+     * @param g 
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -61,6 +74,12 @@ public class Background extends JPanel {
         //line.draw(g, 30, 30, 60, 30);
     }
 
+    /**
+     * Keeps the image at the same aspect ratio while filling the window
+     * @param image
+     * @param canvas
+     * @param g 
+     */
     public static void drawScaledImage(Image image, Component canvas, Graphics g) {
         int imgWidth = image.getWidth(null);
         int imgHeight = image.getHeight(null);
@@ -85,7 +104,7 @@ public class Background extends JPanel {
             y2 = imgHeight + y1;
 
         } else {
-            if (canvasAspect < imgAspect) { // (> makes the image fit the screen instead of fill
+            if (canvasAspect < imgAspect) { // (> makes the image fit the screen instead of fill)
                 y1 = canvasHeight;
                 // keep image aspect ratio
                 canvasHeight = (int) (canvasWidth * imgAspect);
@@ -103,6 +122,12 @@ public class Background extends JPanel {
         g.drawImage(image, x1, y1, x2, y2, 0, 0, imgWidth, imgHeight, null);
     }
 
+    /**
+     * Make the image larger by pixel duplication
+     * @param image
+     * @param n
+     * @return 
+     */
     public static BufferedImage enlarge(BufferedImage image, int n) {
 
         int w = n * image.getWidth();

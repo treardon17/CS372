@@ -22,7 +22,7 @@ import weatherapp.City;
 import weatherapp.FileIO;
 
 /**
- *
+ * Finds current location by public IP address
  * @author tylerreardon
  */
 public class LocationParser {
@@ -34,8 +34,16 @@ public class LocationParser {
     String IPString;
     String URLString;
 
+
+    /**
+     * Constructs url to find current city
+     * @throws UnknownHostException
+     * @throws MalformedURLException
+     * @throws IOException 
+     */
     public LocationParser() throws UnknownHostException, MalformedURLException, IOException {
 
+        //find current public IP address from this website
         URL whatismyip = new URL("http://checkip.amazonaws.com");
         BufferedReader in = null;
         try {
@@ -52,11 +60,11 @@ public class LocationParser {
             }
         }
 
-        //IPaddress = InetAddress.getLocalHost();
-        //IPString = IPaddress.toString();
-        //IPString = IPString.replaceAll("[^0-9.]", ""); //removes all characters from string
+        //append the IP address to this url
         this.URLString = "http://freegeoip.net/xml/" + IPString;
 
+        
+        //parse through this url to get city name and state name
         SAXParserFactory factory = SAXParserFactory.newInstance();
         SAXParser parser;
         try {
@@ -67,6 +75,7 @@ public class LocationParser {
             this.city.setCityName(cLHandler.getCityName());
             this.city.setState(cLHandler.getStateName());
 
+            //set the preferred city to the current location
             file.setPreferredCity(city);
             
         } catch (ParserConfigurationException | SAXException ex) {
@@ -77,6 +86,10 @@ public class LocationParser {
         }
     }
 
+    /**
+     * Allows access to city object made
+     * @return city object from parsing
+     */
     public City getCity() {
         return city;
     }

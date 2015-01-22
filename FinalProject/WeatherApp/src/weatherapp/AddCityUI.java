@@ -193,6 +193,7 @@ public class AddCityUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
+                    //Opens window in the middle of the screen
                     Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
                     AddCityUI addCity = new AddCityUI();
                     addCity.setLocation(dim.width/2-addCity.getSize().width/2, dim.height/2-addCity.getSize().height/2);

@@ -134,6 +134,7 @@
                   <Component id="currentWeather" min="-2" max="-2" attributes="0"/>
                   <Component id="humidity" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="dayMinTemp" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="wind" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -189,7 +190,9 @@
               <Component id="humidity" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="currentWeather" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="149" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="wind" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="121" max="32767" attributes="0"/>
               <Component id="openweathermap" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -231,6 +234,11 @@
     <Component class="javax.swing.JLabel" name="humidity">
       <Properties>
         <Property name="text" type="java.lang.String" value="Humidity:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="wind">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Wind Descr:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="openweathermap">

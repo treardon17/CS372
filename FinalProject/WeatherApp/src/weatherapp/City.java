@@ -39,50 +39,30 @@ public class City {
 
     public City() {}
     
-    
-    /**
-     * Get the state the city is in
-     * @return state city is in
-     */
     public String getState(){
         return _state;
     }
     
-    /**
-     * Get the name of the city
-     * @return name of city
-     */
+
     public String getCityName(){
         return _cityName;
     }
     
 
-     /**
-      * Sets the state
-      * @param state 
-      */
     public void setState(String state){
         _state = state;
     }
     
-    /**
-     * Sets the city name
-     * @param cityName 
-     */
     public void setCityName(String cityName){
         _cityName = cityName;
     }
     
-    /**
-     * Sets the weather info
-     * @param weatherInfo 
-     */
     public void setWeatherInfo(Map<String, ArrayList<Hour>> weatherInfo){
         _weatherInfo = weatherInfo;
     }
     
     /**
-     * Finds the 
+     * Finds the weather information for the selected city
      * @return A Map of strings and hours
      * @throws java.io.IOException 
      * @throws java.net.MalformedURLException 

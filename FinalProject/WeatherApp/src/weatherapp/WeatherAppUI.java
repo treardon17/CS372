@@ -88,6 +88,13 @@ public class WeatherAppUI extends JFrame {
         this.add(background, -1);
     }
 
+    /**
+     * Sets the text and image
+     * @throws IOException
+     * @throws MalformedURLException
+     * @throws SAXException
+     * @throws ParserConfigurationException 
+     */
     public void updateWeatherUI() throws IOException, MalformedURLException, SAXException, ParserConfigurationException {
 
         preferredCity = file.getPreferredCity();
@@ -101,12 +108,10 @@ public class WeatherAppUI extends JFrame {
 
         if (!weatherInfo.isEmpty()) {
             Iterator it = weatherInfo.keySet().iterator(); //make iterator for map
-            //String lowestDate = it.next().toString();
-            //String temp;
-            //lowestDate = lowestDate.substring(8, Math.min(lowestDate.length(), 10));
+            
             while (it.hasNext()) {
                 String aDate = it.next().toString();
-                //aDate = aDate.substring(8, Math.min(aDate.length(), 10));
+                
                 sortedDates.add(aDate);
             }
             Collections.sort(sortedDates);
@@ -119,10 +124,11 @@ public class WeatherAppUI extends JFrame {
         } catch (Exception ex) {
             System.out.printf("%s\n", ex.getMessage());
             System.out.println("Invalid image\n");
-            weatherImage = file.getBackgroundImage(null);
-            background.setBackground(weatherImage, this);
+            weatherImage = file.getBackgroundImage(null); //if there was an error getting the image,   
+            background.setBackground(weatherImage, this);//set it to the default
         }
 
+        //Find the next 5 days of the week based on the current date
         try {
             for (int i = 0; i < sortedDates.size(); i++) {
                 Date dt1 = dateFormat.parse(sortedDates.get(i));
@@ -148,6 +154,7 @@ public class WeatherAppUI extends JFrame {
             Logger.getLogger(WeatherAppUI.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        
         try {
             //TODAY'S INFORMATION
             currentTemp.setText(weatherInfo.get(sortedDates.get(0)).get(0).getTemp() + "°F");
@@ -155,6 +162,9 @@ public class WeatherAppUI extends JFrame {
             dayMinTemp.setText("Min: " + weatherInfo.get(sortedDates.get(0)).get(0).getDayMinTemp() + "°F");
             humidity.setText("Humidity: " + weatherInfo.get(sortedDates.get(0)).get(0).getHumidity());
             currentWeather.setText("Current conditions: " + weatherInfo.get(sortedDates.get(0)).get(0).getWeatherDescr());
+            wind.setText("Wind: " + weatherInfo.get(sortedDates.get(0)).get(0).getWindDescr() + 
+                    " from the " + weatherInfo.get(sortedDates.get(0)).get(0).getWindDirection() + " at " +
+                    weatherInfo.get(sortedDates.get(0)).get(0).getWindSpeed() + "mph");
 
             //TOMORROW'S INFORMATION
             nextWeather1.setText(weatherInfo.get(sortedDates.get(1)).get(0).getWeatherDescr());
@@ -194,9 +204,12 @@ public class WeatherAppUI extends JFrame {
 
     }
 
+    /**
+     * Gets the current location of the user based on their IP address
+     */
     public void getCurrentLocation() {
         boolean error = false;
-        LocationParser parse = null;
+        LocationParser parse;
         try {
             parse = new LocationParser();
             this.updateWeatherUI();
@@ -209,10 +222,13 @@ public class WeatherAppUI extends JFrame {
             Logger.getLogger(WeatherAppUI.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
+            //if there wasn't an error, ask if the user wants to save the location
             if (!error) {
                 SaveDialogue dialogue = new SaveDialogue(currentLocation);
                 dialogue.runDialogue();
-            }else {
+            }
+            //otherwise prompt user with an error message
+            else {
                 ErrorDialogue errorDialogue = new ErrorDialogue(this);
                 errorDialogue.runDialogue();
             }
@@ -236,6 +252,7 @@ public class WeatherAppUI extends JFrame {
         dayMinTemp = new javax.swing.JLabel();
         currentWeather = new javax.swing.JLabel();
         humidity = new javax.swing.JLabel();
+        wind = new javax.swing.JLabel();
         openweathermap = new javax.swing.JLabel();
         day1 = new javax.swing.JLabel();
         day2 = new javax.swing.JLabel();
@@ -274,6 +291,8 @@ public class WeatherAppUI extends JFrame {
         currentWeather.setText("Currently:");
 
         humidity.setText("Humidity:");
+
+        wind.setText("Wind Descr:");
 
         openweathermap.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         openweathermap.setText("Weather information provided by openweathermap.org");
@@ -399,7 +418,8 @@ public class WeatherAppUI extends JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(currentWeather)
                     .addComponent(humidity)
-                    .addComponent(dayMinTemp))
+                    .addComponent(dayMinTemp)
+                    .addComponent(wind))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -444,7 +464,9 @@ public class WeatherAppUI extends JFrame {
                 .addComponent(humidity)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(currentWeather)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(wind)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
                 .addComponent(openweathermap)
                 .addContainerGap())
         );
@@ -507,8 +529,9 @@ public class WeatherAppUI extends JFrame {
                 JLabel weatherImage = new JLabel();
                 try {
                     weatherAppUI = new WeatherAppUI();
-
-                    weatherAppUI.setSize(900, 600);
+                    weatherAppUI.setSize(900, 600); //set preferred size of window
+                    
+                    //set window to appear in the center of the screen
                     Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
                     weatherAppUI.setLocation(dim.width / 2 - weatherAppUI.getSize().width / 2,
                             dim.height / 2 - weatherAppUI.getSize().height / 2);
@@ -550,5 +573,6 @@ public class WeatherAppUI extends JFrame {
     private javax.swing.JLabel temp3;
     private javax.swing.JLabel temp4;
     private javax.swing.JLabel temp5;
+    private javax.swing.JLabel wind;
     // End of variables declaration//GEN-END:variables
 }

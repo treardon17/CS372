@@ -9,7 +9,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 /**
- *
+ * If there was an error parsing the location, this dialogue appears
  * @author tylerreardon
  */
 public class ErrorDialogue extends javax.swing.JFrame {
@@ -123,6 +123,7 @@ public class ErrorDialogue extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                //Makes the window appear in the center of the screen
                 ErrorDialogue errorDialogue = new ErrorDialogue(weatherApp);
                 Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
                 errorDialogue.setLocation(dim.width / 2 - errorDialogue.getSize().width / 2, dim.height / 2 - errorDialogue.getSize().height / 2);

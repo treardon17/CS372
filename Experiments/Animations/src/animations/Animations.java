@@ -3,16 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package weatherapp;
+package animations;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import javafx.animation.Animation;
 import javax.swing.Timer;
 
-public class LineAnimation {
+/**
+ *
+ * @author tylerreardon
+ */
+public class Animations {
 
     int x1, x2, y1, y2;
     int xend, yend;
@@ -35,10 +39,10 @@ public class LineAnimation {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                LineAnimation.this.x2+=2;
+                Animation.this.x2+=2;
                 g2d.drawLine(x1, y1, x2, y2);
                 
-                if (LineAnimation.this.x2 == LineAnimation.this.xend) {
+                if (Animation.this.x2 == Animation.this.xend) {
                     tm.stop();
                     state = 2;
                 }          
@@ -47,4 +51,15 @@ public class LineAnimation {
         tm.start();
     }
 
+
+    
+    
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+    }
+    
 }
