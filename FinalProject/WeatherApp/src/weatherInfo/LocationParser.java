@@ -28,12 +28,11 @@ import weatherapp.FileIO;
 public class LocationParser {
 
     FileIO file = new FileIO();
-    CurrentLocationHandler cLHandler = new CurrentLocationHandler();
+    CurrentLocationHandler cLhandler = new CurrentLocationHandler();
     City city = new City();
     InetAddress IPaddress;
     String IPString;
     String URLString;
-
 
     /**
      * Constructs url to find current city
@@ -71,9 +70,9 @@ public class LocationParser {
             parser = factory.newSAXParser();
             URL IPURL = new URL(URLString);
 
-            parser.parse(IPURL.openStream(), cLHandler);
-            this.city.setCityName(cLHandler.getCityName());
-            this.city.setState(cLHandler.getStateName());
+            parser.parse(IPURL.openStream(), cLhandler);
+            city.setCityName(cLhandler.getCityName());
+            city.setState(cLhandler.getStateName());
 
             //set the preferred city to the current location
             file.setPreferredCity(city);

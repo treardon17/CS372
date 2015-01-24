@@ -1,8 +1,11 @@
+ Thailand ~Bangkok
+ South Korea ~Busan
 Texas ~Dallas
+ Germany ~Hamburg
+ Oahu ~Hawaii
 Washington ~Lynden
 Washington  ~Moses Lake
 Nevada  ~Reno
 California  ~Sacramento
-Washington  ~Seattle
 Washington ~Spokane
 British Columbia ~Vancouver

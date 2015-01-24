@@ -30,13 +30,13 @@ public class LineAnimation {
         this.xend = x2;
         this.yend = y2;
         
-        Graphics2D g2d = (Graphics2D) g;
+        //Graphics2D g2d = (Graphics2D) g;
         tm = new Timer(30, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 LineAnimation.this.x2+=2;
-                g2d.drawLine(x1, y1, x2, y2);
+                g.drawLine(x1, y1, x2, y2);
                 
                 if (LineAnimation.this.x2 == LineAnimation.this.xend) {
                     tm.stop();

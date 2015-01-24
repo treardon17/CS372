@@ -5,46 +5,19 @@
  */
 package weatherInfo;
 
+import java.util.ArrayList;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
-
 /**
- * Gets the cityName and stateName from freegoip.net
+ *
  * @author tylerreardon
  */
-public class CurrentLocationHandler extends DefaultHandler{
-    String cityName;
-    String stateName;
-    String latitude;
-    String longitude;
+public class CurrentPhotoHandler extends DefaultHandler {
+    ArrayList<LocationPhoto> locationPhotos = new ArrayList<>();
+    
     String data;
-    
-    /**
-     * Allows access to the cityName that was found
-     * @return the name of the city
-     */
-    public String getCityName(){
-        return cityName;
-    }
-    
-    /**
-     * Allows access to the stateName that was found
-     * @return the name of the state
-     */
-    public String getStateName(){
-        return stateName;
-    }
-    
-    public String getLatitude(){
-        return latitude;
-    }
-    
-    public String getLongitude(){
-        return longitude;
-    }
-
-    /**
+        /**
      * Resets the data when new element is found
      * @param uri
      * @param localName
@@ -53,6 +26,21 @@ public class CurrentLocationHandler extends DefaultHandler{
      */
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) {
+        if (qName.equals("photo")){
+            LocationPhoto photo = new LocationPhoto();
+            /*
+            photo.setPhotoID(attributes.getValue("id"));
+            photo.setOwnerID(attributes.getValue("owner"));
+            photo.setSecret(attributes.getValue("secret"));
+            photo.setServer(attributes.getValue("server"));
+            photo.setFarm(attributes.getValue("farm"));
+            photo.setTitle(attributes.getValue("title"));
+            */
+            photo.setURL(attributes.getValue("url_k"));
+            locationPhotos.add(photo);
+        }
+        
+        
         data = "";
     }
 
@@ -75,14 +63,11 @@ public class CurrentLocationHandler extends DefaultHandler{
      */
     @Override
     public void endElement(String uri, String localName, String qName) {
-        if (qName.equals("RegionName")){
-            stateName = data;
-        }else if (qName.equals("City")){
-            cityName = data;
-        }else if (qName.equals("Latitude")){
-            latitude = data;
-        }else if (qName.equals("Longitude")){
-            longitude = data;
-        }
+        
     }
+    
+    public ArrayList<LocationPhoto> getPhotos(){
+        return locationPhotos;
+    }
+    
 }

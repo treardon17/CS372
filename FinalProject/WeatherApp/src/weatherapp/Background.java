@@ -27,8 +27,8 @@ import javax.swing.SwingUtilities;
  */
 public class Background extends JPanel {
 
-    private Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-    private LineAnimation line = new LineAnimation();
+    private final Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+    //private final LineAnimation line = new LineAnimation();
     private BufferedImage image;
     private JFrame frame;
 

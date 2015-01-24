@@ -8,11 +8,14 @@
         android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></LinearLayout>
+            android:layout_height="match_parent">
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-                android:hint="@string/a_string"/>
+                android:layout_height="match_parent"
+                android:text="@string/a_string"/>
+
+        </LinearLayout>
+
 
 
         </ScrollView>
