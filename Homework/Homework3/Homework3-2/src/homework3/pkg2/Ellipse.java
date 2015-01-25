@@ -21,6 +21,7 @@ public class Ellipse extends Shape{
      */
     public Ellipse(int r1, int r2) throws Exception{
         if (r1 <= 0 || r2 <= 0){
+            //PT -- ellipses have radii, not sides. -1
             throw new IllegalArgumentException("Sides cannot be equal to or less than 0");
         }
         _r1 = r1;

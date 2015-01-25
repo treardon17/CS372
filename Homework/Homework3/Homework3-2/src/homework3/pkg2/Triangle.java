@@ -21,6 +21,8 @@ public class Triangle extends Shape {
      * @throws Exception 
      */
     public Triangle(int s1, int s2, int s3) throws Exception {
+        //PT -- you disallow 0-length sides, but not negative sides? -3
+        
         if (s1 + s2 <= s3 || s2 + s3 <= s1 || s3 + s1 <= s2 || s1 == 0 || s2 == 0 || s3 == 0) {
             throw new IllegalArgumentException("Invalid Sides");
         }
