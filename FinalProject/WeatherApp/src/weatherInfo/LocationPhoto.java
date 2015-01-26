@@ -6,7 +6,7 @@
 package weatherInfo;
 
 /**
- *
+ * This represents a picture found on flickr using their API
  * @author tylerreardon
  */
 public class LocationPhoto {

@@ -10,7 +10,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
- *
+ * This finds the URL's of the pictures on flickr
  * @author tylerreardon
  */
 public class CurrentPhotoHandler extends DefaultHandler {
