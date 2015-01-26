@@ -20,7 +20,7 @@ import org.xml.sax.SAXException;
 import java.lang.Exception;
 
 /**
- *
+ * This constructs the appropriate URL's for flickr and retrieves the images
  * @author tylerreardon
  */
 public class PhotoParser {
@@ -41,12 +41,13 @@ public class PhotoParser {
         String farm;
         String server;
 
+        //search for images of the city that are "outdoor"
         photoInfoString = "https://api.flickr.com/services/rest/?&method=flickr.photos."
-                + "getRecent&search=" + cityName + ",%20" + stateName + "%20outdoors&extras=url_k&accuracy=11&api_key=e98dfbc5069"
+                + "getRecent&search=" + cityName + ",%20" + stateName + "%20outdoors&geo&extras=url_k&accuracy=11&api_key=e98dfbc5069"
                 + "e5a46a12f8574d653778d";
 
-        index = 0;//rand.nextInt(locationPhotos.size() - 2) + 1;
-
+        //parse through the flickr page
+        index = 0;
         SAXParserFactory factory = SAXParserFactory.newInstance();
         SAXParser parser;
         try {
@@ -58,13 +59,15 @@ public class PhotoParser {
 
             do {
                 error = false;
-            //secret = locationPhotos.get(index).getSecret();
+                //secret = locationPhotos.get(index).getSecret();
                 //photoID = locationPhotos.get(index).getPhotoID();
                 //farm = locationPhotos.get(index).getFarm();
                 //server = locationPhotos.get(index).getServer();
 
                 //photoURLString = "https://farm"+farm+".staticflickr.com/"+server+"/"+photoID+"_"+secret+"_"+"k.(jpg|gif|png)";
                 //URL photoURL = new URL(photoURLString);
+                
+                //try to get a valid photo
                 try {
                     photoURLString = locationPhotos.get(index).getURL();
                     URL photoURL = new URL(photoURLString);
@@ -74,9 +77,9 @@ public class PhotoParser {
                     error = true;
                 }
 
-            } while (error && index<100);
-            
-            if (index>98){
+            } while (error && index < locationPhotos.size()-1);
+
+            if (index > 98) {
                 Exception e = new Exception();
                 throw e;
             }
@@ -88,6 +91,10 @@ public class PhotoParser {
         }
     }
 
+    /**
+     * Allows retrieval of the image found
+     * @return the image
+     */
     public BufferedImage getImage() {
         return image;
     }

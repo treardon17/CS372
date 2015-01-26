@@ -70,8 +70,8 @@ public class Background extends JPanel {
         g2d.fillRect(0, 0, w, h);
                 */
         
+        //Draw image to JFrame
         drawScaledImage(image, frame, g2d);
-        //line.draw(g, 30, 30, 60, 30);
     }
 
     /**

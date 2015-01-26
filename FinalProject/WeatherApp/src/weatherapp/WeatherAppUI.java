@@ -120,8 +120,11 @@ public class WeatherAppUI extends JFrame {
 
         try {
             //Set background image with relavent picture
-            PhotoParser photoParser = new PhotoParser(preferredCity.getCityName(), preferredCity.getState());
-            weatherImage = photoParser.getImage();
+            weatherImage = file.getBackgroundImage(weatherInfo.get(sortedDates.get(0)).get(0).getWeatherDescr());
+            
+            //THIS SEARCHES FLICKR FOR PHOTOS--works, but images are weird...
+            //PhotoParser photoParser = new PhotoParser(preferredCity.getCityName(), preferredCity.getState());
+            //weatherImage = photoParser.getImage();
 
         } catch (Exception ex) {
             System.out.printf("%s\n", ex.getMessage());
@@ -131,7 +134,7 @@ public class WeatherAppUI extends JFrame {
                 weatherImage = file.getBackgroundImage(weatherInfo.get(sortedDates.get(0)).get(0).getWeatherDescr());
             } catch (Exception e) {
                 weatherImage = file.getBackgroundImage(null); //if there was an error getting the image,
-                background.setBackground(weatherImage, this);
+                //background.setBackground(weatherImage, this);
             }
 
         } finally {
