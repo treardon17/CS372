@@ -128,6 +128,8 @@ public class FileIO {
         cityName = "";
         state = "";
         for (int i = 0; i < cityNameParts.length; i++) { //take away excess spaces in city name
+        //This part of the code looks like you could separate out.
+        // and why !"".equals ..., instead of cityNameParts[i].length() == 0?
             if (!"".equals(cityNameParts[i]) && !" ".equals(cityNameParts[i]) && firstWord == false && cityNameParts[0] != null) {
                 cityNameParts[i] = cityNameParts[i].replaceAll("\\s+", ""); //replace all space characters with empty string
                 cityName = cityNameParts[i]; //make corrected string
