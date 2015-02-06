@@ -28,7 +28,7 @@ public class Review {
         this.name = name;
         this.address = address;
         this.restaurant = restaurant;
-                this.rating = rating;
+                this.rating = rating; //PT -- verify that rating in [1,5]
         this.review = review;
     }
 
@@ -36,7 +36,7 @@ public class Review {
     public String getName(){
         return name;
     }
-    
+    //PT -- javadoc? -4
     public String getAddress(){
         return address;
     }
